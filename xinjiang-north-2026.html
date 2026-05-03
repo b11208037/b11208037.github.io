@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北疆秘境・獨庫公路 13日 | 乙泰旅遊 2026年8月出發</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --xinjiang-gold: #C9A227;
+            --xinjiang-blue: #1E5B94;
+            --xinjiang-red: #8B2323;
+            --xinjiang-green: #4A7C59;
+            --card-bg: #FFFFFF;
+            --text-dark: #2C3E50;
+            --text-light: #6B7280;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #faf8f5 0%, #f5efe6 100%);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--xinjiang-gold) 0%, var(--xinjiang-red) 50%, var(--xinjiang-blue) 100%);
+            color: white;
+            padding: 80px 20px 100px;
+            text-align: center;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cpath d='M30 30l15-15v30L30 30z' fill='%23ffffff' fill-opacity='0.03'/%3E%3C/svg%3E");
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        .hero-badge { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 8px 20px; border-radius: 20px; font-size: 0.9rem; display: inline-block; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.3); }
+        .hero-image {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .hero h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero .subtitle { font-size: 1.3rem; opacity: 0.95; margin-bottom: 25px; font-weight: 300; }
+        .trip-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        .trip-badge strong { color: #FFD700; }
+        .vip-tag { background: var(--xinjiang-gold); color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.85rem; font-weight: 600; }
+        .overview {
+            max-width: 1200px;
+            margin: -60px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .overview-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .overview-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .overview-icon { font-size: 2rem; margin-bottom: 8px; }
+        .overview-label { color: var(--text-light); font-size: 0.85rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .overview-value { font-size: 1.2rem; font-weight: 600; color: var(--xinjiang-gold); }
+        .price-banner {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .price-card {
+            background: linear-gradient(135deg, var(--xinjiang-gold), #e6b82c);
+            color: white;
+            border-radius: 20px;
+            padding: 30px 40px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .price-amount { font-size: 2.5rem; font-weight: 700; }
+        .price-label { font-size: 1rem; opacity: 0.9; }
+        .price-vip { background: rgba(255,255,255,0.2); padding: 10px 25px; border-radius: 25px; font-size: 1.1rem; }
+        .highlights {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--xinjiang-blue);
+            margin-bottom: 30px;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--xinjiang-gold), var(--xinjiang-red));
+            margin: 12px auto 0;
+            border-radius: 2px;
+        }
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .highlight-card {
+            background: linear-gradient(135deg, #fff 0%, #faf8f5 100%);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--xinjiang-gold);
+            transition: all 0.3s ease;
+        }
+        .highlight-card:hover { transform: translateX(5px); }
+        .highlight-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+            margin: -20px -20px 15px -20px;
+        }
+        .highlight-emoji { font-size: 1.8rem; margin-bottom: 8px; }
+        .highlight-title { font-size: 1.05rem; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+        .highlight-desc { font-size: 0.9rem; color: var(--text-light); line-height: 1.5; }
+        .timeline {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 20px 60px;
+        }
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .day-card:hover { box-shadow: var(--shadow-hover); transform: translateX(5px); }
+        .day-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, var(--xinjiang-gold), var(--xinjiang-red), var(--xinjiang-blue));
+        }
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .day-number {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--xinjiang-gold), var(--xinjiang-red));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .day-number .label { font-size: 0.6rem; opacity: 0.9; text-transform: uppercase; }
+        .day-number .num { font-size: 1.2rem; line-height: 1; }
+        .day-info h3 { font-size: 1.2rem; color: var(--text-dark); margin-bottom: 2px; }
+        .day-info .date { color: var(--text-light); font-size: 0.9rem; }
+        .day-route {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #fff8e7 0%, #fff3cc 100%);
+            color: var(--xinjiang-gold);
+            padding: 6px 14px;
+            border-radius: 18px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-left: auto;
+        }
+        .day-activities { margin-left: 70px; }
+        .activity {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.08);
+        }
+        .activity:last-child { border-bottom: none; }
+        .activity-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+        .activity-content { flex: 1; }
+        .activity-text { font-size: 0.95rem; color: var(--text-dark); }
+        .activity-text strong { color: var(--xinjiang-blue); }
+        .activity-note { font-size: 0.8rem; color: var(--text-light); margin-top: 3px; }
+        .activity-meals {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+            padding: 10px 12px;
+            background: #faf8f5;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            flex-wrap: wrap;
+        }
+        .meal-item { display: flex; align-items: center; gap: 4px; }
+        .meal-icon { font-size: 1rem; }
+        .day-accommodation {
+            margin-left: 70px;
+            margin-top: 15px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--xinjiang-blue);
+        }
+        .accommodation-label { font-size: 0.75rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .accommodation-name { font-size: 1rem; font-weight: 600; color: var(--xinjiang-blue); }
+        .notes-section {
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+        .notes-card {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%);
+            border-radius: 18px;
+            padding: 25px 30px;
+            border-left: 6px solid var(--xinjiang-gold);
+        }
+        .notes-title {
+            font-size: 1.2rem;
+            color: var(--xinjiang-gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .notes-content { font-size: 0.9rem; color: #856404; line-height: 1.7; }
+        .notes-content ul { margin-left: 18px; margin-top: 10px; }
+        .notes-content li { margin-bottom: 6px; }
+        .contact-section {
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .contact-card {
+            background: linear-gradient(135deg, var(--xinjiang-blue), #2a6ba8);
+            color: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+        }
+        .contact-title { font-size: 1.5rem; margin-bottom: 15px; }
+        .contact-info { font-size: 1.1rem; margin-bottom: 8px; }
+        .contact-line { font-size: 1.3rem; font-weight: 600; color: #FFD700; }
+        footer {
+            background: var(--xinjiang-blue);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        footer p { opacity: 0.9; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero .subtitle { font-size: 1rem; }
+            .day-activities { margin-left: 0; }
+            .day-accommodation { margin-left: 0; }
+            .day-route { margin-left: 0; margin-top: 8px; }
+            .day-card { padding: 18px 15px; }
+            .day-header { flex-direction: column; align-items: flex-start; }
+            .price-card { flex-direction: column; gap: 15px; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .day-card { animation: fadeInUp 0.4s ease forwards; }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🌄 乙泰旅遊</div>
+            <h1>北疆秘境・獨庫公路</h1>
+            <p class="subtitle">禾木村・巴音布魯克・魔鬼城・那拉提草原・賽裡木湖</p>
+            <div class="trip-badge">
+                <span class="vip-tag">VIP 三排椅</span>
+                <strong>2026年8月20日</strong> 出發 | 13天12夜
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="images/xinjiang2/img01.jpg" alt="獨庫公路">
+        </div>
+    </header>
+
+    <section class="overview">
+        <div class="overview-grid">
+            <div class="overview-card">
+                <div class="overview-icon">✈️</div>
+                <div class="overview-label">出發日期</div>
+                <div class="overview-value">2026年8月20日</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">📅</div>
+                <div class="overview-label">行程天數</div>
+                <div class="overview-value">13 天 12 夜</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🚌</div>
+                <div class="overview-label">交通</div>
+                <div class="overview-value">三排座 VIP 巴士</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🚫</div>
+                <div class="overview-label">購物</div>
+                <div class="overview-value">全程無購物站</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="price-banner">
+        <div class="price-card">
+            <div>
+                <div class="price-label">團費</div>
+                <div class="price-amount">NT$ 109,800 / 人</div>
+            </div>
+            <div class="price-vip">含領隊導遊小費<br>VIP 三排座豪華巴士</div>
+        </div>
+    </div>
+
+    <section class="highlights">
+        <h2 class="section-title">行程特色</h2>
+        <div class="highlights-grid">
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img05.jpg" alt="天山天池" class="highlight-image">
+                <div class="highlight-emoji">🏔️</div>
+                <div class="highlight-title">天山天池</div>
+                <div class="highlight-desc">聯合國教科文組織世界遺產，高山湖泊雪山風光</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img09.jpg" alt="喀納斯湖" class="highlight-image">
+                <div class="highlight-emoji">🌲</div>
+                <div class="highlight-title">喀納斯湖</div>
+                <div class="highlight-desc">人間淨土、上帝的後花園，觀魚亭俯瞰變色湖</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img08.jpg" alt="禾木村" class="highlight-image">
+                <div class="highlight-emoji">🏡</div>
+                <div class="highlight-title">禾木村</div>
+                <div class="highlight-desc">圖瓦人與哈薩克族原始村落，觀景台賞日出日落</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img01.jpg" alt="獨庫公路" class="highlight-image">
+                <div class="highlight-emoji">🛣️</div>
+                <div class="highlight-title">獨庫公路</div>
+                <div class="highlight-desc">中國最美公路，一天穿越四季景觀</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img06.jpg" alt="巴音布魯克草原" class="highlight-image">
+                <div class="highlight-emoji">🌿</div>
+                <div class="highlight-title">巴音布魯克草原</div>
+                <div class="highlight-desc">九曲十八灣、天鵝湖濕地，中國內第二大草原</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img02.jpg" alt="那拉提草原" class="highlight-image">
+                <div class="highlight-emoji">🐎</div>
+                <div class="highlight-title">那拉提草原</div>
+                <div class="highlight-desc">空中草原，纜車上山大草原風光</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img05.jpg" alt="賽裡木湖" class="highlight-image">
+                <div class="highlight-emoji">💧</div>
+                <div class="highlight-title">賽裡木湖</div>
+                <div class="highlight-desc">大西洋最後一滴眼淚，高山湖泊風光</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img07.jpg" alt="烏爾禾魔鬼城" class="highlight-image">
+                <div class="highlight-emoji">🏜️</div>
+                <div class="highlight-title">烏爾禾魔鬼城</div>
+                <div class="highlight-desc">雅丹地貌，風蝕奇岩造型多變</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img06.jpg" alt="五彩灘" class="highlight-image">
+                <div class="highlight-emoji">🌈</div>
+                <div class="highlight-title">五彩灘</div>
+                <div class="highlight-desc">日落時分觀賞額爾齊斯河畔雅丹地貌</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img04.jpg" alt="喀讚其民俗村" class="highlight-image">
+                <div class="highlight-emoji">🏛️</div>
+                <div class="highlight-title">喀讚其民俗村</div>
+                <div class="highlight-desc">伊斯蘭建築風格，乘坐馬車遊覽</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang2/img03.jpg" alt="G7戈壁公路" class="highlight-image">
+                <div class="highlight-emoji">🌉</div>
+                <div class="highlight-title">G7戈壁公路</div>
+                <div class="highlight-desc">穿越戈壁沙漠壯麗景觀</div>
+            </div>
+            <div class="highlight-card">
+                <img src="images/xinjiang/mountain-panorama.jpg" alt="八卦城特克斯" class="highlight-image">
+                <div class="highlight-emoji">🏘️</div>
+                <div class="highlight-title">八卦城特克斯</div>
+                <div class="highlight-desc">世界最大規模八卦城，路路相通</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline">
+        <h2 class="section-title">每日行程</h2>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">1</span></div>
+                <div class="day-info"><h3>啟程出發</h3><span class="date">桃園 → 杭州</span></div>
+                <div class="day-route">✈️ 下午</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">✈️</div>
+                    <div class="activity-content">
+                        <p class="activity-text">集合於國際機場，搭乘豪華客機前往杭州</p>
+                        <p class="activity-note">中轉城市前往烏魯木齊</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：X</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：X</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：中式合菜 RMB 60</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">過境旅館（航空公司提供）</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">2</span></div>
+                <div class="day-info"><h3>杭州 → 烏魯木齊 → 富蘊</h3><span class="date">460KM 約6小時</span></div>
+                <div class="day-route">🚗 長途</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">✈️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>杭州 → 烏魯木齊</strong> CA1781 06:40起飛</p>
+                        <p class="activity-note">抵達後驅車前往富蘊</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🏜️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>古爾邦通古特沙漠</strong></p>
+                        <p class="activity-note">壯麗遼闊的金黃沙丘，夕陽映照美不勝收</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🦌</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>卡拉麥里有蹄類保護區</strong></p>
+                        <p class="activity-note">普氏野馬、野駱駝等珍稀物種棲息地</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 酒店餐盒</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：機上輕食</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：大盤雞風味 RMB 80</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">準五星 艾斯大酒店 / 山嵐國際大酒店 / 希爾頓逸林酒店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">3</span></div>
+                <div class="day-info"><h3>富蘊 → 可可托海 → 阿勒泰</h3><span class="date">220KM 約4小時</span></div>
+                <div class="day-route">🚗 景觀公路</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🏔️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲可可托海景區</strong>（含區間車）</p>
+                        <p class="activity-note">國家5A級景區，額爾齊斯大峽谷、三號礦脈、薩依恒布拉克夏牧場</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">⛰️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>神鐘山</strong></p>
+                        <p class="activity-note">阿爾泰山山景之最，峭壁插雲、孤峰傲立</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🌊</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>額爾齊斯河大峽谷</strong></p>
+                        <p class="activity-note">1931年八級地震斷裂形成的奇特地貌</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：中式合菜 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：冷水魚風味 RMB 80</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">準五星 萬達美華國際酒店 / 美豪麗致酒店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">4</span></div>
+                <div class="day-info"><h3>阿勒泰 → 禾木 → 賈登峪</h3><span class="date">260KM 約6小時</span></div>
+                <div class="day-route">🚗 阿禾公路</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🛣️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>G331 阿禾公路</strong>（2025年新開通）</p>
+                        <p class="activity-note">串聯禾木、喀納斯的絕美天路，秋季金黃樹海宛如油畫</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🏡</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲禾木村景區</strong>（含區間車）</p>
+                        <p class="activity-note">上帝的後花園，哈薩克族與圖瓦族共同聚居的原始村落</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🌅</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>禾木觀景台</strong></p>
+                        <p class="activity-note">成吉思汗點將台，俯瞰禾木村最佳位置，賞日出日落</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：中式合菜 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：喀納斯風味 RMB 80</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">賈登峪鴻福生態度假酒店 / 白樺林大飯店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">5</span></div>
+                <div class="day-info"><h3>賈登峪 → 喀納斯 → 布爾津</h3><span class="date">160KM 約3小時</span></div>
+                <div class="day-route">🚗 不走回頭路</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🌊</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲喀納斯景區</strong>（含區間車）</p>
+                        <p class="activity-note">蒙古族圖瓦人在中國的唯一聚居地，人間淨土</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🎣</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>觀魚亭</strong>（含區間車）</p>
+                        <p class="activity-note">俯瞰整個喀納斯湖及周邊景觀，觀湖怪最佳位置</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🌙</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>月亮灣・神仙灣・臥龍灣</strong></p>
+                        <p class="activity-note">喀納斯河三道灣，景色如詩如畫</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🌈</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>五彩灘</strong></p>
+                        <p class="activity-note">日落時分觀賞額爾齊斯河畔雅丹地貌，多種色彩變幻</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：中式合菜 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：手抓肉風味 RMB 80</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">準五星 上士國際酒店 / 河畔藝墅酒店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">6</span></div>
+                <div class="day-info"><h3>布爾津 → 奎屯 / 獨山子</h3><span class="date">450KM 約6小時</span></div>
+                <div class="day-route">🚗 長途</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🏜️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲烏爾禾魔鬼城</strong>（含區間車）</p>
+                        <p class="activity-note">世界魔鬼城，雅丹地貌千姿百態，電影《臥虎藏龍》拍攝地</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🏭</div>
+                    <div class="activity-content">
+                        <p class="activity-text">百里油田風光</p>
+                        <p class="activity-note">新疆100個最美觀景拍攝點之一</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：中式合菜 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：海鮮自助餐 RMB 130</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">準五星 西戈瑪大酒店 / 慧洋萬達錦華酒店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">7</span></div>
+                <div class="day-info"><h3>奎屯 → 伊寧</h3><span class="date">380KM 約5小時</span></div>
+                <div class="day-route">🚗 前往伊犁</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">💧</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲賽裡木湖景區</strong>（含區間車）</p>
+                        <p class="activity-note">大西洋最後一滴眼淚，高山湖泊、雪山倒影</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🌉</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>果子溝大橋</strong>（途徑）</p>
+                        <p class="activity-note">高空欣賞伊寧山脈果子溝風景區大橋</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🍦</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>六星街・古蘭丹姆冰淇淋</strong></p>
+                        <p class="activity-note">網紅打卡百年古法冰淇淋店</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：中式合菜 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：合菜 + 烤全羊 RMB 120</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">準五星 兵旅昆侖大酒店 / 景雲亞丁 / 麗呈華庭大酒店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">8</span></div>
+                <div class="day-info"><h3>伊寧 → 特克斯</h3><span class="date">120KM 約2小時</span></div>
+                <div class="day-route">🚗 八卦城</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🏞️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲闊克蘇大峽谷</strong>（含區間車 + 電瓶車 + 遊船）</p>
+                        <p class="activity-note">鱷魚灣、峽谷风光，河水咆哮奔湧、壺口瀑布</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🏘️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>特克斯八卦城</strong></p>
+                        <p class="activity-note">世界最大規模八卦城，路路相通、永不迷路</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：中式合菜 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：羊排揪片子風味 RMB 80</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">準五星 鳳凰國際大酒店 / 尚城國際大酒店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">9</span></div>
+                <div class="day-info"><h3>特克斯 → 那拉提</h3><span class="date">230KM 約3小時</span></div>
+                <div class="day-route">🚗 空中草原</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🌿</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲那拉提大草原</strong>（含區間車）</p>
+                        <p class="activity-note">蒙古語「有太陽的地方」，古絲綢之路北線必經之地</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🚡</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>空中草原</strong>（纜車上 + 區間車回）</p>
+                        <p class="activity-note">1300多種植物，高山草原風光壯麗</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：中式合菜 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：霸王肘子風味 RMB 80</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">準五星 文旅度假大酒店 / 萬森大酒店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">10</span></div>
+                <div class="day-info"><h3>那拉提 → 獨庫公路 → 巴音布魯克</h3><span class="date">160KM 約3-4小時</span></div>
+                <div class="day-route">🚗 獨庫公路</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🛣️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲獨庫公路中段</strong>（7座商務車 4-5人一部）</p>
+                        <p class="activity-note">中國最美公路，穿越天山，一天四季</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🌿</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲巴音布魯克大草原</strong>（含區間車）</p>
+                        <p class="activity-note">中國第二大草原，蒙古語「富饒的泉」</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🦢</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>天鵝湖</strong></p>
+                        <p class="activity-note">大天鵝、小天鵝、疣鼻天鵝等萬餘隻珍稀鳥類</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🏞️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>九曲十八灣</strong>（含電瓶車）</p>
+                        <p class="activity-note">開都河蜿蜒流淌，夕陽下金色光芒</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：中式合菜 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：野蘑菇燉雞 RMB 80</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">雲尚尊大酒店 / 天河源大酒店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">11</span></div>
+                <div class="day-info"><h3>巴音布魯克 → 庫爾勒</h3><span class="date">330KM 約5-6小時</span></div>
+                <div class="day-route">🚗 天山風光</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🏔️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>天山山脈風光</strong>（途觀）</p>
+                        <p class="activity-note">橫跨多國的天山壯麗景色</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🐪</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>▲羅布人村寨</strong>（含區間車 + 騎骆驼體驗）</p>
+                        <p class="activity-note">中國最古老民族之一，依水而居，以捕魚為生</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🦚</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>孔雀河夜景</strong></p>
+                        <p class="activity-note">傳說東漢班超曾在此飲馬</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：中式合菜 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：石磨豆花風味 RMB 80</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">五星 梨城花園大酒店 / 山水梨城酒店 或同級</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">12</span></div>
+                <div class="day-info"><h3>庫爾勒 → 杭州</h3><span class="date">✈️ 下午航班</span></div>
+                <div class="day-route">✈️ 返程</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🏰</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>鐵門關</strong></p>
+                        <p class="activity-note">天下最後一關，絲綢之路中道咽喉，古代二十六名關之一</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">✈️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>庫爾勒 → 杭州</strong> CA1766 15:10起飛</p>
+                        <p class="activity-note">前往杭州過境，住宿由航空公司提供</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店早餐</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：機場代金 RMB 50</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：機上餐食</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">過境旅館（航空公司提供）</div>
+            </div>
+        </div>
+
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number"><span class="label">Day</span><span class="num">13</span></div>
+                <div class="day-info"><h3>杭州 → 桃園</h3><span class="date">✈️ 上午</span></div>
+                <div class="day-route">🏠 溫暖的家</div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🏠</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>杭州 → 桃園</strong> CA149 09:30起飛</p>
+                        <p class="activity-note">返回台灣，結束神秘北疆之旅</p>
+                    </div>
+                </div>
+                <div class="activity-meals">
+                    <div class="meal-item"><span class="meal-icon">🍳</span> 早餐：酒店餐盒</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 中餐：X</div>
+                    <div class="meal-item"><span class="meal-icon">🍜</span> 晚餐：X</div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">溫暖的家</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="notes-section">
+        <div class="notes-card">
+            <h3 class="notes-title">⚠️ 新疆旅遊注意事項</h3>
+            <div class="notes-content">
+                <ul>
+                    <li><strong>早晚溫差大：</strong>「早穿皮襖午穿紗，圍著火爐吃西瓜」— 溫差可達10-15度，夏季需準備外套</li>
+                    <li><strong>紫外線強：</strong>部分地區海拔高，需準備防曬物品和清熱防暑藥物</li>
+                    <li><strong>乾燥多風：</strong>請多注意飲水，準備潤唇膏</li>
+                    <li><strong>車程漫長：</strong>景點分散，乘車時間長，準備零食和水</li>
+                    <li><strong>時差：</strong>新疆時間比北京晚2小時，但統一使用北京時間</li>
+                    <li><strong>尊重風俗：</strong>穆斯林聚居區，請尊重少數民族風俗習慣</li>
+                    <li><strong>飲食：</strong>吃完水果不要立即喝熱茶，以免腹瀉</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="contact-card">
+            <h3 class="contact-title">📞 報名洽詢</h3>
+            <p class="contact-info">乙泰旅遊</p>
+            <p class="contact-line">LINE：@etai-travel</p>
+            <p style="margin-top: 15px; opacity: 0.9; font-size: 0.9rem;">含領隊導遊小費 RMB 300/天/人</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>🌄 北疆秘境・獨庫公路 13日 | 乙泰旅遊 2026年8月20日出發</p>
+        <p style="margin-top: 8px; font-size: 0.85rem; opacity: 0.7;">禾木村・巴音布魯克・魔鬼城・那拉提草原・賽裡木湖 | VIP三排座</p>
+    </footer>
+</body>
+</html>

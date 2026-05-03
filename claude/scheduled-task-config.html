@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>AI Agent 每日資訊看板 - 排程任務配置 | luarn2008</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="AI Agent 每日資訊看板 - 排程任務配置" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://ntust2026.github.io/claude/scheduled-task-config.html" />
+<meta property="og:url" content="https://ntust2026.github.io/claude/scheduled-task-config.html" />
+<meta property="og:site_name" content="luarn2008" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="AI Agent 每日資訊看板 - 排程任務配置" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"AI Agent 每日資訊看板 - 排程任務配置","url":"https://ntust2026.github.io/claude/scheduled-task-config.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=fe655783ff97e284edeee27a1807cce61c630c02">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://ntust2026.github.io/">luarn2008</a></h1>
+      
+
+      <h1 id="ai-agent-每日資訊看板---排程任務配置">AI Agent 每日資訊看板 - 排程任務配置</h1>
+
+<h2 id="-任務概述">📋 任務概述</h2>
+
+<p><strong>任務名稱</strong>: AI Agent 每日資訊看板
+<strong>執行時間</strong>: 每天早上 7:30 (本地時區)
+<strong>執行頻率</strong>: 每日自動執行
+<strong>輸出位置</strong>: <code class="language-plaintext highlighter-rouge">/sessions/exciting-sweet-allen/mnt/outputs/ai-agent-dashboard.html</code></p>
+
+<hr />
+
+<h2 id="-任務內容詳細說明">🎯 任務內容詳細說明</h2>
+
+<h3 id="三個-subagent-的分工">三個 Subagent 的分工</h3>
+
+<h4 id="agent-1-各家推出的技術更新"><strong>Agent 1: 各家推出的技術更新</strong></h4>
+<ul>
+  <li><strong>搜尋目標品牌</strong>:
+    <ul>
+      <li>OpenAI（GPT 系列新版本、功能更新）</li>
+      <li>Google Gemini（模型升級、新功能發布）</li>
+      <li>Claude / Anthropic（Agent SDK、新模型發布）</li>
+      <li>OpenClaw 及其他開源框架</li>
+    </ul>
+  </li>
+  <li><strong>搜尋內容</strong>:
+    <ul>
+      <li>新技術或功能的發表消息</li>
+      <li>現有技術的功能更新公告</li>
+      <li>官方 Blog 和新聞稿</li>
+      <li>主要科技媒體的評測報導</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="agent-2-各媒體的試用心得"><strong>Agent 2: 各媒體的試用心得</strong></h4>
+<ul>
+  <li><strong>搜尋對象</strong>:
+    <ul>
+      <li>科技媒體（TechCrunch、The Verge、36 氪等）</li>
+      <li>YouTuber 和技術博主的體驗分享</li>
+      <li>Medium、知乎等專業內容平台</li>
+      <li>開發者社群（Dev.to、GitHub Discussions 等）</li>
+    </ul>
+  </li>
+  <li><strong>搜尋重點</strong>:
+    <ul>
+      <li>新功能的深度試用報告</li>
+      <li>官方或個人推薦的實用技巧</li>
+      <li><strong>優先選擇初學者友善的教學內容</strong></li>
+      <li>對比測試與性能評估</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="agent-3-新產品的介紹"><strong>Agent 3: 新產品的介紹</strong></h4>
+<ul>
+  <li><strong>關注新品</strong>:
+    <ul>
+      <li>Hermes Agent（自進化 AI 助理）</li>
+      <li>MaxHermes（雲端版本）</li>
+      <li>其他新興 Agent 框架和工具</li>
+      <li>開源專案的重要版本發布（v0.7.0、v1.0.0 等）</li>
+    </ul>
+  </li>
+  <li><strong>搜尋內容</strong>:
+    <ul>
+      <li>官方產品介紹和功能說明</li>
+      <li>GitHub Stars 趨勢和社群反應</li>
+      <li>安裝配置和快速上手指南</li>
+      <li><strong>優先收錄初學者導向的教學</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-dashboard-輸出規格">📊 Dashboard 輸出規格</h2>
+
+<h3 id="版面設計">版面設計</h3>
+<ul>
+  <li>✨ 現代明亮且專業簡潔的風格</li>
+  <li>🎨 使用 Tailwind CSS 實現響應式設計</li>
+  <li>💎 採用毛玻璃效果和漸層背景</li>
+  <li>📱 完整支援桌面和行動設備</li>
+</ul>
+
+<h3 id="資訊卡片結構">資訊卡片結構</h3>
+<p>每則資訊卡片包含：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[標題（可點擊連結到原始來源）]
+[來源網站名稱]  [發布日期]
+[一句話摘要]
+</code></pre></div></div>
+
+<h3 id="排序與篩選規則">排序與篩選規則</h3>
+<ul>
+  <li>每個區塊最多顯示 <strong>5 則資訊</strong></li>
+  <li>依<strong>發布日期由新到舊</strong>排列</li>
+  <li>如某區塊無新消息，顯示「本週暫無新消息」</li>
+  <li>搜尋範圍：<strong>過去 7 天內發布</strong></li>
+</ul>
+
+<h3 id="頁面元素">頁面元素</h3>
+<ul>
+  <li>頂部：「AI Agent 每日資訊看板」標題 + 更新時間</li>
+  <li>三大區塊：對應三個 Agent 的搜尋結果</li>
+  <li>底部：最後更新時間戳記</li>
+</ul>
+
+<hr />
+
+<h2 id="-搜尋策略">🔍 搜尋策略</h2>
+
+<h3 id="關鍵字配置">關鍵字配置</h3>
+
+<p><strong>Agent 1 搜尋關鍵字</strong>:</p>
+<ul>
+  <li>“OpenAI GPT-5 2026”</li>
+  <li>“Google Gemini 3 2026”</li>
+  <li>“Claude Agent SDK 2026”</li>
+  <li>“AI Agent 技術更新 2026”</li>
+</ul>
+
+<p><strong>Agent 2 搜尋關鍵字</strong>:</p>
+<ul>
+  <li>“AI Agent 教學 2026”</li>
+  <li>“AI Agent 試用心得”</li>
+  <li>“AI Agent 初學者指南”</li>
+  <li>“AI Agent 工具推薦 2026”</li>
+</ul>
+
+<p><strong>Agent 3 搜尋關鍵字</strong>:</p>
+<ul>
+  <li>“Hermes Agent 2026”</li>
+  <li>“MaxHermes AI 2026”</li>
+  <li>“新 AI Agent 框架”</li>
+  <li>“開源 Agent 工具發布”</li>
+</ul>
+
+<h3 id="時間過濾">時間過濾</h3>
+<ul>
+  <li>使用 <code class="language-plaintext highlighter-rouge">after:YYYY/MM/DD</code> 語法限制搜尋範圍</li>
+  <li>每日任務執行時，以前 7 天日期作為下限</li>
+  <li>優先收錄官方來源和知名科技媒體</li>
+</ul>
+
+<hr />
+
+<h2 id="-執行流程">📋 執行流程</h2>
+
+<ol>
+  <li><strong>並行搜尋階段</strong>
+    <ul>
+      <li>3 個 Subagent 同時執行搜尋任務</li>
+      <li>每個 Agent 獨立調用 WebSearch 工具</li>
+      <li>預期運行時間：3-5 分鐘</li>
+    </ul>
+  </li>
+  <li><strong>資料整理階段</strong>
+    <ul>
+      <li>去重與驗證資訊準確性</li>
+      <li>提取必要資訊（標題、URL、來源、日期、摘要）</li>
+      <li>按發布日期排序</li>
+    </ul>
+  </li>
+  <li><strong>Dashboard 生成階段</strong>
+    <ul>
+      <li>將整理後的資料代入 HTML 模板</li>
+      <li>生成互動式頁面</li>
+      <li>保存到 outputs 目錄</li>
+    </ul>
+  </li>
+  <li><strong>驗證與發布</strong>
+    <ul>
+      <li>檢查頁面渲染效果</li>
+      <li>驗證所有連結有效性</li>
+      <li>更新時間戳記</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h2 id="️-技術細節">🛠️ 技術細節</h2>
+
+<h3 id="使用工具">使用工具</h3>
+<ul>
+  <li><strong>WebSearch MCP</strong>: 執行網路搜尋</li>
+  <li><strong>HTML/Tailwind CSS</strong>: 構建互動式頁面</li>
+  <li><strong>JavaScript</strong>: 動態時間更新</li>
+</ul>
+
+<h3 id="文件輸出">文件輸出</h3>
+<ul>
+  <li><strong>格式</strong>: HTML5（獨立自包含）</li>
+  <li><strong>樣式</strong>: Tailwind CSS（CDN 加載）</li>
+  <li><strong>交互性</strong>: 純 JavaScript（無外部依賴）</li>
+  <li><strong>相容性</strong>: 所有現代瀏覽器</li>
+</ul>
+
+<h3 id="性能優化">性能優化</h3>
+<ul>
+  <li>卡片採用 Hover 效果增強用戶體驗</li>
+  <li>圖片和媒體優化以減少頁面加載時間</li>
+  <li>響應式設計適應各種屏幕尺寸</li>
+</ul>
+
+<hr />
+
+<h2 id="-排程設置">📅 排程設置</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cron 表達式: 30 7 * * *
+時區: 本地時區 (Asia/Taipei)
+執行時間: 每天早上 7:30
+重試機制: 失敗時自動重試
+通知設置: 執行完成時發送通知
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="-注意事項">📝 注意事項</h2>
+
+<ol>
+  <li><strong>資訊準確性</strong>: 優先選擇官方來源和知名科技媒體的報導</li>
+  <li><strong>去重機制</strong>: 同一則新聞若在多個來源出現，僅保留最早的原始報導連結</li>
+  <li><strong>初學者友善</strong>: 收錄教學內容時，優先選擇詳細、循序漸進的入門指南</li>
+  <li><strong>更新頻率</strong>: 如某天無新消息，保留上次的結果或顯示「本週暫無新消息」</li>
+  <li><strong>連結有效性</strong>: 定期檢查外部連結是否仍有效</li>
+</ol>
+
+<hr />
+
+<h2 id="-使用建議">💡 使用建議</h2>
+
+<h3 id="最佳使用場景">最佳使用場景</h3>
+<ul>
+  <li>👨‍💻 AI 開發者：每日了解技術動態</li>
+  <li>📊 產品經理：追蹤行業趨勢</li>
+  <li>🎓 學習者：獲取初學者友善的教學資源</li>
+  <li>📈 投資者：監控技術公司動向</li>
+</ul>
+
+<h3 id="集成建議">集成建議</h3>
+<ul>
+  <li>可將看板 HTML 嵌入到企業內網系統</li>
+  <li>支持通過 RSS 訂閱（後續功能）</li>
+  <li>可導出為 PDF 報告（後續功能）</li>
+</ul>
+
+<hr />
+
+<h2 id="-後續迭代方向">🔄 後續迭代方向</h2>
+
+<ol>
+  <li><strong>功能增強</strong>
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />支援篩選和搜尋功能</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />增加星標收藏功能</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />支援按標籤分類</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />導出為 PDF 或 Markdown</li>
+    </ul>
+  </li>
+  <li><strong>資料擴展</strong>
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />加入中文開發社群資訊</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />支援多語言版本</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />增加視頻教學連結</li>
+    </ul>
+  </li>
+  <li><strong>智能優化</strong>
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />基於點擊統計推薦優先級</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />機器學習優化搜尋關鍵字</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />自動生成每日摘要</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<p><strong>建立日期</strong>: 2026-04-19
+<strong>最後更新</strong>: 2026-04-19
+<strong>維護狀態</strong>: ✅ 正常運行</p>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/ntust2026/ntust2026.github.io/edit/main/claude/scheduled-task-config.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

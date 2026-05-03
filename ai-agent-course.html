@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent 智慧代理介紹 - 2026 春夏</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --primary: #1a1a2e;
+      --secondary: #16213e;
+      --accent: #0f3460;
+      --highlight: #e94560;
+      --text: #eaeaea;
+      --nvidia: #76b900;
+      --openclaw: #6c5ce7;
+      --orange: #f39c12;
+    }
+    
+    body {
+      font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+      background: var(--primary);
+      color: var(--text);
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+      border-bottom: 4px solid var(--highlight);
+    }
+    
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+    }
+    
+    header .emoji { font-size: 4em; margin-bottom: 20px; }
+    
+    header .subtitle {
+      font-size: 1.3em;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 20px;
+    }
+    
+    header .author {
+      color: var(--highlight);
+      font-size: 1.1em;
+    }
+    
+    section {
+      padding: 40px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    section h2 {
+      font-size: 1.8em;
+      margin-bottom: 25px;
+      color: var(--highlight);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    section h3 {
+      font-size: 1.4em;
+      margin: 25px 0 15px 0;
+      color: #fff;
+    }
+    
+    p { font-size: 1.1em; margin-bottom: 15px; color: rgba(255,255,255,0.9); }
+    
+    ul {
+      list-style: none;
+      margin: 15px 0;
+    }
+    
+    ul li {
+      font-size: 1.1em;
+      padding: 10px 0;
+      padding-left: 30px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    ul li::before {
+      content: '→';
+      position: absolute;
+      left: 5px;
+      color: var(--highlight);
+    }
+    
+    .tag {
+      display: inline-block;
+      background: var(--highlight);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.85em;
+      margin: 3px;
+    }
+    
+    .tag.green { background: var(--nvidia); }
+    .tag.purple { background: var(--openclaw); }
+    .tag.orange { background: var(--orange); }
+    
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 25px;
+      margin: 20px 0;
+      border-left: 4px solid var(--highlight);
+    }
+    
+    .card.green { border-left-color: var(--nvidia); }
+    .card.purple { border-left-color: var(--openclaw); }
+    .card.orange { border-left-color: var(--orange); }
+    
+    .card h3 { margin-top: 0; }
+    
+    code {
+      background: #0d1117;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-family: 'Consolas', monospace;
+      color: #58a6ff;
+      font-size: 0.95em;
+    }
+    
+    pre {
+      background: #0d1117;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 15px 0;
+    }
+    
+    pre code {
+      background: none;
+      padding: 0;
+      display: block;
+      line-height: 1.8;
+    }
+    
+    pre .comment { color: #8b949e; }
+    pre .cmd { color: #7ee787; }
+    pre .url { color: #79c0ff; }
+    
+    .audio-section {
+      background: linear-gradient(135deg, rgba(233,69,96,0.2), rgba(108,92,231,0.2));
+      border-radius: 16px;
+      padding: 30px;
+      margin: 30px 0;
+      text-align: center;
+    }
+    
+    .audio-section h3 { color: #fff; margin-bottom: 15px; }
+    
+    .audio-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--highlight);
+      color: #fff;
+      padding: 15px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 1.1em;
+      margin: 10px 5px;
+      transition: transform 0.2s;
+    }
+    
+    .audio-link:hover { transform: scale(1.05); }
+    
+    .audio-link.en { background: var(--openclaw); }
+    
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 500px;
+    }
+    
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    th {
+      background: rgba(255,255,255,0.05);
+      color: var(--highlight);
+      font-weight: 600;
+    }
+    
+    tr:hover { background: rgba(255,255,255,0.03); }
+    
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--secondary);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.95em;
+    }
+    
+    footer a { color: var(--highlight); text-decoration: none; }
+    
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8em; }
+      header .emoji { font-size: 3em; }
+      section h2 { font-size: 1.4em; }
+      p, li { font-size: 1em; }
+      pre { padding: 15px; }
+      pre code { font-size: 0.85em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="emoji">🤖</div>
+    <h1>AI Agent <span style="color: var(--highlight)">智慧代理</span>介紹</h1>
+    <p class="subtitle">從大型語言模型到自主代理人</p>
+    <p class="author">國立臺灣科技大學 管理學院<br>欒斌 教授 | 2026 春夏</p>
+  </header>
+  
+  <div class="container">
+    
+    <!-- 課程語音 -->
+    <div class="audio-section">
+      <h3>🎙️ 課程語音導覽</h3>
+      <a href="https://ntust2026.github.io/claw/ai-agent-intro.mp3" class="audio-link">
+        🔊 中文版（8分鐘）
+      </a>
+      <a href="https://ntust2026.github.io/claw/ai-agent-en.mp3" class="audio-link en">
+        🔊 English（6分鐘）
+      </a>
+    </div>
+    
+    <!-- 一、課程背景 -->
+    <section>
+      <h2>📚 一、課程背景</h2>
+      
+      <h3>什麼是 AI Agent？</h3>
+      <p>AI Agent（智慧代理）是一種能夠自動執行複雜任務的人工智慧系統。它不只是回答問題，而是能夠：
+      <ul>
+        <li>記憶對話上下文</li>
+        <li>使用工具和技能（Skills）</li>
+        <li>透過 API 與外部服務互動</li>
+        <li>操控電腦執行實際任務</li>
+      </ul>
+      
+      <div class="card green">
+        <h3>🔔 2026 年：AI Agent 元年</h3>
+        <p>NVIDIA GTC 2026 大會上，黃仁勳發表了 <strong>Nemotron 系列 Super Agent</strong> 解決方案，掀起了全球 Agent 熱潮！</p>
+        <span class="tag green">NVIDIA GTC 2026</span>
+        <span class="tag">Super Agent</span>
+        <span class="tag purple">Agentic AI</span>
+      </div>
+    </section>
+    
+    <!-- 二、LLM 的演進 -->
+    <section>
+      <h2>🧠 二、LLM 的演進</h2>
+      
+      <h3>一開始的 LLM</h3>
+      <p>一開始，LLM 只是個<strong>文字生成器</strong>，目的是要文字接龍：</p>
+      <ul>
+        <li>✖ 沒有記憶</li>
+        <li>✖ 不會使用工具</li>
+        <li>✖ 只能回答產生的文字</li>
+      </ul>
+      
+      <h3>後來加上...</h3>
+      <ul>
+        <li><strong>🧠 記憶 Memory</strong> - 理解對話上下文</li>
+        <li><strong>🔧 工具 Tools / Skills</strong> - 呼叫外部服務</li>
+        <li><strong>💓 心跳 Heartbeat</strong> - 定時檢查與更新</li>
+        <li><strong>🖥️ 操控電腦 Computer Use</strong> - 操作滑鼠鍵盤</li>
+      </ul>
+      
+      <div class="card purple">
+        <h3>🚀 LLM → Agent 進化</h3>
+        <p>自動執行複雜任務、多步驟推理與行動、與環境互動</p>
+      </div>
+    </section>
+    
+    <!-- 三、Prompt / UI / API -->
+    <section>
+      <h2>🔄 三、Prompt / UI / API 的演進</h2>
+      
+      <ul>
+        <li><strong>手動操作</strong>：透過官方 UI 輸入 prompt → 等待回覆</li>
+        <li><strong>API 呼叫</strong>：程式自動呼叫 API → 即時推論結果</li>
+        <li><strong>Skills / Tools</strong>：需要時自動調用外部工具與服務</li>
+        <li><strong>操控電腦</strong>：Agent 可以操作滑鼠、鍵盤、瀏覽器</li>
+      </ul>
+    </section>
+    
+    <!-- 四、各家 Agent 工具 -->
+    <section>
+      <h2>🏢 四、各家 Agent 工具</h2>
+      
+      <div class="card green">
+        <h3>NVIDIA</h3>
+        <p>Nemotron 系列、Super Agent 解決方案</p>
+      </div>
+      
+      <div class="card purple">
+        <h3>OpenAI</h3>
+        <p>GPT 系列 Agent、Operator、Deep Research</p>
+      </div>
+      
+      <div class="card orange">
+        <h3>Google</h3>
+        <p>Gemini Agent、Gemini 2.0 Flash</p>
+      </div>
+      
+      <p style="margin-top: 20px; color: rgba(255,255,255,0.6);">以及更多：Anthropic、Meta、xAI、Mistral...</p>
+    </section>
+    
+    <!-- 五、第一種安裝方式 -->
+    <section>
+      <h2>💻 五、第一種安裝方式</h2>
+      <h3>OpenClaw + Ollama 本地模型（免費）</h3>
+      
+      <p><strong>基本需求：</strong></p>
+      <ul>
+        <li>Node.js v22+</li>
+        <li>Ollama 最新版</li>
+        <li>足夠的記憶體/GPU（建議 >48G）</li>
+      </ul>
+      
+      <div class="card green">
+        <h3>📦 安裝 Node.js</h3>
+        <pre><code><span class="comment"># 官方網站下載</span>
+<span class="url">https://nodejs.org/zh-tw/download</span>
+
+<span class="comment"># 確認版本</span>
+<span class="cmd">node -v</span></code></pre>
+      </div>
+      
+      <div class="card green">
+        <h3>🦙 安裝 Ollama</h3>
+        <pre><code><span class="comment"># 安裝 Ollama 最新版 (0.20.7)</span>
+<span class="url">https://ollama.com/</span>
+
+<span class="comment"># 模型下載 (依照設備決定)</span>
+<span class="cmd">ollama run gemma4:26b</span>
+
+<span class="comment"># 沒有 GPU？用雲端模型</span>
+<span class="cmd">註冊 ollama.com 帳號免費用雲端額度</span></code></pre>
+      </div>
+      
+      <div class="card purple">
+        <h3>🚀 安裝 OpenClaw</h3>
+        <pre><code><span class="comment"># 安裝 OpenClaw</span>
+<span class="cmd">npm install -g openclaw@2026.4.10</span>
+
+<span class="comment"># Mac 如果無法安裝，打這個：</span>
+<span class="cmd">curl – fsSL https://openclaw.ai/install.sh | bash -s -- --version 2026.4.10</span></code></pre>
+      </div>
+      
+      <div class="card">
+        <h3>▶️ 啟動 OpenClaw</h3>
+        <pre><code><span class="comment"># 方式一：onboard 精靈</span>
+<span class="cmd">openclaw onboard</span>
+
+<span class="comment"># 方式二：launch</span>
+<span class="cmd">ollama launch openclaw</span></code></pre>
+        <p style="font-size: 0.95em; color: rgba(255,255,255,0.6); margin-top: 10px;">
+          會開啟瀏覽器，用 Google 帳號登入 ollama 取得免費雲端額度
+        </p>
+      </div>
+    </section>
+    
+    <!-- 六、Telegram 串接 -->
+    <section>
+      <h2>📱 六、Telegram 串接設定</h2>
+      
+      <h3>步驟一：創建 Bot</h3>
+      <ul>
+        <li>打開 Telegram，搜尋 <code>@BotFather</code></li>
+        <li>發送 <code>/newbot</code> 創建新機器人</li>
+        <li>取 Bot 名稱（如 <code>Localpinpinpin</code>）</li>
+        <li>設定用戶名，必須以 bot 結尾（如 <code>Localpinpinpin_bot</code>）</li>
+        <li>取得 BotFather 給的 <strong>Token</strong></li>
+      </ul>
+      
+      <h3>步驟二：設定 OpenClaw</h3>
+      <p>把 Token 填入 OpenClaw 的設定中</p>
+      
+      <h3>步驟三：配對</h3>
+      <ul>
+        <li>進入你的 Telegram bot，輸入 <code>/start</code></li>
+        <li>或在終端機執行：<code>openclaw pairing approve telegram 你的配對碼</code></li>
+      </ul>
+      
+      <div class="card" style="text-align: center; border-left-color: var(--nvidia);">
+        <h3 style="color: var(--nvidia);">✨ 完成！就通了！</h3>
+      </div>
+    </section>
+    
+    <!-- 七、第二種安裝方式 -->
+    <section>
+      <h2>☁️ 七、第二種安裝方式</h2>
+      <h3>Zeabur + MiniMax 2.7 雲端安裝</h3>
+      
+      <div class="card orange">
+        <h3>💰 特色</h3>
+        <ul>
+          <li>方便、安全</li>
+          <li>月費約 $400 台幣</li>
+          <li>🚀 快速部署，一鍵到雲端</li>
+          <li>🔒 企業級安全標準</li>
+        </ul>
+        <p style="margin-top: 15px;"><span class="tag orange">Referral Code: boubou5998</span></p>
+      </div>
+      
+      <div class="card">
+        <h3>🤖 MiniMax 2.7 模型訂閱</h3>
+        <p>專屬連結（10% OFF）：</p>
+        <code style="display: block; margin-top: 10px; padding: 15px; background: #0d1117; border-radius: 8px;">
+          https://platform.minimax.io/subscribe/token-plan?code=IpU28ILhy8&source=link
+        </code>
+        <p style="margin-top: 10px; font-size: 0.9em; color: rgba(255,255,255,0.6);">
+          Exclusive 10% OFF for friends
+        </p>
+      </div>
+    </section>
+    
+    <!-- 八、兩種方式比較 -->
+    <section>
+      <h2>⚖️ 八、兩種方式比較</h2>
+      
+      <div class="table-wrapper">
+        <table>
+          <tr>
+            <th>項目</th>
+            <th>本地 + Ollama</th>
+            <th>Zeabur + MiniMax</th>
+          </tr>
+          <tr>
+            <td>費用</td>
+            <td>免費（需要設備）</td>
+            <td>月費約 $400</td>
+          </tr>
+          <tr>
+            <td>速度</td>
+            <td>取決於硬體</td>
+            <td>雲端高速</td>
+          </tr>
+          <tr>
+            <td>隱私</td>
+            <td>✓ 完全本地</td>
+            <td>資料在雲端</td>
+          </tr>
+          <tr>
+            <td>維護</td>
+            <td>需自行管理</td>
+            <td>自動更新</td>
+          </tr>
+          <tr>
+            <td>適合對象</td>
+            <td>有 GPU 的進階用戶</td>
+            <td>想要方便的初學者</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+    
+    <!-- 九、總結 -->
+    <section>
+      <h2>🎉 九、總結</h2>
+      
+      <div class="card" style="text-align: center; border-left-color: var(--highlight);">
+        <h3 style="font-size: 1.5em;">AI Agent 時代已經來臨！</h3>
+        <p style="font-size: 1.2em; margin-top: 15px;">
+          從 LLM → Agent → Super Agent<br>
+          工具 + 記憶 + 推理 + 行動
+        </p>
+      </div>
+      
+      <div style="text-align: center; margin-top: 30px;">
+        <span class="tag green">NVIDIA GTC 2026</span>
+        <span class="tag purple">OpenClaw</span>
+        <span class="tag orange">Zeabur + MiniMax</span>
+      </div>
+      
+      <div class="card" style="text-align: center; margin-top: 30px;">
+        <h3>📧 聯絡資訊</h3>
+        <p>欒斌 教授</p>
+        <p>國立臺灣科技大學 管理學院</p>
+        <p style="color: var(--highlight); font-size: 1.2em; margin-top: 10px;">
+          luarn@mail.ntust.edu.tw
+        </p>
+      </div>
+    </section>
+    
+  </div>
+  
+  <footer>
+    <p>國立臺灣科技大學 管理學院 | 2026 春夏 AI Agent 課程</p>
+    <p style="margin-top: 10px;">
+      <a href="https://ntust2026.github.io/ai-agent-2026-spring.html">投影片版</a>
+    </p>
+  </footer>
+</body>
+</html>
