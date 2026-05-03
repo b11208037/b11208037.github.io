@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>Prof. Pin Luarn - Comprehensive Academic Profile</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #0f172a; color: #f1f5f9; padding: 40px; }
+        .container { max-width: 1000px; margin: auto; }
+        h1 { color: #38bdf8; border-bottom: 2px solid #1e293b; padding-bottom: 15px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { background: #1e293b; padding: 20px; border-radius: 10px; }
+        #graph { width: 100%; height: 600px; background: #0f172a; border-radius: 12px; }
+        .link { stroke: #475569; stroke-width: 1.5px; }
+        .node { stroke: #fff; stroke-width: 2px; }
+        .label { fill: #cbd5e1; font-size: 13px; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>欒斌 (Pin Luarn) 教授 - 學術影響力全覽</h1>
+        <div class="grid">
+            <div class="card">
+                <h2>研究領域</h2>
+                <ul>
+                    <li>電子商務 (Electronic Commerce)</li>
+                    <li>網路行銷 (Internet Marketing)</li>
+                    <li>社群網路行銷 (Social Network Marketing)</li>
+                    <li>資訊擴散 (Information Diffusion)</li>
+                    <li>區塊鏈應用 & Web 3.0</li>
+                </ul>
+                <h2>主要共同作者</h2>
+                <p>謝艾芸 (Ai-Yun Hsieh), 邱玉萍 (Yu-Ping Chiu), 郭顯智 (Hsien-Chih Kuo), 林宏文 (Hong-Wen Lin), 詹雅卿 (Ya-Cing Jhan)</p>
+            </div>
+            <div class="card">
+                <h2>獲獎與經歷</h2>
+                <ul>
+                    <li>113年教育部師鐸獎</li>
+                    <li>前管理學院院長 (2016-2019)</li>
+                    <li>EcooLab 實驗室主持人</li>
+                </ul>
+                <p><a href="https://scholar.google.com/citations?user=pudp19wAAAAJ&hl=zh-TW" style="color:#38bdf8;">Google Scholar 完整檔案</a></p>
+            </div>
+        </div>
+        <h2>互動式學術關係網絡</h2>
+        <div id="graph"></div>
+    </div>
+
+    <script>
+        const data = {
+            nodes: [
+                {id: "欒斌", group: 1},
+                {id: "謝艾芸", group: 2}, {id: "邱玉萍", group: 2}, {id: "郭顯智", group: 2}, {id: "林宏文", group: 2}, {id: "詹雅卿", group: 2},
+                {id: "電子商務", group: 3}, {id: "網路行銷", group: 3}, {id: "社群行銷", group: 3}, {id: "資訊擴散", group: 4}, {id: "EcooLab", group: 5}
+            ],
+            links: [
+                {source: "欒斌", target: "謝艾芸"}, {source: "欒斌", target: "邱玉萍"}, {source: "欒斌", target: "郭顯智"}, {source: "欒斌", target: "林宏文"}, {source: "欒斌", target: "詹雅卿"},
+                {source: "欒斌", target: "電子商務"}, {source: "欒斌", target: "網路行銷"}, {source: "欒斌", target: "社群行銷"},
+                {source: "社群行銷", target: "資訊擴散"}, {source: "欒斌", target: "EcooLab"}
+            ]
+        };
+
+        const width = 1000, height = 600;
+        const svg = d3.select("#graph").append("svg").attr("width", width).attr("height", height);
+        const simulation = d3.forceSimulation(data.nodes)
+            .force("link", d3.forceLink(data.links).id(d => d.id).distance(120))
+            .force("charge", d3.forceManyBody().strength(-400))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        const link = svg.append("g").selectAll("line").data(data.links).enter().append("line").attr("class", "link");
+        const node = svg.append("g").selectAll("circle").data(data.nodes).enter().append("circle").attr("r", 12).style("fill", d => d.group === 1 ? "#38bdf8" : "#fb7185")
+            .call(d3.drag().on("start", (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+            .on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; }).on("end", (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
+        
+        const label = svg.append("g").selectAll("text").data(data.nodes).enter().append("text").attr("class", "label").text(d => d.id).attr("dx", 15).attr("dy", 4);
+
+        simulation.on("tick", () => {
+            link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+            node.attr("cx", d => d.x).attr("cy", d => d.y);
+            label.attr("x", d => d.x).attr("y", d => d.y);
+        });
+    </script>
+</body>
+</html>
