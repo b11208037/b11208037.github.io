@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>德國慕尼黑・巴伐利亞之旅 2026 | 8天7夜行程</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --germany-blue: #003580;
+            --germany-gold: #DD0000;
+            --bavaria-blue: #0085C3;
+            --bavaria-white: #FFFFFF;
+            --alpine-green: #4A7C59;
+            --alpine-light: #E8F4EA;
+            --card-bg: #FFFFFF;
+            --text-dark: #2C3E50;
+            --text-light: #6B7280;
+            --shadow: 0 4px 20px rgba(0, 53, 128, 0.1);
+            --shadow-hover: 0 8px 30px rgba(0, 53, 128, 0.2);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            color: var(--text-dark);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--germany-blue) 0%, var(--bavaria-blue) 50%, var(--alpine-green) 100%);
+            color: white;
+            padding: 80px 20px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.8rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .hero-flags {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 15px;
+        }
+
+        .trip-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            margin-top: 20px;
+        }
+
+        .trip-badge strong {
+            color: #FFD700;
+        }
+
+        /* Overview Section */
+        .overview {
+            max-width: 1200px;
+            margin: -60px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .overview-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,53,128,0.08);
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .overview-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .overview-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .overview-value {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--germany-blue);
+        }
+
+        /* Cities Section */
+        .cities-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--germany-blue);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--germany-blue), var(--bavaria-blue));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .city-card {
+            background: linear-gradient(135deg, var(--germany-blue), var(--bavaria-blue));
+            color: white;
+            padding: 30px 25px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .city-card:hover {
+            transform: scale(1.03);
+        }
+
+        .city-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .city-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .city-desc {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 20px 80px;
+        }
+
+        .day-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 35px 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,53,128,0.08);
+        }
+
+        .day-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateX(5px);
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: linear-gradient(180deg, var(--germany-blue), var(--bavaria-blue), var(--alpine-green));
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .day-number {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--germany-blue), var(--bavaria-blue));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .day-number .label {
+            font-size: 0.7rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+        }
+
+        .day-number .num {
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .day-info h3 {
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .day-info .date {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .day-route {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--alpine-light);
+            color: var(--alpine-green);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        .day-activities {
+            margin-left: 90px;
+        }
+
+        .activity {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 18px 0;
+            border-bottom: 1px dashed rgba(0,53,128,0.15);
+        }
+
+        .activity:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-time {
+            display: inline-block;
+            background: var(--germany-blue);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .activity-text {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+        }
+
+        .activity-text strong {
+            color: var(--germany-blue);
+        }
+
+        .activity-note {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        .day-accommodation {
+            margin-left: 90px;
+            margin-top: 20px;
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 16px;
+            border-left: 4px solid var(--germany-blue);
+        }
+
+        .accommodation-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .accommodation-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--germany-blue);
+            margin-bottom: 5px;
+        }
+
+        .accommodation-address {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .accommodation-price {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .accommodation-price span {
+            color: var(--germany-gold);
+            font-weight: 600;
+        }
+
+        /* Notes Section */
+        .notes-section {
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .notes-card {
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CC 100%);
+            border-radius: 20px;
+            padding: 35px 40px;
+            border-left: 6px solid #FFC107;
+        }
+
+        .notes-title {
+            font-size: 1.4rem;
+            color: #856404;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notes-content {
+            font-size: 1.05rem;
+            color: #856404;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--germany-blue);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .day-activities {
+                margin-left: 0;
+            }
+
+            .day-accommodation {
+                margin-left: 0;
+            }
+
+            .day-route {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .day-card {
+                padding: 25px 20px;
+            }
+
+            .overview-card {
+                padding: 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .day-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .day-card:nth-child(1) { animation-delay: 0.1s; }
+        .day-card:nth-child(2) { animation-delay: 0.2s; }
+        .day-card:nth-child(3) { animation-delay: 0.3s; }
+        .day-card:nth-child(4) { animation-delay: 0.4s; }
+        .day-card:nth-child(5) { animation-delay: 0.5s; }
+        .day-card:nth-child(6) { animation-delay: 0.6s; }
+        .day-card:nth-child(7) { animation-delay: 0.7s; }
+        .day-card:nth-child(8) { animation-delay: 0.8s; }
+
+        /* Print Styles */
+        @media print {
+            .hero {
+                background: var(--germany-blue) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="hero-flags">🇩🇪 🇹🇼</div>
+            <h1>德國慕尼黑・巴伐利亞之旅</h1>
+            <p class="subtitle">Germany — Bavaria & Swabia</p>
+            <div class="trip-badge">
+                <strong>2026年5月24日 - 5月31日</strong> | 8天7夜
+            </div>
+        </div>
+    </header>
+
+    <!-- Overview Section -->
+    <section class="overview">
+        <div class="overview-grid">
+            <div class="overview-card">
+                <div class="overview-icon">📅</div>
+                <div class="overview-label">出發日期</div>
+                <div class="overview-value">2026年5月24日</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">✈️</div>
+                <div class="overview-label">返程日期</div>
+                <div class="overview-value">2026年5月31日</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🌙</div>
+                <div class="overview-label">住宿 nights</div>
+                <div class="overview-value">7 晚</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-icon">🚗</div>
+                <div class="overview-label">總行駛里程</div>
+                <div class="overview-value">~930 km</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cities Section -->
+    <section class="cities-section">
+        <h2 class="section-title">行程亮点城市</h2>
+        <div class="cities-grid">
+            <div class="city-card">
+                <div class="city-emoji">🏔️</div>
+                <div class="city-name">貝希特斯加登</div>
+                <div class="city-desc">國王湖・鷹巢・鹽礦</div>
+            </div>
+            <div class="city-card">
+                <div class="city-emoji">🏙️</div>
+                <div class="city-name">慕尼黑</div>
+                <div class="city-desc">BMW工廠・市政廳</div>
+            </div>
+            <div class="city-card">
+                <div class="city-emoji">🏭</div>
+                <div class="city-name">英戈爾斯塔特</div>
+                <div class="city-desc">Audi總部・奧特萊斯</div>
+            </div>
+            <div class="city-card">
+                <div class="city-emoji">🚗</div>
+                <div class="city-name">斯圖加特</div>
+                <div class="city-desc">Mercedes-Benz工廠</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <h2 class="section-title">每日行程</h2>
+
+        <!-- Day 1 -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number">
+                    <span class="label">Day</span>
+                    <span class="num">1</span>
+                </div>
+                <div class="day-info">
+                    <h3>啟程出發</h3>
+                    <span class="date">2026年5月24日 (星期日)</span>
+                </div>
+                <div class="day-route">
+                    🇹🇼 台灣 → 🇩🇪 德國
+                </div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">✈️</div>
+                    <div class="activity-content">
+                        <span class="activity-time">下午/晚間</span>
+                        <p class="activity-text">從 <strong>桃園國際機場 (TPE)</strong> 出發，搭乘長途航班前往慕尼黑</p>
+                        <p class="activity-note">🛫 過夜航班</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number">
+                    <span class="label">Day</span>
+                    <span class="num">2</span>
+                </div>
+                <div class="day-info">
+                    <h3>抵達・國王湖</h3>
+                    <span class="date">2026年5月25日 (星期一)</span>
+                </div>
+                <div class="day-route">
+                    慕尼黑機場 → 貝希特斯加登 🚗 200km
+                </div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🛬</div>
+                    <div class="activity-content">
+                        <span class="activity-time">07:30</span>
+                        <p class="activity-text">抵達 <strong>慕尼黑機場第二航廈 (MUC T2)</strong>，專車接機</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🚗</div>
+                    <div class="activity-content">
+                        <p class="activity-text">驅車前往 <strong>貝希特斯加登 (Berchtesgaden)</strong>，約200公里</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🚢</div>
+                    <div class="activity-content">
+                        <p class="activity-text">遊船遊覽 <strong>國王湖 (Königssee)</strong>，參觀聖巴爾多祿茂教堂 (St. Bartholomä)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">Traditional Hotel Berchtesgaden</div>
+                <div class="accommodation-address">貝希特斯加登</div>
+                <div class="accommodation-price">雙人房: <span>€386/晚</span> | 單人房: <span>€240/晚</span></div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number">
+                    <span class="label">Day</span>
+                    <span class="num">3</span>
+                </div>
+                <div class="day-info">
+                    <h3>鷹巢・鹽礦</h3>
+                    <span class="date">2026年5月26日 (星期二)</span>
+                </div>
+                <div class="day-route">
+                    貝希特斯加登 → 慕尼黑 🚗 160km
+                </div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🦅</div>
+                    <div class="activity-content">
+                        <p class="activity-text">參觀 <strong>鷹巢 (Kehlsteinhaus)</strong>，海拔1,834公尺，俯瞰阿爾卑斯山全景</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">⛏️</div>
+                    <div class="activity-content">
+                        <p class="activity-text">遊覽 <strong>貝希特斯加登鹽礦 (Salzbergwerk)</strong>，體驗地下鹽湖船遊</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🚗</div>
+                    <div class="activity-content">
+                        <p class="activity-text">驅車返回 <strong>慕尼黑</strong>，辦理入住</p>
+                    </div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">Hampton by Hilton Munich City North</div>
+                <div class="accommodation-address">慕尼黑市中心北部</div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number">
+                    <span class="label">Day</span>
+                    <span class="num">4</span>
+                </div>
+                <div class="day-info">
+                    <h3>BMW工廠・下午選擇</h3>
+                    <span class="date">2026年5月27日 (星期三)</span>
+                </div>
+                <div class="day-route">
+                    慕尼黑 → 英戈爾斯塔特 🚗 80km
+                </div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🏭</div>
+                    <div class="activity-content">
+                        <span class="activity-time">12:00 - 14:00</span>
+                        <p class="activity-text">導覽參觀 <strong>BMW 慕尼黑汽車工廠</strong></p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">⏰</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>下午行程選擇：</strong></p>
+                        <p class="activity-note">
+                            A. 達豪集中營紀念館 (30km)<br>
+                            B. 英戈爾斯塔特精品奧特萊斯 (80km)<br>
+                            C. 英戈爾斯塔特老城區觀光
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">IntercityHotel Ingolstadt</div>
+                <div class="accommodation-address">Bahnhofstraße 6, 英戈爾斯塔特市中心，火車站旁</div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number">
+                    <span class="label">Day</span>
+                    <span class="num">5</span>
+                </div>
+                <div class="day-info">
+                    <h3>Audi工廠・斯圖加特</h3>
+                    <span class="date">2026年5月28日 (星期四)</span>
+                </div>
+                <div class="day-route">
+                    英戈爾斯塔特 → 斯圖加特 🚗 250km
+                </div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🛍️</div>
+                    <div class="activity-content">
+                        <p class="activity-text"><strong>上午彈性時間：</strong>英戈爾斯塔特奧特萊斯或老城區（若昨日未參觀）</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🏭</div>
+                    <div class="activity-content">
+                        <span class="activity-time">13:00 - 14:00</span>
+                        <p class="activity-text">導覽參觀 <strong>Audi 工廠 (Audi Forum Ingolstadt)</strong></p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🚗</div>
+                    <div class="activity-content">
+                        <p class="activity-text">驅車前往 <strong>斯圖加特 (Stuttgart)</strong>，約250公里</p>
+                    </div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">Hampton by Hilton Stuttgart City Centre</div>
+                <div class="accommodation-address">Wolframstraße 27, 斯圖加特市中心，靠近地鐵站</div>
+            </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number">
+                    <span class="label">Day</span>
+                    <span class="num">6</span>
+                </div>
+                <div class="day-info">
+                    <h3>Mercedes-Benz・啤酒屋</h3>
+                    <span class="date">2026年5月29日 (星期五)</span>
+                </div>
+                <div class="day-route">
+                    斯圖加特 → 慕尼黑機場 🚗 240km
+                </div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🏭</div>
+                    <div class="activity-content">
+                        <span class="activity-time">13:45 - 15:30</span>
+                        <p class="activity-text">導覽參觀 <strong>Mercedes-Benz 斯圖加特工廠</strong></p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🍺</div>
+                    <div class="activity-content">
+                        <span class="activity-time">約 16:00</span>
+                        <p class="activity-text"><strong>Dinkelacker Shop & Schanke</strong> (Tübinger Str. 54, Stuttgart)</p>
+                        <p class="activity-note">當地家族啤酒廠商店與酒吧 — Dinkelacker, Wulle, Schwaben Bräu<br>📍 營業時間：週五 13:00 - 19:00</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">🚗</div>
+                    <div class="activity-content">
+                        <p class="activity-text">驅車前往 <strong>慕尼黑機場</strong>，約240公里。入住機場飯店</p>
+                    </div>
+                </div>
+            </div>
+            <div class="day-accommodation">
+                <div class="accommodation-label">🏨 住宿</div>
+                <div class="accommodation-name">Hilton Munich Airport</div>
+                <div class="accommodation-address">慕尼黑機場 MUC T2 旁，出境前過夜</div>
+            </div>
+        </div>
+
+        <!-- Day 7 -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number">
+                    <span class="label">Day</span>
+                    <span class="num">7</span>
+                </div>
+                <div class="day-info">
+                    <h3>返程</h3>
+                    <span class="date">2026年5月30日 (星期六)</span>
+                </div>
+                <div class="day-route">
+                    慕尼黑機場 → 台灣 ✈️
+                </div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🛫</div>
+                    <div class="activity-content">
+                        <span class="activity-time">12:00</span>
+                        <p class="activity-text">抵達 <strong>慕尼黑機場第二航廈 (MUC T2)</strong>，辦理登機、託運行李</p>
+                    </div>
+                </div>
+                <div class="activity">
+                    <div class="activity-icon">✈️</div>
+                    <div class="activity-content">
+                        <p class="activity-text">啟程返回台灣，告別德國</p>
+                        <p class="activity-note">🛫 過夜航班</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 8 -->
+        <div class="day-card">
+            <div class="day-header">
+                <div class="day-number">
+                    <span class="label">Day</span>
+                    <span class="num">8</span>
+                </div>
+                <div class="day-info">
+                    <h3>抵達台灣</h3>
+                    <span class="date">2026年5月31日 (星期日)</span>
+                </div>
+                <div class="day-route">
+                    🇩🇪 德國 → 🇹🇼 台灣
+                </div>
+            </div>
+            <div class="day-activities">
+                <div class="activity">
+                    <div class="activity-icon">🛬</div>
+                    <div class="activity-content">
+                        <span class="activity-time">06:35</span>
+                        <p class="activity-text">抵達 <strong>桃園國際機場 (TPE)</strong>，旅程結束</p>
+                        <p class="activity-note">🏠 回到家鄉</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section class="notes-section">
+        <div class="notes-card">
+            <h3 class="notes-title">📋 入境德國注意事項</h3>
+            <div class="notes-content">
+                <p>本文件為確認的旅遊行程證明，來自台灣的旅行團將前往德國進行觀光及文化活動。</p>
+                <br>
+                <p>• 住宿已預訂於列表中之飯店<br>
+                • 所有工廠參觀（BMW、Audi、Mercedes-Benz）均為預先安排之導覽行程<br>
+                • 旅行團將於2026年5月30日從慕尼黑機場 (MUC T2) 出境，返回台灣桃園國際機場</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>🇩🇪 Germany — Bavaria & Swabia | 2026年5月24日 - 5月31日</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">8 Days / 7 Nights | Tourism Purpose | Nationality: TAIWAN</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《說服：從不說服開始》書籍導讀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        h1 span {
+            color: #4fc3f7;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #ffd54f;
+            margin-top: 15px;
+        }
+        
+        .author {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #ccc;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        h2 {
+            color: #1a1a2e;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+            margin: 30px 0 20px 0;
+            font-size: 1.6em;
+        }
+        
+        h3 {
+            color: #555;
+            margin: 25px 0 15px 0;
+            font-size: 1.3em;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .highlight-box h3 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+        
+        .quote-box {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px 25px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            font-size: 3em;
+            color: #ccc;
+            line-height: 0;
+            vertical-align: -0.5em;
+            margin-right: 10px;
+        }
+        
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .concept-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+        
+        .concept-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .concept-card h3 {
+            color: #1a1a2e;
+            margin-top: 0;
+        }
+        
+        .maze-section {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .maze-section h3 {
+            color: #f57f17;
+        }
+        
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 10px;
+        }
+        
+        .key-point .icon {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+        
+        .key-point .text h4 {
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+        
+        .key-point .text p {
+            margin: 0;
+            color: #666;
+        }
+        
+        footer {
+            background: #1a1a2e;
+            color: #aaa;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        footer a {
+            color: #4fc3f7;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8em; }
+            .content { padding: 20px; }
+            header { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span>《</span>說服<span>》</span><br>從不說服開始</h1>
+            <div class="subtitle">啟動簡報的心智革命</div>
+            <div class="author">作者：鍾添旭</div>
+        </header>
+        
+        <div class="content">
+            <h2>📖 書籍簡介</h2>
+            <p>
+                《說服：從不說服開始》是一本突破傳統溝通框架的書籍，由簡報顧問與心理學研究者鍾添旭所著。本書顛覆了我們對「說服」的常見認知，提出一個核心觀點：<strong>說服的最高境界，是不說服</strong>。
+            </p>
+            <p>
+                傳統的說服技巧往往專注於如何讓對方接受自己的觀點，但這種「用力推動」的方式經常適得其反，引發對方的反感與抗拒。本書則從心理學角度出發，提供一套全新的簡報與溝通方法論，幫助讀者「鋪設路徑」，讓聽眾自己走到你希望他們到達的目的地。
+            </p>
+            
+            <div class="highlight-box">
+                <h3>🎯 核心主旨</h3>
+                <p style="font-size: 1.2em; text-align: center; margin-bottom: 0;">
+                    「不是為了『說服對方』，而是幫助對方『說服自己』」
+                </p>
+            </div>
+            
+            <h2>💡 核心概念</h2>
+            
+            <h3>1. 從「推動」到「引導」的心態轉變</h3>
+            <p>
+                本書最核心的觀念在於：說服不是把自己的想法「塞」進別人的腦袋，而是<strong>設計一條路徑</strong>，讓對方在走過的過程中自然產生認同。簡報者不是高高在上的「說服者」，而是協助聽眾「自我說服」的引路人。
+            </p>
+            
+            <h3>2. 用心理設計拆解人類思考慣性</h3>
+            <p>
+                人類的思考有許多「捷徑」與「慣性」，這些心理機制往往在無形中左右了我們的決策。作者運用心理學研究，解析人類思考的運作方式，幫助讀者了解：
+            </p>
+            
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h3>🧠 認知偏誤</h3>
+                    <p>了解人類如何自動處理資訊，避免與聽眾的直覺作對</p>
+                </div>
+                <div class="concept-card">
+                    <h3>🎯 框架效應</h3>
+                    <p>同樣的資訊，不同的呈現方式會帶來截然不同的結果</p>
+                </div>
+                <div class="concept-card">
+                    <h3>❤️ 情感導向</h3>
+                    <p>情感共鳴往往比理性論證更能觸發行動</p>
+                </div>
+                <div class="concept-card">
+                    <h3>🔄 確認偏誤</h3>
+                    <p>人們傾向接受符合既有信念的資訊</p>
+                </div>
+            </div>
+            
+            <h3>3. 迷宮隱喻：鋪路而非推車</h3>
+            
+            <div class="maze-section">
+                <h3>🗺️ 書籍封面設計賞析</h3>
+                <p style="text-align: left;">
+                    本書封面以一個充滿巧思的迷宮圖像作為視覺象徵：
+                </p>
+                <div style="text-align: left; margin-top: 15px;">
+                    <p>🚶 <strong>迷宮中的小人</strong>：代表聽眾，他們有自己的思考路徑和慣性</p>
+                    <p>🖐️ <strong>大手放硬幣</strong>：代表簡報者，不是強行拖拽，而是巧妙鋪設線索</p>
+                    <p>💛 <strong>黃金路徑</strong>：引導小人走向正確出口的路標</p>
+                    <p>📍 <strong>終點標記</strong>：最終希望聽眾到達的目標（共識、行動、改變）</p>
+                </div>
+                <p style="margin-top: 20px; font-style: italic;">
+                    「為您的簡報鋪出一條聽眾願意走的路」
+                </p>
+            </div>
+            
+            <h2>🔑 關鍵實踐原則</h2>
+            
+            <div class="key-point">
+                <div class="icon">1️⃣</div>
+                <div class="text">
+                    <h4>了解你的聽眾</h4>
+                    <p>在開口之前，先了解他們的既有觀點、關心的議題、以及心理障礙</p>
+                </div>
+            </div>
+            
+            <div class="key-point">
+                <div class="icon">2️⃣</div>
+                <div class="text">
+                    <h4>設計路徑，而非論點</h4>
+                    <p>不要只準備「要說什麼」，更要思考「如何讓他們自己想通」</p>
+                </div>
+            </div>
+            
+            <div class="key-point">
+                <div class="icon">3️⃣</div>
+                <div class="text">
+                    <h4>順應人性，而非對抗</h4>
+                    <p>利用人類自然的思考方式，讓引導變得輕鬆有效</p>
+                </div>
+            </div>
+            
+            <div class="key-point">
+                <div class="icon">4️⃣</div>
+                <div class="text">
+                    <h4>創造體驗，而非灌輸</h4>
+                    <p>讓聽眾在過程中「發現」答案，遠比直接告訴他們更有效</p>
+                </div>
+            </div>
+            
+            <h2>🤝 與 Agentic AI 的連結</h2>
+            
+            <div class="highlight-box">
+                <h3>🚀 意外的跨領域共鳴</h3>
+                <p>
+                    本書的核心觀念與 Agentic AI 的設計理念有著有趣的呼應：
+                </p>
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    <li><strong>不強推，引導用戶</strong>：如同 Agent 不該強制用戶做什麼，而是透過互動引導用戶達成目標</li>
+                    <li><strong>順應用戶心智模型</strong>：設計介面時要符合人類的自然思考方式，而非要求用戶改變習慣</li>
+                    <li><strong>鋪路讓用戶自己前進</strong>：好的 AI 系統應該是「腳手架」，支援而非替代人類的思考</li>
+                    <li><strong>從心出發</strong>：無論是簡報還是 AI 應用，回歸「以人為本」的核心，才能真正創造價值</li>
+                </ul>
+            </div>
+            
+            <h2>📝 總結</h2>
+            
+            <div class="quote-box">
+                <p>
+                    說服從不說服開始——這句話看似矛盾，卻揭示了最有效的溝通智慧。當我們放下「我要說服你」的執念，轉而思考「我如何幫助你說服自己」時，整個溝通的品質都會隨之改變。
+                </p>
+                <p style="text-align: right; margin-top: 10px; font-style: normal;">
+                    — 摘自《說服：從不說服開始》
+                </p>
+            </div>
+            
+            <p>
+                這本書適合所有需要進行簡報、演說、或任何形式溝通的人閱讀。無論你是業務人員、管理階層、教師、或是 AI 應用開發者，都能從中獲得寶貴的洞見。
+            </p>
+            
+            <p>
+                記住：<strong>最好的說服，是讓對方覺得這是他自己的想法。</strong> 🎯
+            </p>
+        </div>
+        
+        <footer>
+            <p>📚 本報告由 AI 整理製作｜來源：《說服：從不說服開始》鍾添旭 著</p>
+            <p style="margin-top: 10px;">
+                <a href="https://ntust2026.github.io">回顧首頁</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

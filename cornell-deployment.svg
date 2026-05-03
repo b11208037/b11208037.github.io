@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+  <defs>
+    <style>
+      .cue-text { font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; font-size: 18px; fill: #333; }
+      .note-text { font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; font-size: 16px; fill: #444; }
+      .summary-text { font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; font-size: 16px; fill: #555; font-weight: bold; }
+      .title-text { font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; font-size: 22px; fill: #222; font-weight: bold; }
+      .label-text { font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif; font-size: 14px; fill: #888; text-transform: uppercase; letter-spacing: 2px; }
+    </style>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="100%" height="100%" fill="#fefefe"/>
+
+  <!-- 外框線 -->
+  <rect x="1" y="1" width="1198" height="898" fill="none" stroke="#ddd" stroke-width="2"/>
+
+  <!-- 左側 Cue 欄背景 -->
+  <rect x="1" y="1" width="359" height="719" fill="#e8f4e8"/>
+
+  <!-- 底部 Summary 欄背景 -->
+  <rect x="1" y="720" width="1198" height="179" fill="#f5f5f5"/>
+
+  <!-- 標題 -->
+  <text x="20" y="40" class="title-text">OpenClaw + LLM 部署比較</text>
+
+  <!-- 左側 Cue 欄標籤 -->
+  <text x="20" y="70" class="label-text">CUES</text>
+
+  <!-- 左側 Cue 內容 -->
+  <text x="20" y="100" class="cue-text">地端跑 OpenClaw 需要注意什麼？</text>
+  <text x="20" y="100" class="cue-text">地端跑 LLM 的硬體需求？</text>
+  <text x="20" y="100" class="cue-text">雲端 OpenClaw 推薦哪家？</text>
+  <text x="20" y="100" class="cue-text">雲端 LLM 哪家好？性價比？</text>
+
+  <!-- 右側 Notes 欄標籤 -->
+  <text x="380" y="70" class="label-text">NOTES</text>
+
+  <!-- 右側 Notes 內容 -->
+  <text x="380" y="100" class="note-text">【地端 Local】</text>
+  <text x="380" y="100" class="note-text"></text>
+  <text x="380" y="100" class="note-text">▌ OpenClaw 龍蝦殼</text>
+  <text x="380" y="100" class="note-text">• 使用你自己的主機</text>
+  <text x="380" y="100" class="note-text">• 任何機器都可以，不需要龐大硬體資源</text>
+  <text x="380" y="100" class="note-text">• 但需要保持 24 小時開機</text>
+  <text x="380" y="100" class="note-text"></text>
+  <text x="380" y="100" class="note-text">▌ LLM 大腦</text>
+  <text x="380" y="100" class="note-text">• 必須要有地端的 OpenClaw 橋接</text>
+  <text x="380" y="100" class="note-text">• 非常消耗資源，若沒有 48G 以上的 VRAM 會很難運作</text>
+  <text x="380" y="100" class="note-text">• 如果 VRAM 足夠，可以使用 GEMMA</text>
+  <text x="380" y="100" class="note-text">• 如果沒有 GPU，可以使用 OLLAMA 雲端（免費但速度慢）</text>
+  <text x="380" y="100" class="note-text"></text>
+  <text x="380" y="100" class="note-text">【雲端 Cloud】</text>
+  <text x="380" y="100" class="note-text"></text>
+  <text x="380" y="100" class="note-text">▌ OpenClaw 龍蝦殼</text>
+  <text x="380" y="100" class="note-text">• 需要一個穩定且安全的雲端主機（例如 Zeabur）</text>
+  <text x="380" y="100" class="note-text">• 價格不貴，最低可達每日 3 美元</text>
+  <text x="380" y="100" class="note-text">• 需考量穩定性與安全性</text>
+  <text x="380" y="100" class="note-text"></text>
+  <text x="380" y="100" class="note-text">▌ LLM 大腦</text>
+  <text x="380" y="100" class="note-text">• 非常多選擇：Claude（昂貴但效果好）、OpenAI、Google</text>
+  <text x="380" y="100" class="note-text">• 主要是透過 API 連接，Token 費用相對較貴</text>
+  <text x="380" y="100" class="note-text">• MiniMax 2.7，月費 10 美元（以次數計算），對一般用途足夠</text>
+
+  <!-- 底部 Summary 標籤 -->
+  <text x="20" y="750" class="label-text">SUMMARY</text>
+
+  <!-- 底部 Summary 內容 -->
+  <text x="20" y="780" class="summary-text">地端部署：OpenClaw 門檻低（任何機器），但 LLM 需要 48G VRAM 以上。雲端部署：OpenClaw 建議 Zeabur（/天），LLM 可選 Claude（貴）、MiniMax性價比高（0/月）。</text>
+
+  <!-- 分隔線 -->
+  <line x1="360" y1="0" x2="360" y2="720" stroke="#ccc" stroke-width="1"/>
+  <line x1="0" y1="720" x2="1200" y2="720" stroke="#ccc" stroke-width="1"/>
+</svg>

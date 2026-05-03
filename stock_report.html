@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美股市場分析報告 - 2026年5月2日</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 45px 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .header .date {
+            opacity: 0.9;
+            font-size: 1.05em;
+            background: rgba(255,255,255,0.15);
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 20px;
+        }
+        .content { padding: 40px; }
+        
+        .market-overview {
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 100%);
+            border-left: 5px solid #667eea;
+            padding: 22px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .market-overview h2 {
+            color: #4f46e5;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+        }
+        .market-overview p {
+            color: #475569;
+            line-height: 1.9;
+        }
+        
+        .section-title {
+            font-size: 1.25em;
+            color: #1e293b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ec4899;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stock-card {
+            display: flex;
+            gap: 20px;
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 18px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.25s ease;
+        }
+        .stock-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        .stock-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6em;
+            flex-shrink: 0;
+        }
+        .stock-info { flex: 1; }
+        .stock-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .stock-name { font-size: 1.15em; font-weight: 700; color: #1e293b; }
+        .stock-ticker {
+            background: #4f46e5;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .stock-tag {
+            background: #dcfce7;
+            color: #166534;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.75em;
+        }
+        .stock-detail {
+            margin-bottom: 8px;
+            color: #64748b;
+            font-size: 0.95em;
+        }
+        .stock-detail strong { color: #475569; }
+        .stock-highlight {
+            background: linear-gradient(135deg, #fef9c3, #fef08a);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #854d0e;
+            margin-top: 10px;
+        }
+        
+        .risk-box {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-left: 5px solid #ef4444;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .risk-box h3 {
+            color: #dc2626;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        .risk-box p { color: #991b1b; font-size: 0.92em; line-height: 1.8; }
+        
+        .footer {
+            background: #f1f5f9;
+            padding: 25px 40px;
+            text-align: center;
+        }
+        .footer .update-time {
+            color: #94a3b8;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+        }
+        .footer .disclaimer {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            padding: 12px;
+            border-radius: 8px;
+            color: #b91c1c;
+            font-size: 0.82em;
+        }
+        .footer .model-info {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #64748b;
+            font-size: 0.82em;
+            margin-top: 12px;
+            display: inline-block;
+        }
+        
+        @media (max-width: 600px) {
+            .header { padding: 30px 20px; }
+            .content { padding: 25px 20px; }
+            .stock-card { flex-direction: column; gap: 12px; }
+            .stock-icon { width: 50px; height: 50px; font-size: 1.3em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📈 美股市場分析報告</h1>
+            <div class="date">2026 年 5 月 2 日｜過去 7 天行情回顧</div>
+        </div>
+        
+        <div class="content">
+            <div class="market-overview">
+                <h2>🌐 市場概況</h2>
+                <p>本週適逢美國超級財報季，共有 <strong>181 家 S&P 500 公司</strong>披露業績，包括五大科技巨頭（Alphabet、Amazon、Apple、Meta、Microsoft）。市場情緒偏向謹慎樂觀，投資人正評估 AI 資本支出對未來營收的實質轉化效率。美國 GDP 成長加速，PCE 通膨輕微高於預期但不影響大局，整體貨幣環境維持審慎寬鬆。</p>
+            </div>
+            
+            <h2 class="section-title">💡 三大建議關注標的</h2>
+            
+            <div class="stock-card">
+                <div class="stock-icon">🍎</div>
+                <div class="stock-info">
+                    <div class="stock-header">
+                        <span class="stock-name">Apple</span>
+                        <span class="stock-ticker">AAPL</span>
+                        <span class="stock-tag">強勁</span>
+                    </div>
+                    <div class="stock-detail"><strong>近期表現：</strong>iPhone 銷售動能回溫、中國市場復甦超預期，財報後股價單週上漲約 <strong>+3.4%</strong>。</div>
+                    <div class="stock-detail"><strong>投資亮點：</strong>硬體換機週期可期、AI 策略逐步落地、生態系統黏著度高、現金流量穩健且持續回購。</div>
+                    <div class="stock-highlight">⭐ 適合追求穩定現金回報與長期成長的投資人。</div>
+                </div>
+            </div>
+            
+            <div class="stock-card">
+                <div class="stock-icon">🔷</div>
+                <div class="stock-info">
+                    <div class="stock-header">
+                        <span class="stock-name">Oracle</span>
+                        <span class="stock-ticker">ORCL</span>
+                        <span class="stock-tag">爆發</span>
+                    </div>
+                    <div class="stock-detail"><strong>近期表現：</strong>雲端基礎設施業務高速增長，受惠 AI 資料庫需求爆發，財報後股價跳漲近 <strong>+7%</strong>。</div>
+                    <div class="stock-detail"><strong>投資亮點：</strong>AI 資料庫架構具護城河、雲端服務營收年增率亮眼、企業級客戶黏著性強。</div>
+                    <div class="stock-highlight">⭐ 適合想參與 AI 基礎建設題材成長的投資人。</div>
+                </div>
+            </div>
+            
+            <div class="stock-card">
+                <div class="stock-icon">🪟</div>
+                <div class="stock-info">
+                    <div class="stock-header">
+                        <span class="stock-name">Microsoft</span>
+                        <span class="stock-ticker">MSFT</span>
+                        <span class="stock-tag">穩健</span>
+                    </div>
+                    <div class="stock-detail"><strong>近期表現：</strong>Azure 雲端與 AI 軟體整合持續擴大市佔，作為 Magnificent 7 核心成員，財報符合市場預期。</div>
+                    <div class="stock-detail"><strong>投資亮點：</strong>AI 商業化最成功的企業之一、Azure 市占率持續擴大、股息成長政策穩健、微軟 365 生態系封閉性高。</div>
+                    <div class="stock-highlight">⭐ 適合追求成長與收益平衡的長期投資人。</div>
+                </div>
+            </div>
+            
+            <div class="risk-box">
+                <h3>⚠️ 風險提示</h3>
+                <p>本報告由 AI 自動生成，僅供參考，不構成任何投資建議。財報季期間股價波動加劇，過去表現不代表未來收益。投資前請依個人財務狀況審慎評估，建議諮詢專業理財顧問。</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="update-time">報告生成時間：2026-05-02 19:51 UTC</div>
+            <div class="model-info">🤖 本報告使用模型：minimax/MiniMax-M2.7</div>
+            <div class="disclaimer">⚠️ 本報告僅供參考，不構成實際投資建議，投資人需自行承擔投資風險。</div>
+        </div>
+    </div>
+</body>
+</html>

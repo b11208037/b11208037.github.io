@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國立臺灣科技大學資訊管理系 - 教授研究專長與學術表現報告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .info-bar {
+            background: #f8f9fa;
+            padding: 15px 40px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section-title {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2a5298;
+        }
+        .professor-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .professor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .prof-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        .prof-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2em;
+            margin-right: 20px;
+        }
+        .prof-info h2 {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        .prof-info .title {
+            color: #666;
+            font-size: 1em;
+        }
+        .prof-info .eng-name {
+            color: #888;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .info-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .info-item h4 {
+            color: #1e3c72;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        .info-item p {
+            color: #555;
+            font-size: 0.95em;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+        }
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .stat-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+        .stat-item .number {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        .stat-item .label {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+        .research-area {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        .research-area h4 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+        }
+        .contact-item span {
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        .footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+        .toc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        .toc h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+        }
+        .toc ul {
+            list-style: none;
+        }
+        .toc li {
+            margin-bottom: 8px;
+        }
+        .toc a {
+            color: #2a5298;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background: #1e3c72;
+            color: white;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 國立臺灣科技大學資訊管理系</h1>
+            <p>教授研究專長與學術表現調查報告</p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">資料來源：臺科大資管系官方網站 | 調查日期：2026年4月29日</p>
+        </div>
+        
+        <div class="info-bar">
+            ⚠️ 本報告僅供學術參考使用，詳細資料請以系所官方網站公告為準
+        </div>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>📑 目錄</h3>
+                <ul>
+                    <li>1. <a href="#overview">系所概覽</a></li>
+                    <li>2. <a href="#wu">吳宗成 特聘教授</a></li>
+                    <li>3. <a href="#lu">盧希鵬 特聘教授</a></li>
+                    <li>4. <a href="#chen">陳正綱 教授</a></li>
+                    <li>5. <a href="#lai">賴源正 特聘教授</a></li>
+                    <li>6. <a href="#huang">黃世禎 教授</a></li>
+                    <li>7. <a href="#chou">周子銓 教授（副校長）</a></li>
+                    <li>8. <a href="#yang">楊傳凱 教授（副院長）</a></li>
+                    <li>9. <a href="#summary">資料總整理</a></li>
+                </ul>
+            </div>
+            
+            <h2 class="section-title" id="overview">📖 系所概覽</h2>
+            <div class="professor-card">
+                <p>國立臺灣科技大學資訊管理系成立於民國 年，致力於培育具備資訊技術與管理專業之人才。本系擁有優質師資陣容，涵盖資訊科技應用、企業系統與管理、計量運算與資訊安全等三大研究領域。</p>
+                <div class="stats" style="margin-top: 20px;">
+                    <div class="stat-item">
+                        <div class="number">13+</div>
+                        <div class="label">專任教師</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">3</div>
+                        <div class="label">主要研究群</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">碩博</div>
+                        <div class="label">完整學制</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="section-title" id="wu">👨‍🏫 吳宗成 Tzong-Chen Wu - 特聘教授</h2>
+            <div class="professor-card">
+                <div class="prof-header">
+                    <div class="prof-avatar">吳</div>
+                    <div class="prof-info">
+                        <h2>吳宗成 教授</h2>
+                        <div class="title">特聘教授</div>
+                        <div class="eng-name">Tzong-Chen Wu</div>
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>🎓 最高學歷</h4>
+                        <p>國立交通大學 資訊工程博士</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🏢 辦公室</h4>
+                        <p>T2 405-1</p>
+                    </div>
+                </div>
+                
+                <div class="research-area">
+                    <h4>📚 研究領域</h4>
+                    <div class="tags">
+                        <span class="tag">公開金鑰密碼學</span>
+                        <span class="tag">密碼協定</span>
+                        <span class="tag">密碼系統應用</span>
+                        <span class="tag">資訊安全</span>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item">📞 <span>電話：</span>(02)2737-6780</div>
+                    <div class="contact-item">✉️ <span>信箱：</span>tcwu@mail.ntust.edu.tw</div>
+                </div>
+                
+                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    ※ 112學年度起為資訊安全科技與管理學位學程主持人
+                </p>
+            </div>
+            
+            <h2 class="section-title" id="lu">🎓 盧希鵬 Hsi-Peng Lu - 特聘教授</h2>
+            <div class="professor-card">
+                <div class="prof-header">
+                    <div class="prof-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">盧</div>
+                    <div class="prof-info">
+                        <h2>盧希鵬 特聘教授</h2>
+                        <div class="title">特聘教授</div>
+                        <div class="eng-name">Hsi-Peng Lu</div>
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>🎓 最高學歷</h4>
+                        <p>美國威斯康辛大學 工業工程博士 (1989-1992)</p>
+                    </div>
+                </div>
+                
+                <div class="research-area">
+                    <h4>📚 研究領域</h4>
+                    <div class="tags">
+                        <span class="tag">電子商務</span>
+                        <span class="tag">網路行銷</span>
+                        <span class="tag">社群媒體</span>
+                        <span class="tag">知識管理</span>
+                        <span class="tag">科技接受模式</span>
+                        <span class="tag">隨經濟</span>
+                        <span class="tag">元宇宙</span>
+                    </div>
+                </div>
+                
+                <h4 style="color: #1e3c72; margin-top: 20px;">📊 學術表現</h4>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="number">121+</div>
+                        <div class="label">期刊論文</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">91</div>
+                        <div class="label">SCI/SSCI</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">107+</div>
+                        <div class="label">研討會論文</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">20+</div>
+                        <div class="label">專書著作</div>
+                    </div>
+                </div>
+                
+                <h4 style="color: #1e3c72; margin-top: 20px;">🏆 重要獲獎與榮譽</h4>
+                <ul style="margin-top: 10px; padding-left: 20px; color: #555;">
+                    <li>全球前2%頂尖科學家</li>
+                    <li>113年教育部師鐸獎</li>
+                    <li>科技部研究計畫主持人多次</li>
+                    <li>指導多名學生獲得學術研究獎</li>
+                </ul>
+                
+                <div class="contact-info">
+                    <div class="contact-item">✉️ <span>信箱：</span>luarn@mail.ntust.edu.tw</div>
+                </div>
+            </div>
+            
+            <h2 class="section-title" id="chen">🎓 陳正綱 Cheng-Kang Chen - 教授</h2>
+            <div class="professor-card">
+                <div class="prof-header">
+                    <div class="prof-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">陳</div>
+                    <div class="prof-info">
+                        <h2>陳正綱 教授</h2>
+                        <div class="title">教授（綱哥）</div>
+                        <div class="eng-name">Cheng-Kang Chen</div>
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>🎓 最高學歷</h4>
+                        <p>美國愛荷華州立大學 工業工程博士</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🏢 辦公室</h4>
+                        <p>MA310</p>
+                    </div>
+                </div>
+                
+                <div class="info-item" style="margin-top: 20px;">
+                    <h4>🏛️ 重要經歷</h4>
+                    <ul style="padding-left: 20px; color: #555;">
+                        <li>國立臺灣科技大學 管理學院 教授兼院長</li>
+                        <li>國立臺灣科技大學 資訊管理系 教授兼系主任</li>
+                    </ul>
+                </div>
+                
+                <div class="research-area">
+                    <h4>📚 研究領域</h4>
+                    <div class="tags">
+                        <span class="tag">作業研究</span>
+                        <span class="tag">生產管理資訊系統</span>
+                        <span class="tag">決策支援系統</span>
+                        <span class="tag">供應鏈管理</span>
+                        <span class="tag">存貨管理</span>
+                    </div>
+                </div>
+                
+                <h4 style="color: #1e3c72; margin-top: 20px;">📊 學術表現（精選）</h4>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="number">SCI</div>
+                        <div class="label">頂級期刊發表</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">國際</div>
+                        <div class="label">學術研討會參與</div>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item">📞 <span>電話：</span>(02)2737-6762</div>
+                    <div class="contact-item">✉️ <span>信箱：</span>ckchen@cs.ntust.edu.tw</div>
+                </div>
+                
+                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    ※ 實驗室：計量管理實驗室
+                </p>
+            </div>
+            
+            <h2 class="section-title" id="lai">🎓 賴源正 Yuan-Cheng Lai - 特聘教授</h2>
+            <div class="professor-card">
+                <div class="prof-header">
+                    <div class="prof-avatar" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">賴</div>
+                    <div class="prof-info">
+                        <h2>賴源正 特聘教授</h2>
+                        <div class="title">特聘教授</div>
+                        <div class="eng-name">Yuan-Cheng Lai</div>
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>🎓 最高學歷</h4>
+                        <p>國立交通大學 資訊工程所博士 (1994-1997)</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🏢 辦公室</h4>
+                        <p>MA311</p>
+                    </div>
+                </div>
+                
+                <div class="research-area">
+                    <h4>📚 研究領域</h4>
+                    <div class="tags">
+                        <span class="tag">AI+網路(安全)</span>
+                        <span class="tag">網路+AI</span>
+                        <span class="tag">AI+FINTECH</span>
+                        <span class="tag">資訊網路</span>
+                        <span class="tag">人工智慧</span>
+                    </div>
+                </div>
+                
+                <h4 style="color: #1e3c72; margin-top: 20px;">📚 教授課程</h4>
+                <ul style="margin-top: 10px; padding-left: 20px; color: #555;">
+                    <li>多媒體暨網際網路技術（EMBA）</li>
+                    <li>高速網路、科技研究與論文寫作（研究所）</li>
+                    <li>作業系統、資訊網路、人工智慧（大學部）</li>
+                </ul>
+                
+                <div class="stats" style="margin-top: 20px;">
+                    <div class="stat-item">
+                        <div class="number">AI+網安</div>
+                        <div class="label">研究主軸</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">近期</div>
+                        <div class="label">SCI期刊發表</div>
+                    </div>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item">📞 <span>電話：</span>(02)2737-6794</div>
+                    <div class="contact-item">✉️ <span>信箱：</span>laiyc@cs.ntust.edu.tw</div>
+                </div>
+                
+                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    ※ 實驗室：高速與無線網路實驗室
+                </p>
+            </div>
+            
+            <h2 class="section-title" id="huang">🎓 黃世禎 Sun-Jen Huang - 教授</h2>
+            <div class="professor-card">
+                <div class="prof-header">
+                    <div class="prof-avatar" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">黃</div>
+                    <div class="prof-info">
+                        <h2>黃世禎 教授</h2>
+                        <div class="title">教授</div>
+                        <div class="eng-name">Sun-Jen Huang</div>
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>🎓 最高學歷</h4>
+                        <p>澳洲墨爾本 La Trobe 大學 電腦與軟體工程博士</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🏢 辦公室</h4>
+                        <p>第二教學大樓四樓 T2-407-1</p>
+                    </div>
+                </div>
+                
+                <div class="research-area">
+                    <h4>📚 研究領域</h4>
+                    <div class="tags">
+                        <span class="tag">軟體工程</span>
+                        <span class="tag">軟體專案管理</span>
+                        <span class="tag">敏捷開發</span>
+                        <span class="tag">資訊安全</span>
+                        <span class="tag">CMMI</span>
+                        <span class="tag">雲端服務</span>
+                        <span class="tag">物聯網 AI</span>
+                    </div>
+                </div>
+                
+                <h4 style="color: #1e3c72; margin-top: 20px;">📊 學術表現</h4>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="number">9</div>
+                        <div class="label">博士生指導</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">128</div>
+                        <div class="label">EMBA畢業生</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">84</div>
+                        <div class="label">碩班畢業生</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number">51</div>
+                        <div class="label">研究計畫</div>
+                    </div>
+                </div>
+                
+                <h4 style="color: #1e3c72; margin-top: 20px;">🏆 重要獲獎</h4>
+                <ul style="margin-top: 10px; padding-left: 20px; color: #555;">
+                    <li>臺科大教學傑出獎</li>
+                    <li>指導學生獲得2019台灣服務科學學會學術研究獎佳作</li>
+                    <li>指導學生獲得2018台灣服務科學學會學術研究獎優等獎</li>
+                    <li>IBM SOA 2008開發者新秀大賽亞軍</li>
+                </ul>
+                
+                <div class="contact-info">
+                    <div class="contact-item">📞 <span>電話：</span>(02)2737-6779</div>
+                    <div class="contact-item">✉️ <span>信箱：</span>huangsj@mail.ntust.edu.tw</div>
+                </div>
+                
+                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    ※ 實驗室：軟體工程與管理實驗室 (SEML)<br>
+                    ※ 個人網站：<a href="https://seml-ntust.web.app/" target="_blank">https://seml-ntust.web.app/</a>
+                </p>
+            </div>
+            
+            <h2 class="section-title" id="chou">🎓 周子銓 Tzu-Chuan Chou - 教授（副校長）</h2>
+            <div class="professor-card">
+                <div class="prof-header">
+                    <div class="prof-avatar" style="background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);">周</div>
+                    <div class="prof-info">
+                        <h2>周子銓 教授</h2>
+                        <div class="title">教授兼副校長暨永續發展與校務研究中心主任</div>
+                        <div class="eng-name">Tzu-Chuan Chou</div>
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4>🎓 最高學歷</h4>
+                        <p>英國華威大學商學院(Warwick Business School)作業研究與系統組博士</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🏢 辦公室</h4>
+                        <p>T2 407-2</p>
+                    </div>
+                </div>
+                
+                <div class="info-item" style="margin-top: 20px;">
+                    <h4>🏛️ 重要經歷</h4>
+                    <ul style="padding-left: 20px; color: #555;">
+                        <li>國立臺灣科技大學 主任秘書</li>
+                        <li>國立臺灣科技大學 管理學院 院長</li>
+                        <li>國立臺灣科技大學 資訊管理系 系主任</li>
+                        <li>國立臺灣科技大學 科技管理所 所長</li>
+                        <li>台灣商管學院聯合會理事</li>
+                    </ul>
+                </div>
+                
+                <div class="research-area">
+                    <h4>📚 研究領域</h4>
+                    <div class="tags">
+                        <span class="tag">數位化賦能</span>
+                        <span class="tag">創新商業模式</span>
+                        <span class="tag">社會創新</span>
+                        <span class="tag">資訊科技管理</span>
+                        <span class="tag">知識管理</span>
+                        <span class="tag">個案研究法</span>
+                    </div>
+                </div>
+                
+                <h4 style="color: #1e3c72; margin-top: 20px;">📚 教授課程</h4>
+                <ul style="margin-top: 10px; padding-left: 20px; color: #555;">
+                    <li>個案分析與寫作、科技賦能與數位轉型管理（EMBA）</li>
+                    <li>個案研究、數位轉型管理、資訊科技管理（研究所）</li>
+                    <li>新商務菁英講座、創意與領導（EMBA）</li>
+                </ul>
+                
+                <div class="contact-info">
+                    <div class="contact-item">📞 <span>電話：</span>(02)2730-1268</div>
+                    <div class="contact-item">✉️ <span>信箱：</span>tcchou@mail.ntust.edu.tw</div>
+                </div>
+                
+                <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
+                    ※ 實驗室：數位化賦能研究
+                </p>
+            </div>
+            
+            <h2 class="section-title" id="yang">🎓 楊傳凱 Chuan-Kai Yang - 教授（副院長）</h2>
+            <div class="professor-card">
+                <div class="prof-header">
+                    <div class="prof-avatar" style="background: linear-gradient(135deg, #fddb92 0%, #d1fdff 100%);">楊</div>
+                    <div class="prof-info">
+                        <h2>楊傳凱 教授</h2>
+                        <div class="title">教授兼管理學院副院長</div>
+                        <div class="eng-name">Chuan-Kai Yang</div>
+                    </div>
+                </div>
+                
+                <div class="research-area">
+                    <h4>📚 研究領域</h4>
+                    <div class="tags">
+                        <span class="tag">多媒體系統</span>
+                        <span class="tag">電腦繪圖</span>
+                        <span class="tag">科學視覺化</span>
+                        <span class="tag">演算法</span>
+                        <span class="tag">計算幾何</span>
+                    </div>
+                </div>
+                
+                <h4 style="color: #1e3c72; margin-top: 20px;">📚 教授課程</h4>
+                <ul style="margin-top: 10px; padding-left: 20px; color: #555;">
+                    <li>多媒體暨網際網路技術</li>
+                    <li>卓越經營管理專題（EMBA）</li>
+                </ul>
+            </div>
+            
+            <h2 class="section-title" id="summary">📊 資料總整理</h2>
+            <div class="professor-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>職稱</th>
+                            <th>研究領域</th>
+                            <th>學歷</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>吳宗成</strong></td>
+                            <td>特聘教授</td>
+                            <td>密碼學、資訊安全</td>
+                            <td>交通大學資工博士</td>
+                        </tr>
+                        <tr>
+                            <td><strong>盧希鵬</strong></td>
+                            <td>特聘教授</td>
+                            <td>電子商務、網路行銷、隨經濟</td>
+                            <td>威斯康辛大學工業工程博士</td>
+                        </tr>
+                        <tr>
+                            <td><strong>陳正綱</strong></td>
+                            <td>教授</td>
+                            <td>作業研究、生產管理資訊系統</td>
+                            <td>愛荷華州立大學工業工程博士</td>
+                        </tr>
+                        <tr>
+                            <td><strong>賴源正</strong></td>
+                            <td>特聘教授</td>
+                            <td>AI+網路安全、AI+FINTECH</td>
+                            <td>交通大學資工博士</td>
+                        </tr>
+                        <tr>
+                            <td><strong>黃世禎</strong></td>
+                            <td>教授</td>
+                            <td>軟體工程、敏捷開發、CMMI</td>
+                            <td>La Trobe大學電腦與軟體工程博士</td>
+                        </tr>
+                        <tr>
+                            <td><strong>周子銓</strong></td>
+                            <td>教授（副校長）</td>
+                            <td>數位化賦能、創新商業模式</td>
+                            <td>英國華威大學商學院博士</td>
+                        </tr>
+                        <tr>
+                            <td><strong>楊傳凱</strong></td>
+                            <td>教授（副院長）</td>
+                            <td>多媒體系統、電腦繪圖、演算法</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin-top: 30px; border-left: 4px solid #ffc107;">
+                <h4 style="color: #856404;">⚠️ 重要提醒</h4>
+                <p style="color: #856404; margin-top: 10px;">本報告資料來源為臺科大資管系官方網站，詳細資料可能隨時間更新。建議直接前往<a href="https://www.cs.ntust.edu.tw/" target="_blank" style="color: #0563d4;">系所官方網站</a>確認最新資訊。</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🦞 報告製作：台科小小斌 AI 助理 | 國立臺灣科技大學資訊管理系</p>
+            <p style="margin-top: 5px; opacity: 0.8;">本報告僅供學術參考使用</p>
+        </div>
+    </div>
+</body>
+</html>

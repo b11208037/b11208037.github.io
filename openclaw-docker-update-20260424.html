@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Docker 部署對照表（2026-04 更新）</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #24292f; line-height: 1.6; padding: 2rem; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { font-size: 1.5rem; margin-bottom: 0.5rem; color: #0969da; }
+    .subtitle { color: #57606a; margin-bottom: 2rem; font-size: 0.9rem; }
+    .change-card { background: #fff; border: 1px solid #d1d9e0; border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; }
+    .change-card.warning { border-left: 4px solid #d1242f; }
+    .change-card.update { border-left: 4px solid #1a7f37; }
+    .change-card.info { border-left: 4px solid #0969da; }
+    .change-card.new { border-left: 4px solid #8250df; }
+    .label { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .label-warning { background: #ffebe9; color: #d1242f; }
+    .label-update { background: #dafbe1; color: #1a7f37; }
+    .label-info { background: #ddf4ff; color: #0969da; }
+    .label-new { background: #fbefff; color: #8250df; }
+    h3 { font-size: 1rem; margin-bottom: 0.75rem; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.75rem; }
+    .col { background: #f6f8fa; border-radius: 6px; padding: 0.75rem; }
+    .col-label { font-size: 0.7rem; font-weight: 600; color: #57606a; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .old { color: #d1242f; text-decoration: line-through; }
+    .new { color: #1a7f37; font-weight: 500; }
+    code { background: #eff1f3; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; font-family: 'SFMono-Regular', Consolas, monospace; }
+    pre { background: #24292f; color: #e6edf3; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; margin-top: 0.75rem; }
+    pre .comment { color: #8b949e; }
+    pre .cmd { color: #79c0ff; }
+    pre .str { color: #a5d6ff; }
+    p { margin-bottom: 0.5rem; }
+    .note { background: #fff8c5; border: 1px solid #e3b000; border-radius: 6px; padding: 0.75rem; font-size: 0.85rem; margin-top: 1rem; }
+    .footer { text-align: center; color: #57606a; font-size: 0.8rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #d1d9e0; }
+    @media (max-width: 600px) { .row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<h1>⚠️ OpenClaw Docker 部署：過期資訊修正對照表</h1>
+<p class="subtitle">資料來源：ohya.co 原文（2 個月前） vs. 官方 docs.openclaw.ai（2026-04 最新）</p>
+
+<!-- 1. 腳本路徑 -->
+<div class="change-card warning">
+  <span class="label label-warning">⚡ 需要修改</span>
+  <h3>1. 自動化腳本路徑已變更</h3>
+  <div class="row">
+    <div class="col">
+      <div class="col-label">原文（過期）</div>
+      <code>./docker-setup.sh</code>
+    </div>
+    <div class="col">
+      <div class="col-label">現在是</div>
+      <code>./scripts/docker/setup.sh</code>
+    </div>
+  </div>
+  <p>腳本位置從 repo 根目錄改到了 <code>scripts/docker/</code> 子目錄。記得先進入 repo 再執行。</p>
+</div>
+
+<!-- 2. Node 版本 -->
+<div class="change-card warning">
+  <span class="label label-warning">⚡ 需要修改</span>
+  <h3>2. Node.js 版本更新（22 → 24）</h3>
+  <div class="row">
+    <div class="col">
+      <div class="col-label">原文（過期）</div>
+      <p>需要 <span class="old">Node.js 22 以上版本</span></p>
+      <p>Docker 映像基於 <span class="old">node:22-bookworm</span></p>
+    </div>
+    <div class="col">
+      <div class="col-label">現在是</div>
+      <p>映像基於 <span class="new">node:24-bookworm</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 官方 Image -->
+<div class="change-card update">
+  <span class="label label-update">✅ 已過時</span>
+  <h3>3. 官方 Docker 映像已存在！</h3>
+  <p>原文說「官方不提供預建的 Docker image，Docker Hub 上沒有 <code>openclaw/openclaw:latest</code>」，這個資訊<strong>已經過時了</strong>。</p>
+  <p>現在有官方預建映像，可以直接使用 <code>ghcr.io/openclaw/openclaw:latest</code>，<strong>不需要自己 build</strong>。</p>
+  <pre><span class="comment"># 使用預建映像（推薦）</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_IMAGE</span>=<span class="str">"ghcr.io/openclaw/openclaw:latest"</span>
+<span class="cmd">./scripts/docker/setup.sh</span></pre>
+  <p>常見標籤：<code>main</code>、<code>latest</code>、<code>2026.2.26</code> 等版本號</p>
+</div>
+
+<!-- 4. 環境變數更新 -->
+<div class="change-card info">
+  <span class="label label-info">📝 補充</span>
+  <h3>4. 新增環境變數</h3>
+  <p>相較原文，官方文件多了以下變數：</p>
+  <table style="width:100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.85rem;">
+    <tr style="background:#f6f8fa;">
+      <th style="padding: 6px 10px; text-align: left; border: 1px solid #d1d9e0;">環境變數</th>
+      <th style="padding: 6px 10px; text-align: left; border: 1px solid #d1d9e0;">用途</th>
+    </tr>
+    <tr><td style="padding: 6px 10px; border: 1px solid #d1d9e0;"><code>OPENCLAW_IMAGE</code></td><td style="padding: 6px 10px; border: 1px solid #d1d9e0;">使用遠端預建映像（不用本地 build）</td></tr>
+    <tr><td style="padding: 6px 10px; border: 1px solid #d1d9e0;"><code>OPENCLAW_EXTENSIONS</code></td><td style="padding: 6px 10px; border: 1px solid #d1d9e0;">建構時預先安裝插件依賴</td></tr>
+    <tr><td style="padding: 6px 10px; border: 1px solid #d1d9e0;"><code>OPENCLAW_SANDBOX</code></td><td style="padding: 6px 10px; border: 1px solid #d1d9e0;">啟用 Agent 沙箱（值：1, true, yes, on）</td></tr>
+    <tr><td style="padding: 6px 10px; border: 1px solid #d1d9e0;"><code>OPENCLAW_DOCKER_SOCKET</code></td><td style="padding: 6px 10px; border: 1px solid #d1d9e0;">覆寫 Docker socket 路徑（rootless Docker 用）</td></tr>
+    <tr><td style="padding: 6px 10px; border: 1px solid #d1d9e0;"><code>OPENCLAW_GATEWAY_BIND</code></td><td style="padding: 6px 10px; border: 1px solid #d1d9e0;">設定绑定模式（lan / loopback / tailnet / auto）</td></tr>
+  </table>
+</div>
+
+<!-- 5. ClawDock -->
+<div class="change-card new">
+  <span class="label label-new">🆕 新功能</span>
+  <h3>5. ClawDock - Docker 管理輔助工具（新！）</h3>
+  <p>官方現在有提供方便的 Shell 輔助工具：</p>
+  <pre><span class="cmd">mkdir</span> -p ~/.clawdock
+<span class="cmd">curl</span> -sL https://raw.githubusercontent.com/openclaw/openclaw/main/scripts/clawdock/clawdock-helpers.sh \
+  -o ~/.clawdock/clawdock-helpers.sh
+<span class="cmd">echo</span> <span class="str">'source ~/.clawdock/clawdock-helpers.sh'</span> >> ~/.zshrc
+<span class="cmd">source</span> ~/.zshrc</pre>
+  <p>之後可用 <code>clawdock-start</code>、<code>clawdock-stop</code>、<code>clawdock-dashboard</code> 等指令管理 Docker。</p>
+</div>
+
+<!-- 6. 健康檢查 -->
+<div class="change-card info">
+  <span class="label label-info">📝 補充</span>
+  <h3>6. 新增健康檢查端點</h3>
+  <pre><span class="comment"># 存活探針</span>
+<span class="cmd">curl</span> -fsS http://127.0.0.1:18789/healthz
+
+<span class="comment"># 就緒探針</span>
+<span class="cmd">curl</span> -fsS http://127.0.0.1:18789/readyz
+
+<span class="comment"># 詳細健康報告（需 Token）</span>
+<span class="cmd">docker compose exec</span> openclaw-gateway <span class="cmd">node dist/index.js health</span> \
+  --token <span class="str">"$OPENCLAW_GATEWAY_TOKEN"</span></pre>
+</div>
+
+<!-- 7. Agent Sandbox -->
+<div class="change-card new">
+  <span class="label label-new">🆕 新功能</span>
+  <h3>7. Agent 沙箱功能已可用</h3>
+  <p>現在可以為 Agent 啟用隔離的 Docker 容器執行環境，加強安全性。</p>
+  <pre><span class="comment"># 啟用沙箱</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_SANDBOX</span>=<span class="str">1</span>
+<span class="cmd">./scripts/docker/setup.sh</span>
+
+<span class="comment"># 建構沙箱映像</span>
+<span class="cmd">scripts/sandbox-setup.sh</span></pre>
+  <p>支援三種模式：<code>off</code>（關閉）、<code>non-main</code>（非主要代理）、<code>all</code>（全部）</p>
+</div>
+
+<!-- 8. 記憶體需求 -->
+<div class="change-card info">
+  <span class="label label-info">📝 補充</span>
+  <h3>8. 建構記憶體需求更明確</h3>
+  <p>官方文件指出：映像建構需要<strong>至少 2 GB RAM</strong>，在 1 GB 主機上 <code>pnpm install</code> 可能會被 OOM kill（exit 137）。</p>
+  <p>建議使用 4 GB+ 的機器來建構。</p>
+</div>
+
+<!-- 修正後的完整流程 -->
+<div class="change-card" style="border-left: 4px solid #0969da;">
+  <span class="label label-info">📋 修正後的 Docker 部署流程</span>
+  <h3>Step 1：安裝 Docker 與 Docker Compose（如尚未安裝）</h3>
+  <pre><span class="comment"># Ubuntu</span>
+<span class="cmd">sudo apt update</span>
+<span class="cmd">sudo apt install</span> -y docker.io docker-compose-plugin
+<span class="cmd">sudo usermod</span> -aG docker <span class="str">$USER</span>
+<span class="cmd">newgrp docker</span>
+
+<span class="comment"># 確認版本</span>
+<span class="cmd">docker --version</span>
+<span class="cmd">docker compose version</span></pre>
+
+  <h3>Step 2：Clone 並執行（使用新路徑）</h3>
+  <pre><span class="comment"># Clone 官方 repo</span>
+<span class="cmd">git clone</span> https://github.com/openclaw/openclaw.git
+<span class="cmd">cd</span> openclaw
+
+<span class="comment"># （可選）使用預建映像，省去本地建構</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_IMAGE</span>=<span class="str">"ghcr.io/openclaw/openclaw:latest"</span>
+
+<span class="comment"># 執行自動化腳本（新路徑！）</span>
+<span class="cmd">chmod +x ./scripts/docker/setup.sh</span>
+<span class="cmd">./scripts/docker/setup.sh</span></pre>
+
+  <h3>Step 3：開啟 Control UI</h3>
+  <pre>http://127.0.0.1:18789/</pre>
+  <p>貼上 setup 產生的 Gateway Token 即可連線。</p>
+
+  <h3>Step 4：（建議）設定持久化</h3>
+  <pre><span class="comment"># 設定持久化 Volume，確保資料不會因容器重建消失</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_HOME_VOLUME</span>=<span class="str">openclaw-home</span>
+<span class="cmd">./scripts/docker/setup.sh</span></pre>
+</div>
+
+<!-- 注意事項 -->
+<div class="note">
+  <strong>⚠️ 重要提醒：</strong>如果你的文章是給別人看的教學，強烈建議更新腳本路徑（<code>./docker-setup.sh</code> → <code>./scripts/docker/setup.sh</code>）和 Node 版本說明。這兩處最容易被引用而踩坑。
+</div>
+
+<div class="footer">
+  對照日期：2026-04-24｜原文：ohya.co/blog/openclaw-docker-deploy-guide｜官方：docs.openclaw.ai/install/docker
+</div>
+
+</div>
+
+<!-- ============================================= -->
+<!-- 📋 完整指令總整理 -->
+<!-- ============================================= -->
+<div class="container" style="margin-top: 3rem;">
+
+<h1 style="border-bottom: 3px solid #0969da; padding-bottom: 0.5rem;">📋 OpenClaw Docker 部署 — 完整指令總整理</h1>
+<p class="subtitle">快速複製使用，建議從頭到尾看過一次再執行</p>
+
+<!-- 環境準備 -->
+<div class="change-card info">
+  <span class="label label-info">Step 0</span>
+  <h3>環境準備 — 安裝 Docker（如尚未安裝）</h3>
+  <pre><span class="comment"># === Ubuntu ===</span>
+<span class="cmd">sudo apt update</span>
+<span class="cmd">sudo apt install</span> -y docker.io docker-compose-plugin
+<span class="cmd">sudo usermod</span> -aG docker <span class="str">$USER</span>
+<span class="cmd">newgrp docker</span>
+
+<span class="comment"># 確認版本</span>
+<span class="cmd">docker --version</span>
+<span class="cmd">docker compose version</span>
+
+<span class="comment"># === macOS ===</span>
+<span class="comment"># 下載 Docker Desktop：https://www.docker.com/products/docker-desktop/</span>
+
+<span class="comment"># === Windows ===</span>
+<span class="comment"># 啟用 WSL2 → 安裝 Docker Desktop</span></pre>
+</div>
+
+<!-- 基本部署 -->
+<div class="change-card update">
+  <span class="label label-update">Step 1</span>
+  <h3>基本部署（使用預建映像，省去本地建構）</h3>
+  <pre><span class="comment"># Clone 官方 repo</span>
+<span class="cmd">git clone</span> https://github.com/openclaw/openclaw.git
+<span class="cmd">cd</span> openclaw
+
+<span class="comment"># 使用預建映像（推薦，省時間）</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_IMAGE</span>=<span class="str">"ghcr.io/openclaw/openclaw:latest"</span>
+
+<span class="comment"># 執行自動化腳本</span>
+<span class="cmd">chmod +x ./scripts/docker/setup.sh</span>
+<span class="cmd">./scripts/docker/setup.sh</span></pre>
+</div>
+
+<!-- 本地建構（選用） -->
+<div class="change-card" style="border-left: 4px solid #8250df;">
+  <span class="label label-new">Step 1（選用）</span>
+  <h3>本地建構映像（不用預建，自己 build）</h3>
+  <pre><span class="comment"># 不設 OPENCLAW_IMAGE，直接跑腳本即可自動建構</span>
+<span class="cmd">chmod +x ./scripts/docker/setup.sh</span>
+<span class="cmd">./scripts/docker/setup.sh</span></pre>
+</div>
+
+<!-- 連線 -->
+<div class="change-card info">
+  <span class="label label-info">Step 2</span>
+  <h3>開啟 Control UI</h3>
+  <pre>http://127.0.0.1:18789/</pre>
+  <p>在網頁貼上 setup 產生的 Gateway Token 即可連線。</p>
+  <pre><span class="comment"># 若忘記 Token，重新取得</span>
+<span class="cmd">docker compose run --rm openclaw-cli dashboard --no-open</span></pre>
+</div>
+
+<!-- 完整範例（含持久化） -->
+<div class="change-card" style="border-left: 4px solid #0969da;">
+  <span class="label label-info">✅ 推薦：完整部署範例</span>
+  <h3>一次搞定持久化 + 預建映像 + 自動化設定</h3>
+  <pre><span class="comment"># Clone 並進入目錄</span>
+<span class="cmd">git clone</span> https://github.com/openclaw/openclaw.git
+<span class="cmd">cd</span> openclaw
+
+<span class="comment"># 設定環境變數</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_IMAGE</span>=<span class="str">"ghcr.io/openclaw/openclaw:latest"</span>  <span class="comment"># 使用預建映像</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_HOME_VOLUME</span>=<span class="str">"openclaw-home"</span>           <span class="comment"># 資料持久化</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_GATEWAY_BIND</span>=<span class="str">"lan"</span>               <span class="comment"># 可從同網域其他裝置存取</span>
+
+<span class="comment"># 執行</span>
+<span class="cmd">chmod +x ./scripts/docker/setup.sh</span>
+<span class="cmd">./scripts/docker/setup.sh</span>
+
+<span class="comment"># 完成後開啟瀏覽器</span>
+<span class="comment"># http://<你的主機IP>:18789/</span></pre>
+</div>
+
+<!-- 額外掛載（選用） -->
+<div class="change-card" style="border-left: 4px solid #8250df;">
+  <span class="label label-new">（選用）</span>
+  <h3>掛載額外主機目錄</h3>
+  <pre><span class="cmd">export</span> <span class="str">OPENCLAW_EXTRA_MOUNTS</span>=<span class="str">"$HOME/my-projects:/home/node/projects:rw"</span>
+<span class="cmd">./scripts/docker/setup.sh</span>
+
+<span class="comment"># 以後啟動要加 docker-compose.extra.yml</span>
+<span class="cmd">docker compose</span> \
+  -f docker-compose.yml -f docker-compose.extra.yml \
+  up -d</pre>
+</div>
+
+<!-- ClawDock -->
+<div class="change-card new">
+  <span class="label label-new">🆕 推薦安裝</span>
+  <h3>ClawDock 輔助工具（方便日後管理）</h3>
+  <pre><span class="cmd">mkdir</span> -p ~/.clawdock
+<span class="cmd">curl</span> -sL https://raw.githubusercontent.com/openclaw/openclaw/main/scripts/clawdock/clawdock-helpers.sh \
+  -o ~/.clawdock/clawdock-helpers.sh
+<span class="cmd">echo</span> <span class="str">'source ~/.clawdock/clawdock-helpers.sh'</span> >> ~/.zshrc
+<span class="cmd">source</span> ~/.zshrc</pre>
+  <p>之後可用：<code>clawdock-start</code>、<code>clawdock-stop</code>、<code>clawdock-dashboard</code>、<code>clawdock-help</code></p>
+</div>
+
+<!-- 常用管理指令 -->
+<div class="change-card" style="border-left: 4px solid #0969da;">
+  <span class="label label-info">日常管理</span>
+  <h3>常用維運指令</h3>
+  <pre><span class="comment"># 查看服務狀態</span>
+<span class="cmd">docker compose ps</span>
+
+<span class="comment"># 查看即時日誌</span>
+<span class="cmd">docker compose logs -f</span>
+
+<span class="comment"># 停止服務</span>
+<span class="cmd">docker compose down</span>
+
+<span class="comment"># 重新啟動</span>
+<span class="cmd">docker compose up -d</span>
+
+<span class="comment"># 健康檢查</span>
+<span class="cmd">curl</span> -fsS http://127.0.0.1:18789/healthz
+<span class="cmd">curl</span> -fsS http://127.0.0.1:18789/readyz</span></pre>
+</div>
+
+<!-- 更新 -->
+<div class="change-card" style="border-left: 4px solid #0969da;">
+  <span class="label label-info">更新</span>
+  <h3>更新到新版本</h3>
+  <pre><span class="comment"># 進入 repo，拉最新程式碼</span>
+<span class="cmd">cd</span> openclaw
+<span class="cmd">git pull origin main</span>
+
+<span class="comment"># 停止舊容器</span>
+<span class="cmd">docker compose down</span>
+
+<span class="comment"># 重新建構並啟動</span>
+<span class="cmd">./scripts/docker/setup.sh</span>
+
+<span class="comment"># 若有設持久化，資料會保留</span></pre>
+</div>
+
+<!-- 疑難排解 -->
+<div class="change-card warning">
+  <span class="label label-warning">⚠️ 疑難排解</span>
+  <h3>常見問題快速查詢</h3>
+  <pre><span class="comment"># Q1：權限錯誤 → 把自己加入 docker 群組</span>
+<span class="cmd">sudo usermod</span> -aG docker <span class="str">$USER</span>
+<span class="cmd">newgrp docker</span>
+
+<span class="comment"># Q2：忘記 Gateway Token → 重新取得</span>
+<span class="cmd">docker compose run --rm openclaw-cli dashboard --no-open</span>
+
+<span class="comment"># Q3：更換 Port（如 18789 被佔用）</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_GATEWAY_PORT</span>=<span class="str">19000</span>
+<span class="cmd">./scripts/docker/setup.sh</span>
+
+<span class="comment"># Q4：容器重啟後資料不見 → 設定持久化 Volume</span>
+<span class="cmd">export</span> <span class="str">OPENCLAW_HOME_VOLUME</span>=<span class="str">openclaw-home</span>
+<span class="cmd">./scripts/docker/setup.sh</span>
+
+<span class="comment"># Q5：建構失敗、OOM（記憶體不足）→ 升級機器的 RAM 到 4GB+</span>
+
+<span class="comment"># Q6：Unauthorized / pairing required → 重新取 Token 並 approve 裝置</span>
+<span class="cmd">docker compose run --rm openclaw-cli dashboard --no-open</span>
+<span class="cmd">docker compose run --rm openclaw-cli devices list</span>
+<span class="cmd">docker compose run --rm openclaw-cli devices approve</span> <span class="str">&lt;requestId&gt;</span></pre>
+</div>
+
+<div class="footer">
+  對照日期：2026-04-24｜原文：ohya.co/blog/openclaw-docker-deploy-guide｜官方：docs.openclaw.ai/install/docker
+</div>
+
+</div>
+
+</body>
+</html>
