@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Pin Luarn - Academic Profile</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+        .card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h1 { color: #2c3e50; margin-top: 0; }
+        .highlight { color: #e67e22; font-weight: bold; }
+        #graph { width: 100%; height: 400px; border: 1px solid #ddd; background: #fff; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>欒斌 教授 (Prof. Pin Luarn)</h1>
+        <p>國立臺灣科技大學 管理學院 教授</p>
+        <p>研究領域：<span class="highlight">人工智慧技術與應用、電子商務、網路行銷</span></p>
+        <p>榮譽：<span class="highlight">2024 總統頒發全國師鐸獎</span> | <span class="highlight">全球前 2% 頂尖科學家 (2020-2025)</span></p>
+    </div>
+
+    <div class="card">
+        <h2>學術網路關聯圖</h2>
+        <div id="graph"></div>
+    </div>
+
+    <script>
+        const data = {
+            nodes: [
+                {id: "欒斌", group: 1},
+                {id: "AI 技術與應用", group: 2},
+                {id: "電子商務", group: 2},
+                {id: "網路行銷", group: 2},
+                {id: "台科大", group: 3},
+                {id: "師鐸獎", group: 4},
+                {id: "頂尖科學家", group: 4}
+            ],
+            links: [
+                {source: "欒斌", target: "AI 技術與應用"},
+                {source: "欒斌", target: "電子商務"},
+                {source: "欒斌", target: "網路行銷"},
+                {source: "欒斌", target: "台科大"},
+                {source: "欒斌", target: "師鐸獎"},
+                {source: "欒斌", target: "頂尖科學家"}
+            ]
+        };
+
+        const svg = d3.select("#graph").append("svg").attr("width", "100%").attr("height", "100%");
+        const simulation = d3.forceSimulation(data.nodes)
+            .force("link", d3.forceLink(data.links).id(d => d.id))
+            .force("charge", d3.forceManyBody().strength(-300))
+            .force("center", d3.forceCenter(400, 200));
+
+        const link = svg.append("g").selectAll("line").data(data.links).enter().append("line").style("stroke", "#999");
+        const node = svg.append("g").selectAll("circle").data(data.nodes).enter().append("circle").attr("r", 10).style("fill", "#3498db");
+        const label = svg.append("g").selectAll("text").data(data.nodes).enter().append("text").text(d => d.id).attr("font-size", "12px").attr("dx", 12).attr("dy", 4);
+
+        simulation.on("tick", () => {
+            link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+            node.attr("cx", d => d.x).attr("cy", d => d.y);
+            label.attr("x", d => d.x).attr("y", d => d.y);
+        });
+    </script>
+</body>
+</html>
