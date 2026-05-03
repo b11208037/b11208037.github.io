@@ -2,56 +2,69 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>Prof. Pin Luarn - Academic Impact Network</title>
+    <title>Academic Impact Profile: Prof. Pin Luarn</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #0f172a; color: #f8fafc; padding: 40px; }
-        .container { max-width: 1000px; margin: auto; }
-        h1 { border-bottom: 1px solid #334155; padding-bottom: 20px; color: #38bdf8; }
-        #graph { width: 100%; height: 700px; background: #1e293b; border-radius: 12px; }
-        .node { stroke: #fff; stroke-width: 1.5px; }
-        .link { stroke: #475569; stroke-opacity: 0.6; }
-        .label { fill: #cbd5e1; font-size: 12px; pointer-events: none; }
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #f8fafc; color: #1e293b; padding: 40px; line-height: 1.6; }
+        .container { max-width: 900px; margin: auto; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { color: #0f172a; margin-top: 0; }
+        .data-section { margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; border: 1px solid #e2e8f0; text-align: left; }
+        th { background: #f1f5f9; }
+        #graph { width: 100%; height: 500px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>學術影響力關聯圖：欒斌 教授</h1>
+        <h1>Prof. Pin Luarn (欒斌 教授) - Academic Impact Data</h1>
+        
+        <div class="data-section">
+            <h2>Key Citation Metrics</h2>
+            <table>
+                <tr><th>Metric</th><th>Value</th></tr>
+                <tr><td>Total Citations</td><td>8,308</td></tr>
+                <tr><td>Affiliation</td><td>National Taiwan University of Science & Technology</td></tr>
+                <tr><td>Research Fields</td><td>Internet Marketing, Electronic Commerce, Social Network Marketing</td></tr>
+            </table>
+        </div>
+
+        <h2>Academic Influence Network</h2>
         <div id="graph"></div>
     </div>
-    <script>
-        const nodes = [
-            {id: "欒斌", group: 1, type: "Prof"},
-            {id: "電子商務 (e-Commerce)", group: 2, type: "Topic"},
-            {id: "網路行銷 (Internet Marketing)", group: 2, type: "Topic"},
-            {id: "社群網路行銷 (Social Network Marketing)", group: 2, type: "Topic"},
-            {id: "資訊擴散 (Information Diffusion)", group: 3, type: "Field"},
-            {id: "消費者行為", group: 3, type: "Field"},
-            {id: "台科大 (NTUST)", group: 4, type: "Affiliation"}
-        ];
-        const links = [
-            {source: "欒斌", target: "電子商務 (e-Commerce)"},
-            {source: "欒斌", target: "網路行銷 (Internet Marketing)"},
-            {source: "欒斌", target: "社群網路行銷 (Social Network Marketing)"},
-            {source: "欒斌", target: "台科大 (NTUST)"},
-            {source: "電子商務 (e-Commerce)", target: "資訊擴散 (Information Diffusion)"},
-            {source: "網路行銷 (Internet Marketing)", target: "消費者行為"},
-            {source: "社群網路行銷 (Social Network Marketing)", target: "資訊擴散 (Information Diffusion)"}
-        ];
 
-        const width = 1000, height = 700;
+    <script>
+        const data = {
+            nodes: [
+                {id: "Pin Luarn", group: 1},
+                {id: "Internet Marketing", group: 2},
+                {id: "Electronic Commerce", group: 2},
+                {id: "Social Network Marketing", group: 2},
+                {id: "Information Diffusion", group: 3},
+                {id: "Consumer Behavior", group: 3}
+            ],
+            links: [
+                {source: "Pin Luarn", target: "Internet Marketing"},
+                {source: "Pin Luarn", target: "Electronic Commerce"},
+                {source: "Pin Luarn", target: "Social Network Marketing"},
+                {source: "Internet Marketing", target: "Consumer Behavior"},
+                {source: "Social Network Marketing", target: "Information Diffusion"}
+            ]
+        };
+
+        const width = 900, height = 500;
         const svg = d3.select("#graph").append("svg").attr("width", width).attr("height", height);
-        const simulation = d3.forceSimulation(nodes)
-            .force("link", d3.forceLink(links).id(d => d.id).distance(150))
-            .force("charge", d3.forceManyBody().strength(-500))
+        const simulation = d3.forceSimulation(data.nodes)
+            .force("link", d3.forceLink(data.links).id(d => d.id).distance(150))
+            .force("charge", d3.forceManyBody().strength(-600))
             .force("center", d3.forceCenter(width / 2, height / 2));
 
-        const link = svg.append("g").selectAll("line").data(links).enter().append("line").attr("class", "link");
-        const node = svg.append("g").selectAll("circle").data(nodes).enter().append("circle").attr("class", "node").attr("r", 15).style("fill", d => d.group === 1 ? "#38bdf8" : "#fb7185")
+        const link = svg.append("g").selectAll("line").data(data.links).enter().append("line").style("stroke", "#cbd5e1");
+        const node = svg.append("g").selectAll("circle").data(data.nodes).enter().append("circle").attr("r", 15).style("fill", d => d.group === 1 ? "#0f172a" : "#38bdf8")
             .call(d3.drag().on("start", (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
             .on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; }).on("end", (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
         
-        const label = svg.append("g").selectAll("text").data(nodes).enter().append("text").attr("class", "label").text(d => d.id).attr("dx", 18).attr("dy", 4);
+        const label = svg.append("g").selectAll("text").data(data.nodes).enter().append("text").text(d => d.id).attr("font-size", "14px").attr("dx", 20).attr("dy", 5);
 
         simulation.on("tick", () => {
             link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
