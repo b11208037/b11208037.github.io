@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .links line { stroke: #999; stroke-opacity: 0.6; }
+        .nodes circle { stroke: #fff; stroke-width: 1.5px; }
+        text { font-family: sans-serif; font-size: 10px; pointer-events: none; }
+    </style>
+</head>
+<body>
+<svg width="960" height="600"></svg>
+<script>
+    const data = {
+        nodes: [
+            { id: "Pin Luarn", group: 1 },
+            { id: "Toward mobile banking", group: 2, val: 3459 },
+            { id: "Predicting mobile service", group: 2, val: 1135 },
+            { id: "Customer loyalty e-service", group: 2, val: 897 },
+            { id: "FB brand-page posts", group: 2, val: 660 },
+            { id: "PSO flowshop scheduling", group: 2, val: 591 },
+            { id: "Gamification motivation", group: 2, val: 160 },
+            { id: "Xiaomi fan-centric", group: 2, val: 127 },
+            { id: "SERVQUAL model", group: 2, val: 126 },
+            { id: "Network effect dissemination", group: 2, val: 123 },
+            { id: "Internet book reviews", group: 2, val: 104 }
+        ],
+        links: [
+            { source: "Pin Luarn", target: "Toward mobile banking" },
+            { source: "Pin Luarn", target: "Predicting mobile service" },
+            { source: "Pin Luarn", target: "Customer loyalty e-service" },
+            { source: "Pin Luarn", target: "FB brand-page posts" },
+            { source: "Pin Luarn", target: "PSO flowshop scheduling" },
+            { source: "Pin Luarn", target: "Gamification motivation" },
+            { source: "Pin Luarn", target: "Xiaomi fan-centric" },
+            { source: "Pin Luarn", target: "SERVQUAL model" },
+            { source: "Pin Luarn", target: "Network effect dissemination" },
+            { source: "Pin Luarn", target: "Internet book reviews" }
+        ]
+    };
+
+    const svg = d3.select("svg"),
+          width = +svg.attr("width"),
+          height = +svg.attr("height");
+
+    const simulation = d3.forceSimulation(data.nodes)
+        .force("link", d3.forceLink(data.links).id(d => d.id))
+        .force("charge", d3.forceManyBody().strength(-300))
+        .force("center", d3.forceCenter(width / 2, height / 2));
+
+    const link = svg.append("g").selectAll("line")
+        .data(data.links).enter().append("line");
+
+    const node = svg.append("g").selectAll("circle")
+        .data(data.nodes).enter().append("circle")
+        .attr("r", d => d.group === 1 ? 10 : (Math.sqrt(d.val || 100) / 2))
+        .attr("fill", d => d.group === 1 ? "red" : "steelblue");
+
+    const label = svg.append("g").selectAll("text")
+        .data(data.nodes).enter().append("text")
+        .text(d => d.id)
+        .attr("x", 12)
+        .attr("y", 3);
+
+    simulation.on("tick", () => {
+        link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+        node.attr("cx", d => d.x).attr("cy", d => d.y);
+        label.attr("x", d => d.x + 8).attr("y", d => d.y + 3);
+    });
+</script>
+</body>
+</html>
