@@ -1,327 +1,727 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>北疆10日行程（第三版）| 新疆之旅</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; background: #f5f7fa; color: #333; line-height: 1.7; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        .hero { position: relative; overflow: hidden; border-radius: 20px; margin-bottom: 30px; }
-        .hero-img { width: 100%; height: 420px; object-fit: cover; display: block; }
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(26,95,122,0.85) 100%);
-            display: flex; flex-direction: column; justify-content: flex-end; padding: 40px;
-        }
-        .hero h1 { font-size: 2.5em; color: white; margin-bottom: 8px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .hero p { color: rgba(255,255,255,0.9); font-size: 1.15em; }
-        .hero .subtitle { background: rgba(255,255,255,0.2); border-radius: 20px; padding: 8px 18px; margin-top: 12px; color: white; display: inline-block; font-size: 0.95em; }
-        .hero .version { background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 15px; margin-top: 10px; display: inline-block; font-size: 0.85em; }
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 25px; }
-        .info-card { background: white; padding: 18px 12px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center; }
-        .info-card .icon { font-size: 1.8em; margin-bottom: 6px; }
-        .info-card .label { color: #888; font-size: 0.8em; }
-        .info-card .value { font-size: 1.1em; font-weight: bold; color: #1a5f7a; }
-        .section { background: white; border-radius: 16px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
-        .section h2 { color: #1a5f7a; margin-bottom: 20px; font-size: 1.35em; display: flex; align-items: center; gap: 10px; }
-        .section h2::before { content: ''; width: 4px; height: 22px; background: linear-gradient(to bottom, #1a5f7a, #159895); border-radius: 2px; }
-        .photo-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
-        .photo-item { border-radius: 10px; overflow: hidden; position: relative; }
-        .photo-item img { width: 100%; height: 120px; object-fit: cover; display: block; transition: transform 0.3s; }
-        .photo-item:hover img { transform: scale(1.05); }
-        .photo-item .photo-tag { position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 8px; background: linear-gradient(to top, rgba(0,0,0,0.75), transparent); color: white; font-size: 0.75em; font-weight: 600; }
-        .star-tag { background: linear-gradient(135deg, #ff6b6b, #ff8e8e); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75em; margin-left: 8px; }
-        .notice { background: linear-gradient(135deg, #ffe8e8, #ffd6d6); border-left: 4px solid #ff6b6b; padding: 15px 18px; border-radius: 8px; margin-bottom: 20px; }
-        .notice-title { color: #c62828; font-weight: bold; margin-bottom: 8px; font-size: 1.05em; }
-        .notice ul { margin-left: 18px; color: #5d4037; }
-        .notice li { margin-bottom: 5px; }
-        .route-map { background: linear-gradient(135deg, #e3f2fd, #e1f5fe); border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center; }
-        .route-map .route-title { color: #1565c0; font-weight: bold; margin-bottom: 10px; }
-        .route-map .route-path { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; color: #333; font-size: 0.95em; }
-        .route-map .route-dot { color: #ff6b6b; font-weight: bold; }
-        .route-map .route-arrow { color: #159895; }
-        .day-card { display: flex; gap: 18px; margin-bottom: 18px; background: #fafbfc; border-radius: 12px; overflow: hidden; border: 1px solid #eee; }
-        .day-num { min-width: 80px; background: linear-gradient(135deg, #1a5f7a, #159895); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px 10px; }
-        .day-num .day { font-size: 1.4em; font-weight: bold; }
-        .day-num .date { font-size: 0.85em; opacity: 0.85; }
-        .day-content { flex: 1; padding: 15px 18px; }
-        .day-content h3 { color: #1a5f7a; margin-bottom: 8px; font-size: 1.1em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .day-content .highlight { background: linear-gradient(135deg, #fff5f5, #ffe8e8); border: 1px solid #ffcccc; padding: 8px 12px; border-radius: 8px; margin: 8px 0; font-size: 0.9em; color: #c62828; }
-        .day-content .highlight-secondary { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); padding: 8px 12px; border-radius: 8px; margin: 8px 0; font-size: 0.9em; color: #2e7d32; }
-        .day-content .desc { color: #555; font-size: 0.9em; margin-bottom: 8px; }
-        .day-content .meals { color: #888; font-size: 0.85em; }
-        .day-content .meals span { margin-right: 12px; }
-        .day-content .day-photo { float: right; width: 140px; height: 90px; object-fit: cover; border-radius: 8px; margin-left: 15px; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .day-content::after { content: ''; display: table; clear: both; }
-        .budget-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .budget-table th, .budget-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
-        .budget-table th { background: linear-gradient(to right, #f8fafc, white); color: #1a5f7a; font-weight: 600; }
-        .budget-table td:nth-child(2) { font-weight: 600; color: #1a5f7a; }
-        .budget-table tr:last-child td { border-bottom: none; }
-        .budget-table .total-row { background: linear-gradient(to right, #e8f5e9, #f0f9f6); font-weight: bold; color: #2e7d32; font-size: 1.1em; }
-        .budget-table .total-row td { border-bottom: none; }
-        .budget-note { margin-top: 12px; color: #888; font-size: 0.85em; }
-        .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-        .tip { background: linear-gradient(135deg, #f8fafc, #f5f9f6); padding: 12px 15px; border-radius: 10px; border-left: 4px solid #159895; }
-        .tip .tip-title { font-weight: bold; color: #1a5f7a; margin-bottom: 4px; font-size: 0.95em; }
-        .tip .tip-text { color: #666; font-size: 0.85em; }
-        .includes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
-        .include-item { display: flex; align-items: center; gap: 8px; background: #f8fafc; padding: 10px 12px; border-radius: 8px; }
-        .include-item .check { color: #159895; font-size: 1.2em; }
-        .include-item .text { color: #333; font-size: 0.9em; }
-        .footer { text-align: center; padding: 35px 25px; background: linear-gradient(135deg, #1a5f7a, #159895); border-radius: 16px; color: white; margin-top: 25px; }
-        .footer .lobster { font-size: 2.5em; margin-bottom: 8px; }
-        .footer h3 { font-size: 1.4em; margin-bottom: 6px; }
-        .footer p { opacity: 0.85; font-size: 0.9em; }
-        .footer .credit { margin-top: 15px; font-size: 0.8em; opacity: 0.6; }
-        .flight-info { background: linear-gradient(135deg, #e8eaf6, #e1f5fe); border-radius: 12px; padding: 15px 18px; margin: 15px 0; }
-        .flight-info .flight-title { color: #1565c0; font-weight: bold; margin-bottom: 8px; }
-        .flight-info .flight-route { display: flex; align-items: center; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .flight-info .flight-code { color: #666; font-size: 0.9em; margin-top: 5px; }
-        @media (max-width: 650px) {
-            .hero h1 { font-size: 1.6em; }
-            .hero-img { height: 260px; }
-            .photo-gallery { grid-template-columns: repeat(2, 1fr); }
-            .day-card { flex-direction: column; }
-            .day-num { flex-direction: row; min-width: auto; padding: 10px 15px; gap: 10px; }
-            .day-content .day-photo { float: none; width: 100%; margin: 10px 0; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北疆秘境・獨庫公路 13日深度之旅 | EMBA校友會專屬</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang TC","Microsoft JhengHei",sans-serif;background:#f5f0eb;color:#333;line-height:1.8}
+.hero{position:relative;min-height:100vh;background:linear-gradient(135deg,#1a3a2a 0%,#2d5a3d 50%,#1a3a2a 100%);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:2rem}
+.hero::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,218.7C672,235,768,245,864,234.7C960,224,1056,192,1152,181.3C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;background-size:cover}
+.hero-content{position:relative;z-index:1;max-width:900px}
+.hero-badge{background:#c8a96e;color:#1a3a2a;padding:.6rem 1.5rem;border-radius:30px;font-size:.9rem;font-weight:600;display:inline-block;margin-bottom:1.5rem}
+.hero h1{font-size:3.5rem;font-weight:700;color:#fff;margin-bottom:.8rem;text-shadow:0 4px 20px rgba(0,0,0,.3)}
+.hero .subtitle{font-size:1.3rem;color:#c8a96e;margin-bottom:.5rem;letter-spacing:2px}
+.hero .subtitle2{font-size:1.1rem;color:rgba(200,169,110,.8);margin-bottom:1.5rem;letter-spacing:2px}
+.hero .organizer{background:rgba(200,169,110,.15);border:1px solid rgba(200,169,110,.4);border-radius:12px;padding:1.2rem 2rem;margin:2rem auto;max-width:600px}
+.hero .organizer p{color:#e8d5a3;font-size:.95rem;line-height:1.8}
+.hero .organizer strong{color:#c8a96e}
+.hero .tags{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+.hero .tag{background:rgba(200,169,110,.2);border:1px solid #c8a96e;color:#c8a96e;padding:.5rem 1.2rem;border-radius:30px;font-size:.85rem}
+.hero .scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:.85rem;animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+section{padding:5rem 0}
+.section-title{text-align:center;margin-bottom:3rem}
+.section-title h2{font-size:2.2rem;color:#1a3a2a;position:relative;display:inline-block}
+.section-title h2::after{content:"";position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:60px;height:3px;background:#c8a96e}
+.section-title p{color:#666;margin-top:1.2rem;font-size:1.05rem}
+.day-card{display:block;background:#fff;border-radius:16px;overflow:hidden;margin-bottom:3rem;box-shadow:0 10px 40px rgba(0,0,0,.08);transition:transform .3s}
+.day-card:hover{transform:translateY(-5px)}
+.day-header{background:linear-gradient(135deg,#1a3a2a,#2d5a3d);color:#fff;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.day-number{font-size:.8rem;opacity:.8;letter-spacing:2px;text-transform:uppercase}
+.day-title{font-size:1.5rem;font-weight:600}
+.day-route{font-size:.85rem;opacity:.7;margin-top:.3rem}
+.day-content{padding:2rem;background:#fff}
+.day-content p{color:#555;margin-bottom:1.5rem;line-height:2}
+.highlights{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1.5rem}
+.highlight-tag{background:#f0ebe3;color:#8b5e3c;padding:.4rem 1rem;border-radius:20px;font-size:.85rem}
+.day-detail{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:768px){.day-detail{grid-template-columns:1fr}}
+.spot-card{background:#faf8f5;border-radius:12px;padding:1.5rem;border-left:4px solid #c8a96e}
+.spot-card img{width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:.8rem}
+.spot-card h4{color:#1a3a2a;font-size:1.1rem;margin-bottom:.8rem}
+.spot-card p{color:#666;font-size:.95rem;line-height:1.8}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2rem;padding-top:2rem;border-top:1px solid #eee}
+.info-item{display:flex;align-items:center;gap:1rem}
+.info-icon{width:48px;height:48px;background:#1a3a2a;color:#c8a96e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.info-text{font-size:.9rem;color:#666}
+.info-text strong{display:block;color:#333;font-size:1rem;margin-bottom:.2rem}
+.flight-table{width:100%;border-collapse:collapse;margin:1rem 0}
+.flight-table th,.flight-table td{padding:1rem;text-align:left;border-bottom:1px solid #eee}
+.flight-table th{background:#1a3a2a;color:#fff;font-weight:500}
+.flight-table tr:hover{background:#faf8f5}
+.price-section{background:linear-gradient(135deg,#1a3a2a,#2d5a3d);color:#fff;border-radius:20px;padding:3rem;text-align:center}
+.price-section h2{font-size:2rem;margin-bottom:2rem}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-top:2rem}
+.price-card{background:rgba(255,255,255,.1);border-radius:12px;padding:2rem;border:1px solid rgba(200,169,110,.3)}
+.price-card h3{color:#c8a96e;font-size:1.1rem;margin-bottom:.5rem}
+.price-card .amount{font-size:2.5rem;font-weight:700;color:#fff}
+.price-card .unit{font-size:.9rem;opacity:.7}
+.notice-card{background:#fff;border-radius:16px;padding:2rem;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+.notice-card h3{color:#1a3a2a;margin-bottom:1.5rem;font-size:1.3rem}
+.notice-list{list-style:none}
+.notice-list li{margin-bottom:1rem;padding-left:1.5rem;position:relative;color:#555;line-height:1.8}
+.notice-list li::before{content:"⚠️";position:absolute;left:0}
+footer{background:#1a3a2a;color:#fff;text-align:center;padding:3rem 1.5rem;margin-top:4rem}
+footer p{opacity:.7;font-size:.9rem}
+.nav-fixed{position:fixed;bottom:2rem;right:2rem;z-index:100}
+.nav-fixed button{width:50px;height:50px;background:#1a3a2a;color:#c8a96e;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,.2);transition:all .3s}
+.nav-fixed button:hover{transform:scale(1.1)}
+@media(max-width:768px){.hero h1{font-size:2.5rem}.hero .subtitle{font-size:1.1rem}.hero .organizer{padding:1rem}}
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero">
-            <img class="hero-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80" alt="喀納斯風景">
-            <div class="hero-overlay">
-                <h1>🏔️ 北疆10日精華行程</h1>
-                <p>必遊雙核心：喀納斯 + 禾木</p>
-                <div class="subtitle">👥 校友會揪團 | ⭐ 五星飯店 | 🍽️ 全程含餐 | 💰 每人約$10-12萬</div>
-                <div class="version">📄 第三版（新增喀納斯&禾木）</div>
-            </div>
-        </div>
-        
-        <div class="info-grid">
-            <div class="info-card"><div class="icon">📅</div><div class="label">行程天數</div><div class="value">10天9夜</div></div>
-            <div class="info-card"><div class="icon">💰</div><div class="label">每人預算</div><div class="value">$10-12萬</div></div>
-            <div class="info-card"><div class="icon">👥</div><div class="label">建議人數</div><div class="value">20-30人</div></div>
-            <div class="info-card"><div class="icon">🏨</div><div class="label">住宿標準</div><div class="value">五星飯店</div></div>
-            <div class="info-card"><div class="icon">🍽️</div><div class="label">餐食安排</div><div class="value">全程含餐</div></div>
-            <div class="info-card"><div class="icon">✈️</div><div class="label">出發日期</div><div class="value">8/22</div></div>
-        </div>
-        
-        <div class="notice">
-            <div class="notice-title">⚠️ 重要說明：喀納斯&禾木才是北疆的靈魂</div>
-            <ul>
-                <li><strong>「沒去禾木跟喀納斯會等於沒去北疆」</strong>——就像去拉薩沒去布達拉宮</li>
-                <li>第三版特別<strong>保留喀納斯+禾木</strong>，這是北疆最核心的景點</li>
-                <li>路線調整：先走北線（喀納斯、禾木），再回頭走西線（賽里木湖、那拉提）</li>
-                <li>配合老師需求：8/22出發、9/2前返國</li>
-            </ul>
-        </div>
-        
-        <div class="flight-info">
-            <div class="flight-title">✈️ 航班參考（需在北京轉機）</div>
-            <div class="flight-route">
-                <span>台北 CA186</span><span>13:00→16:15</span><span>北京</span>
-            </div>
-            <div style="text-align: center; margin: 5px 0; color: #888;">↓</div>
-            <div class="flight-route">
-                <span>北京 CA1295</span><span>20:15→00:30+1</span><span>烏魯木齊</span>
-            </div>
-            <div class="flight-code">※ 航班僅供參考，實際以旅行社開票為準</div>
-        </div>
-        
-        <div class="route-map">
-            <div class="route-title">🚗 行程路線圖（北進西出）</div>
-            <div class="route-path">
-                <span>台北</span><span class="route-arrow">✈️</span>
-                <span>烏魯木齊</span><span class="route-arrow">→</span>
-                <span class="route-dot">喀納斯</span><span class="route-arrow">→</span>
-                <span class="route-dot">禾木</span><span class="route-arrow">→</span>
-                <span>布爾津</span><span class="route-arrow">→</span>
-                <span>賽里木湖</span><span class="route-arrow">→</span>
-                <span>伊寧</span><span class="route-arrow">→</span>
-                <span>那拉提</span><span class="route-arrow">→</span>
-                <span>烏魯木齊</span><span class="route-arrow">✈️</span>
-                <span>台北</span>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>🖼️ 精華景點</h2>
-            <div class="photo-gallery">
-                <div class="photo-item">
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" alt="喀納斯">
-                    <div class="photo-tag">🏔️ 喀納斯 <span class="star-tag">★必遊</span></div>
-                </div>
-                <div class="photo-item">
-                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&q=80" alt="禾木">
-                    <div class="photo-tag">🏘️ 禾木村 <span class="star-tag">★必遊</span></div>
-                </div>
-                <div class="photo-item">
-                    <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=80" alt="賽里木湖">
-                    <div class="photo-tag">🌊 賽里木湖</div>
-                </div>
-                <div class="photo-item">
-                    <img src="https://images.unsplash.com/photo-1569839333583-7375336cde4b?w=400&q=80" alt="那拉提">
-                    <div class="photo-tag">🌿 那拉提草原</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>📍 每日行程</h2>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 1</span><span class="date">8/22</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1580654712603-eb43273aff33?w=300&q=80" alt="烏魯木齊">
-                    <h3>🛫 台北 → 北京 → 烏魯木齊</h3>
-                    <p class="desc">台北搭機至北京轉機，再前往新疆省會烏魯木齊。抵達後專車接機入住五星級酒店。</p>
-                    <div class="highlight-secondary">🏨 住宿：烏魯木齊希爾頓/萬達文華（5星）| 🍽️ 全程含餐</div>
-                    <div class="meals"><span>早餐：✈️機上</span><span>午餐：✈️機上</span><span>晚餐：🏨五星酒店</span></div>
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 2</span><span class="date">8/23</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=80" alt="喀納斯">
-                    <h3>🚗 烏魯木齊 → 布爾津 → 喀納斯<span class="star-tag">★核心</span></h3>
-                    <p class="desc">長途驅車前往人間淨土喀納斯（約700km，8-9小時車程）。途中遊覽布爾津（童話邊城）。傍晚抵達喀納斯景區。</p>
-                    <div class="highlight">🏔️ 喀納斯湖（5A景區）| 神仙灣、月亮灣、臥龍灣 | 🏨 住宿：喀納斯景區內/賈登峪</div>
-                    <div class="meals"><span>早餐：🏨五星酒店</span><span>午餐：沿途餐廳</span><span>晚餐：🏨酒店內</span></div>
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 3</span><span class="date">8/24</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&q=80" alt="喀納斯湖">
-                    <h3>🌲 喀納斯（觀魚台、喀納斯湖）<span class="star-tag">★核心</span></h3>
-                    <p class="desc">清晨登觀魚台俯瞰喀納斯全景。下午遊覽喀納斯湖，可搭船遊湖欣賞湖光山色。</p>
-                    <div class="highlight">🦈 觀魚台全景 | 🚢 喀納斯湖遊船 | 🌊 三灣晨霧</div>
-                    <div class="meals"><span>早餐：🏨酒店內</span><span>午餐：景區餐廳</span><span>晚餐：🏨酒店內</span></div>
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 4</span><span class="date">8/25</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&q=80" alt="禾木">
-                    <h3>🏘️ 喀納斯 → 禾木（神的自留地）<span class="star-tag">★核心</span></h3>
-                    <p class="desc">乘車前往禾木村（阿禾公路），保留圖瓦族古樸民居，白樺林與茅草屋相映。下午抵達後可漫步村子。</p>
-                    <div class="highlight">🏘️ 禾木村（5A景區）| 圖瓦族文化 | 白樺林 | 🏨 住宿：禾木木屋體驗</div>
-                    <div class="meals"><span>早餐：🏨酒店內</span><span>午餐：景區餐廳</span><span>晚餐：🏨木屋內</span></div>
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 5</span><span class="date">8/26</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&q=80" alt="禾木日出">
-                    <h3>🌅 禾木（日出、晨曦）→ 五彩灘 → 克拉瑪依</h3>
-                    <p class="desc">清晨登禾木觀景台欣賞日出。上午前往布爾津，遊覽五彩灘（天下第一灘）。下午前往克拉瑪依。</p>
-                    <div class="highlight">🌅 禾木日出 | 🌈 五彩灘 | 🏨 住宿：克拉瑪依五星酒店</div>
-                    <div class="meals"><span>早餐：🏨木屋內</span><span>午餐：布爾津餐廳</span><span>晚餐：🏨五星酒店</span></div>
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 6</span><span class="date">8/27</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=300&q=80" alt="賽里木湖">
-                    <h3>🚗 克拉瑪依 → 賽里木湖（約5-6小時車程）</h3>
-                    <p class="desc">長驅前往賽里木湖，途中穿越戈壁灘。抵達後湖畔漫步，欣賞湛藍湖水與雪山倒影。</p>
-                    <div class="highlight-secondary">🌊 賽里木湖（5A景區）- 太平洋的最後一滴眼淚 | 🏨 住宿：賽里木湖週邊酒店</div>
-                    <div class="meals"><span>早餐：🏨五星酒店</span><span>午餐：沿途餐廳</span><span>晚餐：🏨酒店內</span></div>
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 7</span><span class="date">8/28</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=300&q=80" alt="賽里木湖日出">
-                    <h3>🌅 賽里木湖（晨曦）→ 果子溝 → 伊寧</h3>
-                    <p class="desc">清晨欣賞賽里木湖日出，途經壯觀的果子溝大橋。下午前往伊寧市，遊覽喀贊其六星街，乘坐馬車感受維吾爾族風情。</p>
-                    <div class="highlight-secondary">🏛️ 喀贊其（乘馬車）| 🎨 六星街 | 🏨 住宿：伊寧五星酒店</div>
-                    <div class="meals"><span>早餐：🏨酒店內</span><span>午餐：當地餐廳</span><span>晚餐：🏨五星酒店</span></div>
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 8</span><span class="date">8/29</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1569839333583-7375336cde4b?w=300&q=80" alt="那拉提">
-                    <h3>🚗 伊寧 → 那拉提草原（約4小時車程）</h3>
-                    <p class="desc">前往那拉提草原（5A景區），下午遊覽河谷草原，感受哈薩克風情。可體驗騎馬馳騁草原。</p>
-                    <div class="highlight-secondary">🌿 那拉提草原（5A景區）| 🐎 草原騎馬 | 🏨 住宿：那拉提週邊五星</div>
-                    <div class="meals"><span>早餐：🏨五星酒店</span><span>午餐：草原餐廳</span><span>晚餐：🏨五星酒店</span></div>
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 9</span><span class="date">8/30</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=300&q=80" alt="空中草原">
-                    <h3>☁️ 那拉提草原（空中草原）→ 烏魯木齊</h3>
-                    <p class="desc">乘坐區間車遊覽那拉提空中草原，登上觀景台俯瞰群山與牧場。下午返回烏魯木齊（約5-6小時車程）。</p>
-                    <div class="highlight-secondary">☁️ 空中草原觀景台 | 🌲 雪蓮谷 | 🏨 住宿：烏魯木齊希爾頓（5星）</div>
-                    <div class="meals"><span>早餐：🏨酒店內</span><span>午餐：景區餐廳</span><span>晚餐：🏨五星酒店</span></div>
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <div class="day-num"><span class="day">Day 10</span><span class="date">8/31</span></div>
-                <div class="day-content">
-                    <img class="day-photo" src="https://images.unsplash.com/photo-1529922700572-f86a5db00e7f?w=300&q=80" alt="大巴扎">
-                    <h3>🏛️ 烏魯木齊（國際大巴扎）→ 台北</h3>
-                    <p class="desc">上午遊覽國際大巴扎，感受濃鬱的伊斯蘭建築風格與絲路文化。下午前往機場，搭機經北京返台。</p>
-                    <div class="highlight-secondary">🛒 國際大巴扎 | ✈️ 帶著美好回憶回家</div>
-                    <div class="meals"><span>早餐：🏨五星酒店</span><span>午餐：當地餐廳</span><span>晚餐：✈️機上</span></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>💰 預算參考（20-30人成團）</h2>
-            <table class="budget-table">
-                <tr><th>項目</th><th>預估費用（TWD）</th><th>說明</th></tr>
-                <tr><td>來回機票（北京轉機）</td><td>$22,000 - $28,000</td><td>台北↔北京↔烏魯木齊，團體票</td></tr>
-                <tr><td>當地交通（遊覽車）</td><td>$12,000 - $16,000</td><td>10天全程含接送，20-30人分攤</td></tr>
-                <tr><td>🏨 五星級住宿（9晚）</td><td>$27,000 - $36,000</td><td>含禾木木屋體驗，團體優惠價</td></tr>
-                <tr><td>🍽️ 全程含餐</td><td>$15,000 - $20,000</td><td>早餐+午餐+晚餐，高餐標</td></tr>
-                <tr><td>門票+區間車+遊船</td><td>$12,000 - $18,000</td><td>喀納斯、禾木、賽里木湖、那拉提等</td></tr>
-                <tr><td>保險+其他</td><td>$5,000 - $8,000</td><td>旅平險、簽證（如需）</td></tr>
-                <tr class="total-row"><td>💎 總計</td><td colspan="2">$93,000 - $126,000</td></tr>
-            </table>
-            <p class="budget-note">※ 30人成團可壓低至$10-12萬區間<br>※ 實際價格需等旅行社正式報價<br>※ 喀納斯禾木路途較遠，車程較長，請見諒</p>
-        </div>
-        
-        <div class="section">
-            <h2>✅ 費用包含</h2>
-            <div class="includes-grid">
-                <div class="include-item"><span class="check">✔</span><span class="text">來回機票（北京轉機）</span></div>
-                <div class="include-item"><span class="check">✔</span><span class="text">全程五星級飯店</span></div>
-                <div class="include-item"><span class="check">✔</span><span class="text">全程含餐（早/午/晚）</span></div>
-                <div class="include-item"><span class="check">✔</span><span class="text">全程遊覽車接送</span></div>
-                <div class="include-item"><span class="check">✔</span><span class="text">行程景點門票+區間車</span></div>
-                <div class="include-item"><span class="check">✔</span><span class="text">喀納斯湖遊船</span></div>
-                <div class="include-item"><span class="check">✔</span><span class="text">導遊/司機小費</span></div>
-                <div class="include-item"><span class="check">✔</span><span class="text">旅遊平安保險</span></div>
-                <div class="include-item"><span class="check">✔</span><span class="text">每日礦泉水</span></div>
-                <div class="include-item"><span class="check">✔</span><span class="text">全程無購物、無自費</span></div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>📋 旅遊須知</h2>
-            <div class="tips-grid">
-                <div class="tip"><div class="tip-title">🧴 防曬保濕</div><div class="tip-text">新疆日照強烈，SPF50+防曬、帽子必備</div></div>
-                <div class="tip"><div class="tip-title">🧥 洋蔥式穿搭</div><div class="tip-text">晝夜溫差大（可達15°C），帶外套</div></div>
-                <div class="tip"><div class="tip-title">💊 常備藥品</div><div class="tip-text">腸胃藥、感冒藥、創可貼</div></div>
-                <div class="tip"><div class="tip-title">📱 網路與支付</div><div class="tip-text">支付寶/微信支付必備</div></div>
-                <div class="tip"><div class="tip-title">🔌 轉接頭</div><div class="tip-text">中國插座為雙腳扁型，帶萬用轉換器</div></div>
-                <div class="tip"><div class="tip-title">💧 多喝水</div><div class="tip-text">新疆氣候乾燥，每天多補充水分</div></div>
+<header class="hero">
+<div class="hero-content">
+<div class="hero-badge">🏔️ 2026 限定行程</div>
+<h1>北疆秘境・獨庫公路</h1>
+<p class="subtitle">13天12夜 ・ EMBA 校友會專屬</p>
+<p class="subtitle2">禾木村・巴音布魯克・魔鬼城・那拉提草原・賽裡木湖</p>
+<div class="organizer">
+<p><strong>主辦單位</strong></p>
+<p>🌏 國立臺灣科技大學 EMBA 校友會</p>
+<p>🤝 乙泰旅遊 — 豐碩假期 Full Holiday</p>
+</div>
+<div class="tags">
+<span class="tag">🐪 三排椅 VIP 豪華巴士</span>
+<span class="tag">🚐 全程無購物站</span>
+<span class="tag">🏔️ 獨庫公路中段穿越</span>
+<span class="tag">🌄 2025 阿禾公路新線</span>
+</div>
+<div class="scroll-hint">↓ 向下捲動查看完整行程</div>
+</div>
+</header>
+
+<main>
+<section>
+<div class="container">
+<div class="section-title">
+<h2>✈️ 航班資訊</h2>
+<p>豪華客機直飛，輕鬆暢遊北疆</p>
+</div>
+<div style="overflow-x:auto">
+<table class="flight-table">
+<tr><th>天數</th><th>日期</th><th>航段</th><th>航班</th><th>起飛</th><th>抵達</th></tr>
+<tr><td>D1</td><td>8月20日</td><td>桃園 → 杭州</td><td>CA-150</td><td>12:30</td><td>14:20</td></tr>
+<tr><td>D2</td><td>8月21日</td><td>杭州 → 烏魯木齊</td><td>CA-1781</td><td>06:40</td><td>14:55</td></tr>
+<tr><td>D12</td><td>8月31日</td><td>庫爾勒 → 北京</td><td>CA-1258</td><td>13:10</td><td>17:15</td></tr>
+<tr><td>D13</td><td>9月01日</td><td>北京 → 桃園</td><td>CA-185</td><td>09:30</td><td>11:20</td></tr>
+</table>
+</div>
+</div>
+</section>
+
+<section style="background:#faf8f5">
+<div class="container">
+<div class="section-title">
+<h2>📅 每日行程</h2>
+<p>13天12夜，深度探索新疆秘境</p>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第一天</div>
+<div class="day-title">桃園 ✈️ 杭州</div>
+</div>
+<div class="day-route">住宿：過境旅館（航空公司提供）</div>
+</div>
+<div class="day-content">
+<p>今日集合於國際機場，由專人辦理登機手續，搭乘豪華客機經由中轉城市前往【烏魯木齊】。</p>
+<div class="spot-card">
+<h4>🌆 杭州．人間天堂</h4>
+<p>簡稱「杭」，古稱臨安、錢塘、武林，是中國浙江省省會。中國六大古都之一，西湖文化、良渚文化、絲綢文化、茶文化構成杭州深厚的文化底蘊。「上有天堂，下有蘇杭」——杭州以其秀麗的自然風光與豐富的歷史遺產聞名於世。</p>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>敬請自理</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>敬請自理</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第二天</div>
+<div class="day-title">杭州 ✈️ 烏魯木齊 — 富蘊</div>
+<div class="day-route">460KM 約6小時｜宿：艾斯大酒店 / 希爾頓逸林酒店（準5星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>飛抵烏魯木齊後，搭乘遊覽車途經【古爾邦通古特沙漠】、【卡拉麥里有蹄類保護區】，前往富蘊縣。沿路壯闊的沙漠景觀與戈壁風光，將揭開新疆神秘面紗。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/古爾邦通古沙漠.jpg" alt="古爾邦通古特沙漠" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🏜️ 古爾邦通古特沙漠</h4>
+<p>位於新疆，是一片壯麗遼闊的沙海景觀。金黃沙丘綿延起伏，夕陽映照下美不勝收，適合沙漠探險、駱駝騎行與攝影愛好者前來體驗原始自然的魅力。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/卡拉麥里有蹄類保護區.jpg" alt="卡拉麥里有蹄類保護區" loading="lazy">
+<h4>🦌 卡拉麥里有蹄類保護區</h4>
+<p>位於新疆准噶爾盆地北緣，是中國唯一以野生有蹄類動物為主的自然保護區。區內生態原始，棲息著普氏野馬、野駱駝等珍稀物種，被譽為「野生動物的樂園」。</p>
+</div>
+</div>
+<div class="spot-card" style="margin-top:1.5rem">
+<img src="https://ntust2026.github.io/images/xinjiang/烏魯木齊.jpg" alt="烏魯木齊" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🌆 烏魯木齊．絲路重鎮</h4>
+<p>簡稱烏市，舊稱迪化，是新疆維吾爾自治區首府，絲綢之路經濟帶核心城市，西北地區第二大城市。新疆國際大巴紮為烏魯木齊市著名旅遊景點，天山天池風景名勝區更被列入聯合國教科文組織世界遺產名錄。</p>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店餐盒</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>機上輕食</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第三天</div>
+<div class="day-title">富蘊 / 可可托海 — 阿勒泰</div>
+<div class="day-route">220KM 約4小時｜宿：萬達美華國際酒店 / 美豪麗致酒店（準5星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>今日驅車前往【可可托海景區】，這裡是國家5A級旅遊景區，佔地面積2337.90平方公里。由額爾齊斯大峽谷、三號礦脈、薩依恒布拉克等五部分組成，擁有豐富的自然景觀和獨特的地質文化。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/可可托海.jpg" alt="可可托海景區" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🏔️ 可可托海景區（含區間車）</h4>
+<p>位於新疆北部阿勒泰地區富蘊縣，國家5A級旅遊景區。景區由額爾齊斯大峽谷、三號礦脈、薩依恒布拉克、可哥蘇裡及卡拉先格爾五個部分組成，擁有豐富的自然景觀和獨特的地質文化。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/額爾齊斯河大峽谷.jpg" alt="額爾齊斯河大峽谷" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem" loading="lazy">
+<h4>🌊 額爾齊斯河大峽谷</h4>
+<p>沿額爾齊斯河，對峙連綿排列的花崗岩山峰，這些山峰表面多呈密集蜂窩狀的凹坑和豎直溝槽，形成奇特的地貌。這種地貌是由於1931年的八級地震斷裂形成的。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/keketuohai-canyon.jpg" alt="可可托海峽谷" loading="lazy">
+<img src="https://ntust2026.github.io/images/xinjiang/可可托海地質公園-v3.jpg" alt="可可托海地質公園" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>⛏️ 可可托海地質公園</h4>
+<p>以典型的花崗偉晶岩型稀有金屬礦床和礦山遺址、獨特的阿爾泰山型花崗岩地貌、富蘊地震遺跡和額爾齊斯河秀麗的風光而聞名。公園內的三號礦脈被譽為「天然礦物博物館」，發現了84種礦物，其中鈹資源儲量居世界第一。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/神鐘山.jpg" alt="神鐘山" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🗿 神鐘山</h4>
+<p>不僅在地質學上具有重要價值，還在文化上有著豐富的內涵。它被譽為阿爾泰山山景之最，峭壁插雲，孤峰傲立，景色壯麗。神鐘山有四相：猛獁象、神鐘、虎鯨和巨龍，每個相都有其獨特的形態和象徵意義。</p>
+</div>
+</div>
+<div class="spot-card" style="margin-top:1.5rem">
+<h4>🐎 薩依恒布拉克夏牧場</h4>
+<p>位於新疆阿勒泰地區，群山環抱、草原遼闊，夏季綠草如茵、牛羊成群，風光如詩如畫。牧民帳篷點綴其間，展現浓厚哈薩克風情，是體驗草原生活與感受自然魅力的理想之地。</p>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第四天</div>
+<div class="day-title">阿勒泰 — 禾木（阿禾公路）— 賈登峪</div>
+<div class="day-route">260KM 約6小時｜宿：賈登峪鴻福生態度假酒店 / 白樺林大酒店（4星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>行駛2025年全新開通的【阿禾公路】，沿途山川壯闘、草原無邊，前往神的後花園【禾木村】。秋季金黃樹海與藍天雪峰交織，宛如油畫世界，被譽為中國最美自駕公路之一。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/阿禾公路.jpg" alt="阿禾公路" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🛣️ 阿禾公路（2025年全新開通）</h4>
+<p>2025年新開通公路，位於新疆阿勒泰地區，是串聯禾木、喀納斯等景區的絕美天路。沿途山川壯闘、草原無邊，四季皆景如畫。秋季金黃樹海與藍天雪峰交織，宛如油畫世界，被譽為中國最美自駕公路之一。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/wu-qilik-wetland.jpg" alt="烏希里克國家濕地公園" loading="lazy">
+<h4>🚗 沿途風光：小東溝・烏希里克濕地・野卡峽・通巴原始森林・托勒海特夏牧場</h4>
+<p>小東溝景區以峽谷溪流與白樺林相映成趣；烏希里克濕地公園水草豐美，候鳥翔集；野卡峽峭壁巍峨、河水湍急；通巴原始森林蒼翠幽深；托勒海特夏牧場草原遼闘，牛羊悠閒。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/禾木村.jpg" alt="禾木村" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🏘️ 禾木村景區（含區間車）</h4>
+<p>位於新疆阿勒泰地區布林津縣喀納斯湖東側約30公里處，是一個由哈薩克人和圖瓦人共同聚居的小村莊。被譽為「上帝的後花園」，以其原始的自然風光和獨特的民族文化而聞名。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/禾木河.jpg" alt="胡楊林倒影" loading="lazy">
+<h4>🌊 禾木河</h4>
+<p>禾木河是喀納斯河的支流，發源於阿爾泰山的冰川，蜿蜒流經高山峽谷，形成獨特河谷風光。當地哈薩克族和圖瓦族居民依賴禾木河水源和草原上的牛羊過著遊牧生活。</p>
+</div>
+</div>
+<div class="spot-card" style="margin-top:1.5rem">
+<h4>👁️ 禾木觀景臺（成吉思汗點將台）</h4>
+<p>禾木觀景台被稱為成吉思汗點將台，傳說成吉思汗曾在此檢閱軍隊。此處是俯瞰禾木村的最佳位置，特別是日出日落時，金色陽光增添神秘與溫暖。觀景台四周是雪山、禾木村、小木屋、禾木河和草地樹林，宛如夢幻美景。</p>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第五天</div>
+<div class="day-title">賈登峪 — 喀納斯 — 布爾津</div>
+<div class="day-route">160KM 約3小時｜宿：上士國際酒店 / 河畔藝墅酒店（準5星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>今日前往新疆最神秘的景區【喀納斯】，這裡是蒙古族圖瓦人在中國的唯一聚居地，擁有豐富的自然景觀和人文資源。午後前往【五彩灘】欣賞夕陽下的雅丹地貌。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/喀納斯湖.jpg" alt="喀納斯景區" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🏔️ 喀納斯景區（含區間車）</h4>
+<p>這裡是蒙古族圖瓦人在中國的唯一聚居地，擁有豐富的自然景觀和人文資源。濃郁的民俗風情和恬靜的環境令人流連，景區內有白哈巴村、禾木村等原始圖瓦村落，保留了獨特的文化傳統和生活方式。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/觀魚亭.jpg" alt="觀魚亭" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>👁️ 觀魚亭（含區間車）</h4>
+<p>觀魚亭位於喀納斯湖西岸駱駝峰上，與湖面垂直落差達660米，是觀察湖怪的最佳位置。此處可俯瞰整個喀納斯湖及周邊景觀，因其獨特地理位置和功能，得名為觀魚亭。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/月亮灣.jpg" alt="月亮灣" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🌙 月亮灣</h4>
+<p>有一座狹長的小島夾在兩岸之間，形狀猶如彎月而得名。這個小島依山伴水，水面平靜如鏡，周圍環境優美，春日裡金燦燦的油菜花、翠綠的茶葉和古樸的徽派民居構成了一幅美麗的中國水墨山水畫。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/神仙灣.jpg" alt="神仙灣" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🌀 神仙灣</h4>
+<p>神仙灣與神仙坡相伴，傳說一對青年男女化為神仙，後人每年端午節聚集於此，表達懷念。當地人相信神仙灣生長的三種聖物具有神奇功效，稱為「三寶」。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/臥龍灣.jpg" alt="臥龍灣" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🐉 臥龍灣</h4>
+<p>這裡有千年古樟樹抱佛、開心農場、醉美浪漫花園、綠道騎行游等，適合家庭和朋友的親子遊和休閒活動。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/白樺林.jpg" alt="白樺林" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🌳 白樺林</h4>
+<p>在生態系統中扮演著重要角色。它們耐嚴寒，對土壤和環境適應性強，能夠在火燒毀森林後迅速恢復。白樺林不僅為野生動物提供棲息地，還對維持生態平衡具有重要意義。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/五彩灘.jpg" alt="五彩灘" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🌈 五彩灘</h4>
+<p>於典型的雅丹地貌，由激猛的流河侵蝕切割以及狂風侵蝕作用共同形成。河岸岩層間抗風化能力的強弱不一，形成了參差不齊的輪廓。岩石中含有不同的礦物質，使得岩石顏色多變，在落日時分的陽光照射下，岩石的色彩以紅色為主，間以綠、紫、黃、白、黑及過渡色彩，色彩斑斕、嬌豔嫵媚。</p>
+</div>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第六天</div>
+<div class="day-title">布爾津 — 奎屯 / 獨山子</div>
+<div class="day-route">450KM 約6小時｜宿：西戈瑪大酒店 / 慧洋萬達錦華酒店（準5星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>今日驅車前往【烏爾禾魔鬼城】，欣賞奇特的风蚀地貌。沿途還可觀賞壯觀的百里油田風光。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/devil-city-entrance.jpg" alt="烏爾禾魔鬼城入口" loading="lazy">
+<h4>👻 烏爾禾魔鬼城（含區間車）</h4>
+<p>又稱世界魔鬼城景區，位於新疆克拉瑪依市烏爾禾區，佔地10余平方千米，是一處典型的雅丹地貌。這裡的岩石經過長時間的風化作用，形成了千姿百態的形狀，有的像巨大的城堡，有的像恐龍，有的像動植物，這些奇特的石柱、石牆和殘峰，讓人歎為觀止。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/百里油田.jpg" alt="百里油田" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>⛽ 百里油田風光</h4>
+<p>百里油田不僅是重要的工業基地，也因其壯觀的景象吸引了大量遊客。站在百里油區觀景平臺，可以看到一望無際的油田和無數個抽油機在工作，這些景象令人震撼，是新疆100個最美觀景拍攝點之一。</p>
+</div>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第七天</div>
+<div class="day-title">奎屯 — 伊寧</div>
+<div class="day-route">380KM 約5小時｜宿：兵旅昆侖大酒店 / 景雲亞丁（準5星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>今日前往有「大西洋最後一滴眼淚」之稱的【賽里木湖】，湖畔遊覽後途觀雄偉的【果子溝大橋】。傍晚抵達伊寧市，打卡百年古法冰淇淋店【古蘭丹姆】。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/賽里木湖1.jpg" alt="賽里木湖" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>💧 賽里木湖景區（含區間車）</h4>
+<p>賽里木湖位於天山北麓，準噶爾盆地西南邊緣，被稱為「大西洋最後一滴眼淚」。湖泊由喜馬拉雅造山運動和第四紀冰川作用形成的地塹式山間盆地，通過26條山泉和20多條季節性山溪匯集而成。有充足的時間到最美麗的賽里木湖西海岸，觀賞到野花、草原、雪山及高山湖泊的碧藍湖水！</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/果子溝大橋.jpg" alt="果子溝大橋" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🌉 果子溝大橋（途徑）</h4>
+<p>位於新疆伊犁哈薩克自治州霍城縣的果子溝峽谷上，橋樑全長約700米，橋面距谷底淨高約200米。是連雲港至霍爾果斯高速公路的主要構成部分之一，也是新疆的重要民生工程。從高空欣賞伊寧山脈果子溝風景區風光大橋，壯觀非凡。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/六星街.jpg" alt="古蘭丹姆" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🍦 六星街・古蘭丹姆冰淇淋（網紅打卡）</h4>
+<p>在伊寧市的六星街最火的百年古法冰激淋店「古蘭丹姆」享用冰淇淋。店內環境有院子有室內，是典型的哈薩克族風格，院子裡都是花花草草，設計非常浪漫。室內擺著自製的小料不下20種，最喜歡的就是杏子醬，甘甜不膩，再配上堅果真的是絕了！</p>
+</div>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第八天</div>
+<div class="day-title">伊寧 — 特克斯</div>
+<div class="day-route">120KM 約2小時｜宿：鳳凰國際大酒店 / 尚城國際大酒店（準5星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>今日前往【闊克蘇大峽谷】，探索大自然的鬼斧神工。午後抵達世界上規模最大的八卦城——特克斯，體驗迷宮般的城市風情。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/闊克蘇大峽谷.jpg" alt="闊克蘇大峽谷" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🏞️ 闊克蘇大峽谷（含區間車+電瓶車+遊船）</h4>
+<p>地勢險峻，懸崖峭壁，峽谷的平均深度都在七八百米，水的落差層層疊疊。站在山上鳥瞰峽谷，縱觀全景，整個峽谷美景盡收眼底。峽谷之中，美麗的闊克蘇河蜿蜒曲折，河水咆哮奔騰，洶湧澎湃，落差三四百米，形成了壺口瀑布、九曲十八彎、鱷魚灣等自然景觀。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/鱷魚灣.jpg" alt="鱷魚灣" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🐊 鱷魚灣</h4>
+<p>因其形狀像一條靜臥的鱷魚而得名，是闊克蘇大峽谷中最具特色的景點之一。碧綠的河水與兩岸的峭壁形成強烈對比，景觀壯麗。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/特克斯八卦城.jpg" alt="特克斯八卦城" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🎯 特克斯八卦城</h4>
+<p>新疆伊犁特克斯縣，被稱為「現今世界最大規模的八卦城」，以中心八卦文化廣場為太極「陰陽」兩儀，以相同距離、角度向外伸出8條主街，每隔300多米設一條連接主街的環路，共有4環，又有多條小街，路路相通、街街相連。有人說這裡永遠不會迷路，無論往甚麼方向走都能夠到達目的地。</p>
+</div>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第九天</div>
+<div class="day-title">特克斯 — 那拉提</div>
+<div class="day-route">230KM 約3小時｜宿：文旅度假大酒店 / 萬森大酒店（準5星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>今日前往新疆最美的草原——【那拉提大草原】，「那拉提」源自蒙古語，意為「有太陽的地方」。傳說成吉思汗西征時，看到這裡綠草茵茵、牛肥馬壯的大草原，不由得大叫「那拉提」，意思是「太陽照耀的地方」。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/那拉提大草原.jpg" alt="那拉提大草原" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🌿 那拉提大草原（含區間車）</h4>
+<p>那拉提草原的名稱源自蒙古語，意為「有太陽的地方」。傳說成吉思汗西征時，看到這裡綠草茵茵、牛肥馬壯的大草原，不由得大叫「那拉提」，意思是「太陽照耀的地方」。是古絲綢之路北線的必經之地，也是西北邊境的咽喉要塞。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/空中草原.jpg" alt="空中草原" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🦅 空中草原（含區間車）</h4>
+<p>歷史悠久，曾是重要的關隘和商道，留下了無數動人的故事和傳說。穿越飛狐峪，可以看到蜿蜒的盤山公路和壯麗的峽穀風光。此外，這裡還是許多喜好涼爽的動植物的「美好家園」，擁有1300多種植物和豐富的野生動植物資源。</p>
+</div>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第十天</div>
+<div class="day-title">那拉提 — 獨庫公路 — 巴音布魯克</div>
+<div class="day-route">160KM 約3-4小時｜宿：云尚尊大酒店 / 天河源大酒店（4星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>今日穿越新疆最美公路——【獨庫公路中段】，沿途天山風光壯闘。抵達巴音布魯克大草原，遊覽著名的【九曲十八灣】與【天鵝湖】。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/G331國防道路.jpg" alt="獨庫公路" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🛣️ 獨庫公路中段（7座商務車4-5人一部車）</h4>
+<p>獨庫公路穿越天山，連接南北疆，全長約561公里，是中國最美、最險峻的公路之一。中段沿途風光壯闘，穿梭於雪山、草原、峽谷之間，四季景色截然不同，是我國最美的景觀大道。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/天山風光.jpg" alt="天山風光" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🏔️ 天山風光</h4>
+<p>橫跨中國新疆、吉爾吉斯斯坦和烏茲別克斯坦，西端伸入哈薩克，其高聳與奇秀自古被多民族納入各自文明記憶。天山不僅以其壯麗的自然風光吸引著游客，還因其豐富的文化和歷史背景而備受推崇。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/巴音布魯克大草原.jpg" alt="巴音布魯克大草原" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🦢 巴音布魯克大草原（含區間車）</h4>
+<p>位於新疆巴音郭楞蒙古自治州和靜縣西北、天山山脈中部的山間盆地中，四周為雪山環抱，海拔約2500米，面積23835平方公里，是中國第二大草原，僅次於內蒙古呼倫貝爾大草原。巴音布魯克蒙古語意為「富饒的泉水」。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/天鵝湖.jpg" alt="天鵝湖" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🦢 天鵝湖</h4>
+<p>湖水清澈，水草豐茂，氣候涼爽濕潤，適合天鵝等水禽的棲息和繁衍。保護區內有大天鵝、小天鵝、疣鼻天鵝等一萬餘隻，還有灰雁、斑頭雁、白頭鷂、燕鷗、雕、禿鷲等近10餘種珍稀鳥類。當地蒙古族牧民對天鵝倍加保護，與天鵝和諧相處。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/九曲十八灣.jpg" alt="九曲十八灣" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🌀 九曲十八灣（含電瓶車）</h4>
+<p>以其蜿蜒曲折的河流和美麗的自然風光而聞名。九曲十八彎實際上是開都河彎彎曲曲地流經800平方千米沼澤地所形成的奇麗景觀，蒙古語意為「富饒的泉水」。</p>
+</div>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第十一天</div>
+<div class="day-title">巴音布魯克 — 庫爾勒</div>
+<div class="day-route">330KM 約5-6小時｜宿：梨城花園大酒店 / 山水梨城酒店（5星）</div>
+</div>
+</div>
+<div class="day-content">
+<p>今日繼續探索新疆，遊覽【天山山脈】與【天山大峽谷】，午後抵達神秘的【羅布人村寨】，體驗古老的羅布人文化。傍晚遊覽【孔雀河】夜景。</p>
+<div class="day-detail">
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/天山山脈.jpg" alt="天山山脈" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🏔️ 天山山脈（途中遊覽）</h4>
+<p>地理特徵包括高山、峽谷和豐富的生物多樣性。其中，庫車天山大峽谷尤為著名，被譽為「克孜利亞」，在維吾爾語中意為「紅色山崖」。峽谷全長超過5000米，主峽穀延伸約2700米，兩側由紅褐色的巨型山體組成，高度普遍超過200米。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/羅布人村寨.jpg" alt="羅布人村寨" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🏕️ 羅布人村寨（含區間車+騎駱駝體驗）</h4>
+<p>羅布人是新疆一個古老的民族，依水而居，以捕魚為生，幾乎不與外界來往。他們生活在塔里木河畔的小海子邊，保持著原始的風俗習慣，生活充滿神秘色彩。羅布人村寨是中國西部地域面積最大的村莊之一，寨子裡住著新疆最古老的民族之一。特別安排騎駱駝體驗拍照（30分鐘，RMB80/人）。</p>
+</div>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/孔雀河夜景.jpg" alt="孔雀河" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🌙 孔雀河夜景</h4>
+<p>傳說東漢班超曾在此飲馬，因此孔雀河也被稱為飲馬河。此外，孔雀河的源頭博斯騰湖的水源來自開都河，開都河流經天山南麓的依連哈比孕山，河道長525公里，最終注入博斯騰湖，再從博斯騰湖流出形成孔雀河。夜晚的孔雀河兩岸燈光璀璨，倒映在河面上，景色宜人。</p>
+</div>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第十二天</div>
+<div class="day-title">庫爾勒 ✈️ 北京</div>
+<div class="day-route">住宿：過境旅館（航空公司提供）</div>
+</div>
+</div>
+<div class="day-content">
+<p>上午遊覽古代絲綢之路天險要衝【鐵門關】，午餐後前往機場，搭機返回北京。</p>
+<div class="spot-card">
+<img src="https://ntust2026.github.io/images/xinjiang/鐵門關.jpg" alt="鐵門關" loading="lazy" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:1rem">
+<h4>🚪 鐵門關</h4>
+<p>所在峽谷叫鐵關谷，也稱遮留谷，系孔雀河河道切割而成，長約15公里，一線中通，岸壁如刀劈斧鑿，極為險固，扼孔雀河上游陡峭峽谷的出口，曾是南北疆交通的天險要衝。古代「絲綢之路」中道咽喉。晉代在這裡設關，因其險固，故稱「鐵門關」，列為中國古代二十六名關之一，號稱「天下最後一關」。</p>
+</div>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店早餐</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>包含</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>包含</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="day-card">
+<div class="day-header">
+<div>
+<div class="day-number">第十三天</div>
+<div class="day-title">北京 ✈️ 桃園</div>
+<div class="day-route">返回溫暖的家</div>
+</div>
+</div>
+<div class="day-content">
+<p>今日搭乘豪華客機返回台灣，為此次神秘北疆之旅程畫上完美的句點。結束這趟愉快、難忘的深度之旅。</p>
+<div class="info-grid">
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>早餐</strong>酒店餐盒</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>中餐</strong>敬請自理</div></div>
+<div class="info-item"><div class="info-icon">🍽️</div><div class="info-text"><strong>晚餐</strong>敬請自理</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-title">
+<h2>💰 團費說明</h2>
+<p>透明訂價，優質服務</p>
+</div>
+<div class="price-section">
+<div class="price-grid">
+<div class="price-card">
+<h3>團費</h3>
+<div class="amount">NT$109,800</div>
+<div class="unit">/ 人</div>
+</div>
+<div class="price-card">
+<h3>單人房加價</h3>
+<div class="amount">NT$25,000</div>
+<div class="unit">/ 人</div>
+</div>
+<div class="price-card">
+<h3>領隊導遊小費</h3>
+<div class="amount">NT$300</div>
+<div class="unit">/ 天 / 人（已內含）</div>
+</div>
+</div>
+<p style="margin-top:2rem;opacity:.8;font-size:.95rem">◎ 行程、班機時間、住宿飯店之確認以行前說明會為主</p>
+</div>
+</div>
+</section>
+
+<section style="background:#faf8f5">
+<div class="container">
+<div class="section-title">
+<h2>📋 旅遊注意事項</h2>
+<p>行前準備，轻松出游</p>
+</div>
+<div class="notice-card">
+<h3>🌡️ 氣候穿著</h3>
+<ul class="notice-list">
+<li><strong>「早穿皮襖午穿紗，圍著火爐吃西瓜」</strong>——新疆屬於大陸性乾旱氣候，晝夜溫差大，可達10至15度，夏季旅遊仍需準備外套或羊毛衫。</li>
+<li>新疆部分地區海拔較高，紫外線照射強烈，請務必攜帶防曬物品、清熱防暑藥物或沖劑。</li>
+<li>新疆氣候乾燥且風沙大，建議多注意飲水，準備潤唇膏。</li>
+</ul>
+</div>
+<div class="notice-card" style="margin-top:2rem">
+<h3>👟 行程準備</h3>
+<ul class="notice-list">
+<li>新疆線路長，景點分散，乘車時間長易疲勞，請作好吃苦準備並注意休息。</li>
+<li>部分景點須下车行走、爬山或騎馬，建議準備一雙舒適便於行走的鞋子。</li>
+<li>新疆景點之間距離較長，車程比較漫長枯燥，最好準備一些零食和充足的水。</li>
+</ul>
+</div>
+<div class="notice-card" style="margin-top:2rem">
+<h3>🕐 時差提醒</h3>
+<ul class="notice-list">
+<li>新疆地理位於東六區，北京位於東八區。新疆與北京等內地城市有兩小時時差，旅遊活動通常安排在09:00—20:00之間。</li>
+</ul>
+</div>
+<div class="notice-card" style="margin-top:2rem">
+<h3>🍈 飲食文化</h3>
+<ul class="notice-list">
+<li>新疆素有「瓜果之鄉」之稱，到新疆吃水果是一大樂事，但千萬注意不要在吃完水果後喝熱茶，以免造成腹瀉。</li>
+</ul>
+</div>
+<div class="notice-card" style="margin-top:2rem">
+<h3>🕌 宗教文化</h3>
+<ul class="notice-list">
+<li>新疆屬於少數民族聚居地區，各少數民族有其獨特的宗教信仰。請遊客注意尊重少數民族風俗習慣。</li>
+<li>除了蒙古族，新疆各民族基本都不食豬肉，到了新疆還是入鄉隨俗。</li>
+<li>在清真餐廳吃飯時，進門時用水壺洗手，但不要亂甩手上的水，一般也不允許抽煙、喝酒，更不要談論穆斯林禁忌的話題。</li>
+<li>在寺廟、清真寺內嚴禁拍攝，一旦偷拍被抓，後果較為嚴重。</li>
+</ul>
+</div>
+<div class="notice-card" style="margin-top:2rem">
+<h3>🐎 哈薩克族禮儀</h3>
+<ul class="notice-list">
+<li>對騎馬有兩項禁忌：不能穿過羊群，羊會死掉；也不能在氈房門口下馬，只有報喪才這麼緊急，應該停在氈房後面。</li>
+</ul>
+</div>
+<div class="notice-card" style="margin-top:2rem">
+<h3>💊 建議攜帶物品</h3>
+<ul class="notice-list">
+<li>個人保養用品：潤肤乳液、護唇膏、防曬乳液</li>
+<li>個人藥品不可忘記，當地醫療設備不及台灣方便</li>
+<li>濕紙巾：新疆地區多瓜果，沿途現買現吃，洗手不便</li>
+<li>空氣枕：準備一個空氣枕，能降低長途舟車奔波之累</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<div class="section-title">
+<h2>🎁 行程特色</h2>
+<p>為什麼選擇這趟旅程</p>
+</div>
+<div class="day-detail">
+<div class="spot-card">
+<h4>🚐 不走回頭路</h4>
+<p>行程貼心安排，不走回頭路！不走回頭路！不走回頭路！很重要所以說三次。</p>
+</div>
+<div class="spot-card">
+<h4>🏨 優質住宿</h4>
+<p>採用各地最新一流酒店，住宿的錢千萬省不得，不要省了荷包卻苦了自己。務求安排各地最新最好的住宿酒店。</p>
+</div>
+<div class="spot-card">
+<h4>🍽️ 美食饗宴</h4>
+<p>全程安排各地風味餐，不用擔心餐標問題，每餐都是當地特色美食。</p>
+</div>
+<div class="spot-card">
+<h4>🛒 零購物</h4>
+<p>全程無購物站行程！讓您充分享受美好旅程，不受打擾。</p>
+</div>
+<div class="spot-card">
+<h4>🚐 三排椅VIP巴士</h4>
+<p>新疆段採用三排座VIP豪華巴士，座位寬敞舒適，長途乘車也不累。</p>
+</div>
+<div class="spot-card">
+<h4>🏔️ 獨家路線</h4>
+<p>全新G331阿禾公路（2025年開通）、獨庫公路中段穿越，一次走遍北疆精華。</p>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<p>🌏 國立臺灣科技大學 EMBA 校友會</p>
+<p>🤝 乙泰旅遊 豐碩假期 Full Holiday</p>
+<p style="margin-top:1rem">🌐 <a href="https://reurl.cc/qpaR83" target="_blank" style="color:#fff;font-size:1.2rem;font-weight:bold;text-decoration:none;background:#c8a96e;padding:0.8rem 1.5rem;border-radius:8px;display:inline-block;">👉 點我報名</a></p>
+</footer>
+
+<div class="nav-fixed">
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+
+</body>
+</html>
