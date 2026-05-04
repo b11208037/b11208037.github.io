@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北疆秘境・獨庫公路深度之旅</title>
+    <style>
+        body { font-family: 'Microsoft JhengHei', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f4f9; }
+        h1, h2 { color: #2c3e50; text-align: center; }
+        .day { background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .day-header { font-size: 1.5em; font-weight: bold; color: #e67e22; border-bottom: 2px solid #e67e22; padding-bottom: 5px; }
+        .spot { font-weight: bold; color: #2980b9; }
+        .note { background: #fff3cd; padding: 10px; border-left: 5px solid #ffc107; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>北疆秘境・獨庫公路深度之旅</h1>
+    <p style="text-align: center;">8/20 出發 | 13天 | VIP三排椅豪華巴士 | 無購物站</p>
+
+    <div id="itinerary"></div>
+
+    <script>
+        const days = [
+            { title: "Day 1: 啟程與中轉", content: "桃園機場搭機經杭州中轉前往烏魯木齊。杭州擁有豐富的絲綢與茶文化底蘊。" },
+            { title: "Day 2: 初探新疆", content: "抵達烏魯木齊，遊覽古爾邦通古特沙漠與卡拉麥里有蹄類保護區，一窺原始生態。" },
+            { title: "Day 3: 可可托海的絕美風景", content: "深入可可托海景區，漫遊額爾齊斯河大峽谷，瞻仰神鐘山與三號礦脈奇觀。" },
+            { title: "Day 4: 阿禾公路天路之旅", content: "挑戰2025新開通的絕美阿禾公路，穿越原始森林與濕地，入住上帝的後花園——禾木村。" },
+            { title: "Day 5: 喀納斯湖畔與五彩灘", content: "喀納斯景區與觀魚亭俯瞰湖光山色，遊覽月亮灣、臥龍灣，傍晚欣賞五彩灘的雅丹地貌日落。" },
+            { title: "Day 6: 烏爾禾魔鬼城", content: "欣賞鬼斧神工的雅丹地貌魔鬼城，感受大自然的壯觀，並途觀壯闊的百里油田。" },
+            { title: "Day 7: 賽里木湖與伊寧風情", content: "拜訪大西洋最後一滴眼淚「賽里木湖」，途經果子溝大橋，在六星街享用百年古法冰淇淋。" },
+            { title: "Day 8: 特克斯八卦城與闊克蘇大峽谷", content: "探索獨特的八卦城佈局，深入闊克蘇大峽谷欣賞鱷魚灣與九曲十八彎奇景。" },
+            { title: "Day 9: 那拉提空中草原", content: "登上那拉提「空中草原」，在海拔極高的廣袤草原中感受太陽照耀的壯闊。" },
+            { title: "Day 10: 獨庫公路與巴音布魯克", content: "穿越震撼的獨庫公路中段，抵達巴音布魯克，觀賞壯麗的天鵝湖與九曲十八灣。" },
+            { title: "Day 11: 羅布人村寨的古老神秘", content: "體驗羅布人村寨的原始風情與騎駱駝樂趣，夜晚欣賞孔雀河畔的迷人夜景。" },
+            { title: "Day 12: 天險鐵門關與返程", content: "參觀古代絲綢之路天險「鐵門關」，隨後前往機場準備返程。" },
+            { title: "Day 13: 溫暖返台", content: "飛往北京轉機，結束這趟令人難忘的新疆深度之旅，平安回到溫暖的家。" }
+        ];
+
+        const container = document.getElementById('itinerary');
+        days.forEach(d => {
+            const div = document.createElement('div');
+            div.className = 'day';
+            div.innerHTML = `<div class="day-header">${d.title}</div><p>${d.content}</p>`;
+            container.appendChild(div);
+        });
+    </script>
+</body>
+</html>
