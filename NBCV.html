@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博音智慧探索艙 | Brian's Pod-Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brian: {
+                            dark: '#0f172a',
+                            card: 'rgba(30, 41, 59, 0.7)',
+                            primary: '#6366f1',
+                            secondary: '#2dd4bf',
+                            accent: '#f43f5e'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+                radial-gradient(at 50% 0%, hsla(225,39%,30%,0.2) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(339,49%,30%,0.2) 0, transparent 50%);
+            background-attachment: fixed;
+        }
+        
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+        .tab-active {
+            background: linear-gradient(to right, #6366f1, #2dd4bf);
+            color: white;
+            border-color: transparent;
+        }
+
+        .blindbox-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .blindbox-drawing {
+            transform: scale(0.95);
+            opacity: 0.5;
+            filter: blur(4px);
+        }
+
+        /* Toast Message */
+        #toast {
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s, visibility 0.3s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans selection:bg-brian-secondary selection:text-slate-900">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 glass-card border-b-0 border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brian-primary to-brian-secondary flex items-center justify-center shadow-lg shadow-brian-primary/30">
+                        <i class="fa-solid fa-microphone-lines text-white text-xl"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">博音智慧探索艙</span>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-2">
+                        <button onclick="switchTab('library')" id="nav-library" class="tab-active px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-white/10 hover:bg-white/5">知識資源庫</button>
+                        <button onclick="switchTab('faq')" id="nav-faq" class="text-slate-300 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-transparent hover:bg-white/5">精選 FAQ</button>
+                        <button onclick="switchTab('blindbox')" id="nav-blindbox" class="text-slate-300 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-transparent hover:bg-white/5">博音盲盒</button>
+                        <button onclick="switchTab('ai')" id="nav-ai" class="text-slate-300 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-transparent hover:bg-white/5"><i class="fa-solid fa-robot mr-1"></i> AI 導師</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card absolute w-full border-t border-white/10">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="switchTab('library'); closeMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white bg-white/10">知識資源庫</button>
+                <button onclick="switchTab('faq'); closeMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">精選 FAQ</button>
+                <button onclick="switchTab('blindbox'); closeMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">博音盲盒</button>
+                <button onclick="switchTab('ai'); closeMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-white/5">AI 導師</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Hero Section -->
+        <div class="text-center mb-12 animate-float">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-brian-secondary via-blue-400 to-brian-primary pb-2">
+                萃取頂尖對話，重塑你的認知
+            </h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+                基於《博音》系列訪談打造的智慧知識庫。涵蓋未來科技、商業思維、心理成長與健康醫學，讓你一次聽懂大師精華。
+            </p>
+        </div>
+
+        <!-- TAB 1: 知識資源庫 -->
+        <section id="sec-library" class="block transition-opacity duration-500">
+            
+            <!-- Filters & Search -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 glass-card p-4 rounded-2xl">
+                <!-- Theme Filters -->
+                <div class="flex flex-wrap gap-2 justify-center md:justify-start w-full md:w-auto" id="theme-filters">
+                    <button onclick="filterQuotes('全部')" class="filter-btn active bg-white/20 text-white px-4 py-1.5 rounded-full text-sm">全部</button>
+                    <button onclick="filterQuotes('未來科技')" class="filter-btn bg-white/5 hover:bg-white/10 text-slate-300 px-4 py-1.5 rounded-full text-sm">未來科技</button>
+                    <button onclick="filterQuotes('商業思維')" class="filter-btn bg-white/5 hover:bg-white/10 text-slate-300 px-4 py-1.5 rounded-full text-sm">商業思維</button>
+                    <button onclick="filterQuotes('自我成長')" class="filter-btn bg-white/5 hover:bg-white/10 text-slate-300 px-4 py-1.5 rounded-full text-sm">自我成長</button>
+                    <button onclick="filterQuotes('健康醫學')" class="filter-btn bg-white/5 hover:bg-white/10 text-slate-300 px-4 py-1.5 rounded-full text-sm">健康醫學</button>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="relative w-full md:w-72">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-search text-slate-400"></i>
+                    </div>
+                    <input type="text" id="search-input" placeholder="搜尋關鍵字、來賓..." 
+                           class="block w-full pl-10 pr-3 py-2 border border-white/10 rounded-full leading-5 glass-card text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brian-secondary sm:text-sm">
+                </div>
+            </div>
+
+            <!-- Quotes Grid -->
+            <div id="quotes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Quotes will be injected here via JS -->
+            </div>
+            
+            <div id="no-results" class="hidden text-center py-12 text-slate-400">
+                <i class="fa-solid fa-ghost text-4xl mb-3 opacity-50"></i>
+                <p>找不到相關內容，試試其他關鍵字吧！</p>
+            </div>
+        </section>
+
+        <!-- TAB 2: 精選 FAQ -->
+        <section id="sec-faq" class="hidden transition-opacity duration-500">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question text-brian-secondary"></i> 聽眾大哉問
+                </h2>
+                <div id="faq-container" class="space-y-4">
+                    <!-- FAQs injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: 博音盲盒 -->
+        <section id="sec-blindbox" class="hidden transition-opacity duration-500">
+            <div class="max-w-2xl mx-auto text-center flex flex-col items-center justify-center min-h-[50vh]">
+                <p class="text-slate-400 mb-8">陷入迷惘？讓《博音》來賓為你指點迷津，抽取今日專屬金句。</p>
+                
+                <!-- Blind Box Card -->
+                <div id="blindbox-card" class="glass-card w-full p-8 md:p-12 rounded-3xl relative overflow-hidden shadow-2xl blindbox-transition border border-white/20">
+                    <!-- Decorative background glow -->
+                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-brian-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+                    <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-brian-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+                    
+                    <div class="relative z-10">
+                        <i class="fa-solid fa-quote-left text-3xl md:text-5xl text-white/20 mb-4 block"></i>
+                        <p id="blindbox-text" class="text-xl md:text-3xl font-medium leading-relaxed mb-8 text-white min-h-[120px] flex items-center justify-center">
+                            點擊下方按鈕，開啟你的專屬智慧。
+                        </p>
+                        <div class="flex items-center justify-center gap-4 text-slate-300">
+                            <div class="h-[1px] w-12 bg-slate-600"></div>
+                            <span id="blindbox-author" class="font-bold tracking-widest uppercase">???</span>
+                            <div class="h-[1px] w-12 bg-slate-600"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 flex gap-4">
+                    <button onclick="drawBlindBox()" class="bg-gradient-to-r from-brian-primary to-brian-secondary hover:from-indigo-400 hover:to-teal-300 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105 active:scale-95 flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 抽取金句
+                    </button>
+                    <button onclick="copyBlindBox()" id="copy-btn" class="glass-card hover:bg-white/10 text-white font-bold py-3 px-6 rounded-full transition flex items-center gap-2 opacity-50 cursor-not-allowed" disabled>
+                        <i class="fa-regular fa-copy"></i> 複製
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: AI 導師 -->
+        <section id="sec-ai" class="hidden transition-opacity duration-500">
+            <div class="max-w-4xl mx-auto glass-card rounded-2xl overflow-hidden border border-white/10 flex flex-col h-[600px] shadow-2xl">
+                <!-- Chat Header -->
+                <div class="bg-white/5 border-b border-white/10 p-4 flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center">
+                            <i class="fa-solid fa-user-tie text-slate-300"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white">模擬對談系統</h3>
+                            <p class="text-xs text-brian-secondary"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> 系統連線中</p>
+                        </div>
+                    </div>
+                    <div>
+                        <select id="persona-select" class="bg-slate-800 border border-slate-600 text-white text-sm rounded-lg focus:ring-brian-secondary focus:border-brian-secondary block w-full p-2 outline-none" onchange="changePersona()">
+                            <option value="li">李宏毅 (AI與科技)</option>
+                            <option value="joe">大人學 Joe (職涯與成長)</option>
+                            <option value="wu">吳淡如 (財富與人生)</option>
+                            <option value="ma">馬大元 (心理與健康)</option>
+                            <option value="zhou">周郁凱 (遊戲化心理學)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Chat Messages Area -->
+                <div id="chat-messages" class="flex-grow p-4 overflow-y-auto space-y-4 bg-[#0a0f1c]">
+                    <!-- Welcome message injected by JS -->
+                </div>
+
+                <!-- Chat Input Area -->
+                <div class="p-4 bg-white/5 border-t border-white/10">
+                    <form id="chat-form" class="flex gap-2" onsubmit="handleChatSubmit(event)">
+                        <input type="text" id="chat-input" placeholder="詢問關於這個主題的問題..." class="flex-grow bg-slate-800 border border-slate-600 text-white text-sm rounded-full focus:ring-2 focus:ring-brian-primary focus:border-transparent block w-full px-4 py-3 outline-none" required autocomplete="off">
+                        <button type="submit" class="bg-gradient-to-r from-brian-primary to-brian-secondary text-white rounded-full w-12 h-12 flex items-center justify-center hover:opacity-90 transition transform active:scale-95 shadow-lg">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <p class="text-center text-xs text-slate-500 mt-4"><i class="fa-solid fa-circle-info"></i> 此為基於訪談語錄的模擬對話系統，非真實 AI 生成。</p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-slate-900/50 backdrop-blur mt-auto">
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+            <p class="text-slate-500 text-sm mb-2">本網站內容萃取自《博音》Podcast 訪談紀錄。僅供知識分享與展示用途。</p>
+            <div class="flex gap-4 text-slate-600">
+                <i class="fa-brands fa-youtube hover:text-white cursor-pointer transition"></i>
+                <i class="fa-brands fa-spotify hover:text-white cursor-pointer transition"></i>
+                <i class="fa-solid fa-podcast hover:text-white cursor-pointer transition"></i>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed left-1/2 transform -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 border border-white/10 z-50">
+        <i class="fa-solid fa-circle-check text-green-400"></i>
+        <span id="toast-msg">已複製到剪貼簿</span>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // --- Data Source ---
+        const quotesData = [
+            { text: "語言模型的本質就是文字接龍，你給他一個句子他繼續接下去。所以如果你罵他笨蛋，他接下來的行為就是笨蛋要的行為。", author: "李宏毅", title: "AI 專家", ep: "EP223", theme: "未來科技", icon: "fa-robot" },
+            { text: "你不要特別去思考說這句話到底是不是 AI 能夠看得懂的，而是要想說這句話到底一個人類的助理他看不看得懂。", author: "李宏毅", title: "AI 專家", ep: "EP223", theme: "未來科技", icon: "fa-brain" },
+            { text: "絕大多數的創作者沒有意識到這是一個創作，而創作的對象是受眾。這其實是某種服務業，而不是一種藝術。", author: "林之晨", title: "台哥大總經理", ep: "EP208", theme: "商業思維", icon: "fa-briefcase" },
+            { text: "知識是從人的腦往外發出去的，所以你在往內再鑽回去的時候，就會研究到腦的結構。所有知識其實最後是連在一起的。", author: "林之晨", title: "台哥大總經理", ep: "EP208", theme: "自我成長", icon: "fa-network-wired" },
+            { text: "喜劇的鋪陳是為了讓別人不發現 Punchline。你如果要把概念傳達清楚，先用最長的話描述，然後開始『擰毛巾』拿掉贅字。", author: "熊仔", title: "饒舌歌手", ep: "EP199", theme: "自我成長", icon: "fa-pen-nib" },
+            { text: "這世界不缺把重要的事變無聊的人。遊戲化的核心就是：把重要的事變好玩。", author: "周郁凱", title: "遊戲化策略師", ep: "EP192", theme: "商業思維", icon: "fa-gamepad" },
+            { text: "你不需要 discipline (紀律) 去玩你最喜歡玩的遊戲，你需要 discipline 去『不玩』你最愛玩的遊戲。", author: "周郁凱", title: "遊戲化策略師", ep: "EP192", theme: "自我成長", icon: "fa-chess-knight" },
+            { text: "自信跟愛是生理現象，而且可以主動創造。不要再說我被情緒牽著鼻子走，那都是自我催眠。", author: "馬大元", title: "精神科醫師", ep: "EP210", theme: "健康醫學", icon: "fa-heart-pulse" },
+            { text: "遇到問題是好事，代表你又有機會可以學了。補短永不遲，揚長避短，去發現孩子渾然天成的喜歡跟擅長。", author: "馬大元", title: "精神科醫師", ep: "EP210", theme: "健康醫學", icon: "fa-child-reaching" },
+            { text: "買課買了不看，因為買的當下他覺得『我已經為自己做了一些事情』。你沒有努力，你就承認你沒有，不要自己騙自己。", author: "Joe (大人學)", title: "職涯導師", ep: "EP196", theme: "自我成長", icon: "fa-person-falling-burst" },
+            { text: "不是要跳出舒適圈，是要擴大舒適圈。在原來有優勢的地方，慢慢把這個泡泡往外推。", author: "Joe (大人學)", title: "職涯導師", ep: "EP196", theme: "人生哲學", icon: "fa-expand" },
+            { text: "老一輩的工作目的是養家糊口，年輕一輩是實現自我。一旦寫『興趣跟喜歡』的時候，這個世界就開始不一樣了。", author: "李河泉", title: "企業講師", ep: "EP178", theme: "商業思維", icon: "fa-users-viewfinder" },
+            { text: "千里馬要走向伯樂。如果你沒有動、沒有跑，我怎麼看得出你的強項？", author: "李河泉", title: "企業講師", ep: "EP178", theme: "自我成長", icon: "fa-horse-head" },
+            { text: "財富自由之後，你要用錢來買時間，不要用時間來換錢。我是一個有靈魂的商人。", author: "吳淡如", title: "暢銷作家", ep: "EP218", theme: "人生哲學", icon: "fa-hourglass-half" },
+            { text: "我的槓桿原則就是，只要不斷頭，我就貸好貸滿。但前提是你的標的要選那種跌下去政府也會很緊張的公司。", author: "Will 黃士豪", title: "理財達人", ep: "EP216", theme: "商業思維", icon: "fa-chart-line" },
+            { text: "快樂帶來要追求更強的快樂的不快樂。我們不要一直用輸入性的第一階多巴胺產品，大腦前額葉正在萎縮啊。", author: "方識欽", title: "神經內科醫師", ep: "EP225", theme: "健康醫學", icon: "fa-mobile-screen" }
+        ];
+
+        const faqsData = [
+            { q: "AI 代理 (AI Agent) 跟一般語言模型有什麼不同？", a: "李宏毅教授指出，AI Agent 是能夠「動手做事」的。一般的語言模型像指導教授，只能「給建議」；而 Agent 是人與語言模型之間的介面，能實際操作電腦工具、瀏覽器，甚至自己經營 YouTube 頻道。" },
+            { q: "創作者該如何看待自己的工作定位？", a: "林之晨認為，創作者本質上是「服務業」而不是純藝術。必須意識到創作的對象是受眾，內容必須滿足受眾的某種心理需求（例如歸屬感、獵奇，甚至呼應人類的七宗罪），人們才會有動力去分享。" },
+            { q: "為什麼一直「跳脫舒適圈」可能對職涯沒有幫助？", a: "大人學 Joe 建議，與其一直拋棄既有優勢去盲目「跳出」舒適圈重新開始，不如在原有的優勢上慢慢「擴大」舒適圈。將舒適的泡泡越推越大，最終你依然能去任何地方，而且基礎更穩固。" },
+            { q: "跨世代管理（老一輩 vs 年輕人）最大的衝突點是什麼？", a: "李河泉老師分析，老一輩（犬型員工）工作是為了養家糊口，講求服從與忠誠；年輕一代（貓型員工）工作是為了實現自我，講求自主與公平。主管需要放下身段，用「認同、參與、改變」的方式來溝通，而非單向命令。" },
+            { q: "如何有效利用「遊戲化」克服拖延症？", a: "周郁凱提到，遊戲化框架中的『黑帽機制』（如倒數計時、失去的恐懼）能產生強烈急迫性，但長期會讓人疲乏枯竭。應結合『白帽機制』（如好奇心、創造力授權、重大使命感）來引導自己進入心流，讓重要的事變好玩。" },
+            { q: "為什麼滑短影音會讓人越來越不快樂？", a: "方識欽醫師解釋，這與「多巴胺戒斷」有關。輕易獲得的低階輸入型多巴胺（如滑手機），會讓大腦變得不敏感，導致你需要更強的刺激才能感到快樂。這會造成前額葉萎縮，建議透過斷網、靜坐、或從事輸出型的活動來恢復大腦健康。" }
+        ];
+
+        const aiPersonas = {
+            "li": { 
+                name: "李宏毅", 
+                title: "AI 專家",
+                avatar: "fa-robot",
+                greeting: "同學你好！關於 AI Agent、語言模型或是 OpenCloud 的運作，你有什麼好奇的嗎？", 
+                replies: [
+                    "語言模型本質上就是文字接龍哦！你給的 context 越好，他接得越好。", 
+                    "不要想 AI 懂不懂，要想這句話如果交給一個『人類助理』，他看不看得懂你的指令。", 
+                    "給 AI feedback 要就事論事。如果你罵他笨蛋，他接下來為了順應語境，就會演一個笨蛋給你聽。"
+                ] 
+            },
+            "joe": { 
+                name: "Joe", 
+                title: "大人學共同創辦人",
+                avatar: "fa-briefcase",
+                greeting: "哈囉！遇到職涯卡關、想跳脫舒適圈，或是對人生感到迷惘了嗎？", 
+                replies: [
+                    "不要自己騙自己了。買了課不看，只是買一種『我有在努力』的幻覺，沒有努力就承認沒有努力。", 
+                    "試著『擴大』舒適圈，而不是盲目『跳出』舒適圈，把你現有的優勢泡泡越吹越大。", 
+                    "找不到目標沒關係，把大目標切小。找一個你『立刻可以做的事情』，然後去執行它。"
+                ] 
+            },
+            "wu": { 
+                name: "吳淡如", 
+                title: "暢銷作家 / 理財專家",
+                avatar: "fa-coins",
+                greeting: "關於理財、財富自由，還是人生的底層邏輯，你想聊哪一個？", 
+                replies: [
+                    "財富自由之後，最重要的是『Harvest (豐收)』。你要用錢來買時間，別再用時間換錢。", 
+                    "投資靠的是複利作用，只要方向對了，活越老錢越多。", 
+                    "我說我是一個『有靈魂的商人』。不要把人生簡化到只剩下賺錢，那很空虛。"
+                ] 
+            },
+            "ma": { 
+                name: "馬大元", 
+                title: "精神科醫師",
+                avatar: "fa-brain",
+                greeting: "你好，讀書遇到瓶頸，還是有情緒和注意力方面的困擾呢？", 
+                replies: [
+                    "自信跟愛是生理現象，而且可以透過動作和心念『主動創造』出來的！", 
+                    "遇到問題是好事，代表你又有機會可以學習了。", 
+                    "讀書考試的四個支柱：心理、生理、親子關係、最後才是讀書技巧。不要本末倒置了。"
+                ] 
+            },
+            "zhou": { 
+                name: "周郁凱", 
+                title: "遊戲化策略師",
+                avatar: "fa-dice",
+                greeting: "大俠你好！想知道怎麼用『八角框架』把無聊的生活或工作遊戲化嗎？", 
+                replies: [
+                    "這世界不缺把重要的事變無聊的人，我們要做的是『把重要的事變好玩』。", 
+                    "黑帽機制（恐懼、稀缺）有用，但會讓人崩潰；你要加入白帽機制（使命感、創造力）才能長久。", 
+                    "你不需要紀律去玩最愛的遊戲，所以想辦法讓你的目標變成一場好玩的遊戲吧！"
+                ] 
+            }
+        };
+
+        // --- App State ---
+        let currentTab = 'library';
+        let currentThemeFilter = '全部';
+        let currentAiPersona = 'li';
+        let blindBoxCurrentQuote = null;
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderQuotes();
+            renderFaqs();
+            initBlindBox();
+            initAiChat();
+
+            // Search input listener
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                filterQuotes(currentThemeFilter, term);
+            });
+        });
+
+        // --- Tab Navigation ---
+        function switchTab(tabId) {
+            // Hide all tabs
+            ['library', 'faq', 'blindbox', 'ai'].forEach(id => {
+                const el = document.getElementById(`sec-${id}`);
+                el.classList.add('hidden');
+                el.classList.remove('block');
+                
+                // Update nav buttons styling
+                const btnDesk = document.getElementById(`nav-${id}`);
+                if(btnDesk) {
+                    if (id === tabId) {
+                        btnDesk.className = 'tab-active px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-white/10 hover:bg-white/5';
+                    } else {
+                        btnDesk.className = 'text-slate-300 hover:text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border border-transparent hover:bg-white/5';
+                    }
+                }
+            });
+
+            // Show selected tab
+            const activeEl = document.getElementById(`sec-${tabId}`);
+            activeEl.classList.remove('hidden');
+            activeEl.classList.add('block');
+            
+            // Small hack to trigger reflow for transitions if needed
+            void activeEl.offsetWidth; 
+            currentTab = tabId;
+        }
+
+        // --- Mobile Menu ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // --- Feature 1: Resource Library ---
+        function renderQuotes(dataToRender = quotesData) {
+            const grid = document.getElementById('quotes-grid');
+            const noResults = document.getElementById('no-results');
+            grid.innerHTML = '';
+
+            if (dataToRender.length === 0) {
+                grid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            noResults.classList.add('hidden');
+
+            dataToRender.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'glass-card p-6 rounded-2xl flex flex-col justify-between group transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brian-secondary/10';
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-brian-secondary border border-brian-secondary/30">
+                                ${q.theme}
+                            </span>
+                            <span class="text-xs text-slate-500 font-mono">${q.ep}</span>
+                        </div>
+                        <p class="text-slate-200 text-lg leading-relaxed mb-6 font-medium">"${q.text}"</p>
+                    </div>
+                    <div class="flex items-center gap-3 mt-auto pt-4 border-t border-white/5">
+                        <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 group-hover:bg-brian-primary transition-colors">
+                            <i class="fa-solid ${q.icon} text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">${q.author}</p>
+                            <p class="text-xs text-slate-400">${q.title}</p>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterQuotes(theme, searchTerm = '') {
+            currentThemeFilter = theme;
+            
+            // Update filter buttons UI
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.innerText === theme) {
+                    btn.className = 'filter-btn active bg-white/20 text-white px-4 py-1.5 rounded-full text-sm shadow-sm';
+                } else {
+                    btn.className = 'filter-btn bg-white/5 hover:bg-white/10 text-slate-300 px-4 py-1.5 rounded-full text-sm transition-colors';
+                }
+            });
+
+            // Perform filtering
+            let filtered = quotesData;
+            
+            if (theme !== '全部') {
+                filtered = filtered.filter(q => q.theme === theme);
+            }
+
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(q => 
+                    q.text.toLowerCase().includes(term) || 
+                    q.author.toLowerCase().includes(term) ||
+                    q.ep.toLowerCase().includes(term)
+                );
+            }
+
+            renderQuotes(filtered);
+        }
+
+        // --- Feature 2: FAQ ---
+        function renderFaqs() {
+            const container = document.getElementById('faq-container');
+            
+            faqsData.forEach((faq, index) => {
+                const el = document.createElement('div');
+                el.className = 'glass-card rounded-xl border border-white/10 overflow-hidden';
+                el.innerHTML = `
+                    <button class="w-full text-left p-5 focus:outline-none flex justify-between items-center group" onclick="toggleFaq(${index})">
+                        <span class="font-semibold text-lg text-slate-200 group-hover:text-brian-secondary transition-colors pr-4">${faq.q}</span>
+                        <i id="faq-icon-${index}" class="fa-solid fa-chevron-down text-slate-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-content-${index}" class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="p-5 pt-0 text-slate-400 leading-relaxed border-t border-white/5 mt-2 mx-5">
+                            ${faq.a}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        function toggleFaq(index) {
+            const content = document.getElementById(`faq-content-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // --- Feature 3: Blind Box ---
+        function initBlindBox() {
+            // Pick a random one on load but don't show yet
+            blindBoxCurrentQuote = quotesData[Math.floor(Math.random() * quotesData.length)];
+        }
+
+        function drawBlindBox() {
+            const card = document.getElementById('blindbox-card');
+            const textEl = document.getElementById('blindbox-text');
+            const authorEl = document.getElementById('blindbox-author');
+            const copyBtn = document.getElementById('copy-btn');
+            
+            // Animation out
+            card.classList.add('blindbox-drawing');
+            copyBtn.disabled = true;
+            copyBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            setTimeout(() => {
+                // Select new quote different from current if possible
+                let newQuote;
+                do {
+                    newQuote = quotesData[Math.floor(Math.random() * quotesData.length)];
+                } while (newQuote.text === blindBoxCurrentQuote.text && quotesData.length > 1);
+                
+                blindBoxCurrentQuote = newQuote;
+
+                // Update DOM
+                textEl.innerText = `"${blindBoxCurrentQuote.text}"`;
+                authorEl.innerText = `${blindBoxCurrentQuote.author} (${blindBoxCurrentQuote.ep})`;
+                
+                // Animation in
+                card.classList.remove('blindbox-drawing');
+                copyBtn.disabled = false;
+                copyBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }, 500); // Wait for scale down
+        }
+
+        function copyBlindBox() {
+            if (!blindBoxCurrentQuote) return;
+            const textToCopy = `"${blindBoxCurrentQuote.text}" - ${blindBoxCurrentQuote.author} 《博音 ${blindBoxCurrentQuote.ep}》`;
+            
+            // Safe copy fallback approach
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast("金句已成功複製！");
+            } catch (err) {
+                console.error('Copy failed', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // --- Feature 4: AI Simulator ---
+        function initAiChat() {
+            changePersona(); // Load initial persona
+        }
+
+        function changePersona() {
+            currentAiPersona = document.getElementById('persona-select').value;
+            const chatArea = document.getElementById('chat-messages');
+            const pData = aiPersonas[currentAiPersona];
+            
+            // Clear chat and add greeting
+            chatArea.innerHTML = '';
+            addChatMessage('ai', pData.greeting, pData.avatar);
+        }
+
+        function handleChatSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            
+            if (!text) return;
+
+            // Add user message
+            addChatMessage('user', text);
+            input.value = '';
+
+            // Simulate AI thinking
+            const chatArea = document.getElementById('chat-messages');
+            const typingId = 'typing-' + Date.now();
+            
+            const typingHtml = `
+                <div id="${typingId}" class="flex gap-3 justify-start opacity-70">
+                    <div class="w-8 h-8 rounded-full bg-slate-700 flex-shrink-0 flex items-center justify-center">
+                        <i class="fa-solid fa-ellipsis text-white animate-pulse"></i>
+                    </div>
+                    <div class="bg-slate-800 rounded-2xl rounded-tl-sm px-4 py-2">
+                        <p class="text-sm text-slate-300">思考中...</p>
+                    </div>
+                </div>
+            `;
+            chatArea.insertAdjacentHTML('beforeend', typingHtml);
+            chatArea.scrollTop = chatArea.scrollHeight;
+
+            // Simulate delay and respond
+            setTimeout(() => {
+                document.getElementById(typingId).remove();
+                
+                const pData = aiPersonas[currentAiPersona];
+                // Pick random reply from persona
+                const reply = pData.replies[Math.floor(Math.random() * pData.replies.length)];
+                
+                addChatMessage('ai', reply, pData.avatar);
+            }, 1000 + Math.random() * 1000); // 1-2s delay
+        }
+
+        function addChatMessage(sender, text, avatarIcon = '') {
+            const chatArea = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            
+            if (sender === 'user') {
+                div.className = 'flex gap-3 justify-end';
+                div.innerHTML = `
+                    <div class="bg-gradient-to-r from-brian-primary to-blue-600 rounded-2xl rounded-tr-sm px-4 py-2 max-w-[80%] shadow-md">
+                        <p class="text-sm text-white">${text}</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-slate-600 flex-shrink-0 flex items-center justify-center">
+                        <i class="fa-solid fa-user text-white text-xs"></i>
+                    </div>
+                `;
+            } else {
+                div.className = 'flex gap-3 justify-start';
+                div.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-brian-secondary/20 flex-shrink-0 flex items-center justify-center border border-brian-secondary/50">
+                        <i class="fa-solid ${avatarIcon} text-brian-secondary text-xs"></i>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl rounded-tl-sm px-4 py-2 max-w-[80%] shadow-md">
+                        <p class="text-sm text-slate-200 leading-relaxed">${text}</p>
+                    </div>
+                `;
+            }
+            
+            chatArea.appendChild(div);
+            // Auto scroll to bottom
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+    </script>
+</body>
+</html>
